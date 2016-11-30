@@ -1,10 +1,13 @@
 package com.cetcme.radiostation;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +17,7 @@ import com.cetcme.radiostation.audio.AudioRecordFunc;
 import com.cetcme.radiostation.audio.ErrorCode;
 import com.cetcme.radiostation.audio.MediaRecordFunc;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private final static int FLAG_WAV = 0;
@@ -22,9 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_record_wav;
     private Button btn_record_amr;
     private Button btn_stop;
+    private Button btn_play;
     private TextView txt;
     private UIHandler uiHandler;
     private UIThread uiThread;
+
+    private MediaPlayer pressMedia;
+    private MediaPlayer beginMedia;
+    private MediaPlayer upMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +44,46 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.activity_main, menu);
-//        return true;
-//    }
 
     private void findViewByIds(){
         btn_record_wav = (Button)this.findViewById(R.id.btn_record_wav);
         btn_record_amr = (Button)this.findViewById(R.id.btn_record_amr);
         btn_stop = (Button)this.findViewById(R.id.btn_stop);
+        btn_play = (Button) this.findViewById(R.id.btn_play);
         txt = (TextView)this.findViewById(R.id.text);
+
+        pressMedia = MediaPlayer.create(MainActivity.this, R.raw.talkroom_press);
+        beginMedia = MediaPlayer.create(MainActivity.this, R.raw.talkroom_begin);
+        upMedia = MediaPlayer.create(MainActivity.this, R.raw.talkroom_up);
     }
 
     private void setListeners(){
         btn_record_wav.setOnClickListener(btn_record_wav_clickListener);
         btn_record_amr.setOnClickListener(btn_record_amr_clickListener);
         btn_stop.setOnClickListener(btn_stop_clickListener);
+        btn_play.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    pressMedia.start();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            beginMedia.start();
+                        }
+                    },300);
+                    //TODO: start record
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    upMedia.start();
+                    //TODO: stop record
+                }
+
+                return false;
+            }
+        });
     }
 
     private void init(){
@@ -221,6 +252,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
 
 }

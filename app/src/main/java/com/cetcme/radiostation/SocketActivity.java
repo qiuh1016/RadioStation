@@ -2,23 +2,47 @@ package com.cetcme.radiostation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class SocketActivity extends AppCompatActivity {
 
+    private TextView mTextView;
+    private EditText ipEditText;
+    private EditText portEditText;
+
+    private String serverIP = "192.168.1.179";
+    private int serverPort = 1025;
+
+//    private String serverIP = "192.168.0.138";
+//    private int serverPort = 9999;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket);
-        new SocketServer();
+
+
+        mTextView = (TextView) findViewById(R.id.textView);
+        mTextView.setMovementMethod(ScrollingMovementMethod.getInstance());
+        mTextView.setText("LOG:");
+
+        ipEditText = (EditText) findViewById(R.id.ip_editText);
+        portEditText = (EditText) findViewById(R.id.port_editText);
+        ipEditText.setText(serverIP);
+        portEditText.setText(serverPort + "");
+//        new SocketServer();
     }
 
     private Socket socket;
@@ -33,8 +57,19 @@ public class SocketActivity extends AppCompatActivity {
             public void run() {
 
                 try {
-                    socket = new Socket("192.168.0.138", 9999);
+//                    socket = new Socket(serverIP, serverPort);
+//                    socket = new Socket(ipEditText.getText().toString(), Integer.parseInt(portEditText.getText().toString()));
+                    socket = new Socket();
+                    socket.connect(new InetSocketAddress(ipEditText.getText().toString(), Integer.parseInt(portEditText.getText().toString())),2000);
                     Log.e("JAVA", "建立连接：" + socket);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+//                            mTextView.setText(mTextView.getText() + "\n" + "建立连接：" + socket);
+                            refreshLogView("建立连接：" + socket);
+                        }
+                    });
+
                     startReader(socket);
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
@@ -55,10 +90,26 @@ public class SocketActivity extends AppCompatActivity {
 
                 try {
                     // socket.getInputStream()
+                    if (socket == null) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLogView("尚未连接服务器！");
+                            }
+                        });
+                        return;
+                    }
                     DataOutputStream writer = new DataOutputStream(socket.getOutputStream());
                     writer.writeUTF("我是客户端.."); // 写一个UTF-8的信息
 
                     System.out.println("发送消息");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+//                            mTextView.setText(mTextView.getText() + "\n" + "发送消息：我是客户端");
+                            refreshLogView("发送消息：我是客户端");
+                        }
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -69,7 +120,7 @@ public class SocketActivity extends AppCompatActivity {
     /**
      * 从参数的Socket里获取最新的消息
      */
-    private static void startReader(final Socket socket) {
+    private void startReader(final Socket socket) {
 
         new Thread(){
             @Override
@@ -78,20 +129,34 @@ public class SocketActivity extends AppCompatActivity {
                 try {
                     // 获取读取流
                     reader = new DataInputStream(socket.getInputStream());
-                    InetAddress address = socket.getInetAddress();
+                    final InetAddress address = socket.getInetAddress();
 
                     while (true) {
                         System.out.println("*等待服务器数据*");
                         // 读取数据
-                        String msg = reader.readUTF();
+                        final String msg = reader.readUTF();
                         System.out.println("获取到服务器的信息：" + address + " :"+ msg);
-
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+//                                mTextView.setText(mTextView.getText() + "\n" + "获取到服务器的信息：" + address + " :"+ msg);
+                                refreshLogView("获取到服务器的信息：" + address + " :"+ msg);
+                            }
+                        });
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }.start();
+    }
+
+    void refreshLogView(String msg){
+        mTextView.append("\n" + msg);
+        int offset = mTextView.getLineCount() * mTextView.getLineHeight();
+        if (offset > mTextView.getHeight()) {
+            mTextView.scrollTo(0, offset - mTextView.getHeight());
+        }
     }
 
 }

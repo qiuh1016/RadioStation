@@ -22,11 +22,11 @@ public class SocketActivity extends AppCompatActivity {
     private EditText ipEditText;
     private EditText portEditText;
 
-    private String serverIP = "192.168.1.179";
-    private int serverPort = 1025;
+//    private String serverIP = "192.168.1.179";
+//    private int serverPort = 1025;
 
-//    private String serverIP = "192.168.0.138";
-//    private int serverPort = 9999;
+    private String serverIP = "192.168.0.138";
+    private int serverPort = 9999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class SocketActivity extends AppCompatActivity {
         portEditText = (EditText) findViewById(R.id.port_editText);
         ipEditText.setText(serverIP);
         portEditText.setText(serverPort + "");
-//        new SocketServer();
     }
 
     private Socket socket;
@@ -65,7 +64,6 @@ public class SocketActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            mTextView.setText(mTextView.getText() + "\n" + "建立连接：" + socket);
                             refreshLogView("建立连接：" + socket);
                         }
                     });
@@ -106,7 +104,6 @@ public class SocketActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            mTextView.setText(mTextView.getText() + "\n" + "发送消息：我是客户端");
                             refreshLogView("发送消息：我是客户端");
                         }
                     });
@@ -139,7 +136,6 @@ public class SocketActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-//                                mTextView.setText(mTextView.getText() + "\n" + "获取到服务器的信息：" + address + " :"+ msg);
                                 refreshLogView("获取到服务器的信息：" + address + " :"+ msg);
                             }
                         });
@@ -157,6 +153,13 @@ public class SocketActivity extends AppCompatActivity {
         if (offset > mTextView.getHeight()) {
             mTextView.scrollTo(0, offset - mTextView.getHeight());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.push_right_in_no_alpha,
+                R.anim.push_right_out_no_alpha);
     }
 
 }

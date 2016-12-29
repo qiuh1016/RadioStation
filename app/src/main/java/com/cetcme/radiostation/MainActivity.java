@@ -8,14 +8,18 @@ import android.util.Log;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.cetcme.radiostation.Fragment.CameraFragment;
+import com.cetcme.radiostation.Fragment.HelpFragment;
+import com.cetcme.radiostation.Fragment.LocationFragment;
+import com.cetcme.radiostation.Fragment.SearchFragment;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LocationFragment mCameraFragment;
+    private CameraFragment mCameraFragment;
     private LocationFragment mLocationFragment;
-    private LocationFragment mSearchFragment;
-    private LocationFragment mHelpFragment;
+    private SearchFragment mSearchFragment;
+    private HelpFragment mHelpFragment;
 
     private QHTitleView qhTitleView;
 
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         if (mCameraFragment == null) {
-                            mCameraFragment = LocationFragment.newInstance("相机");
+                            mCameraFragment = CameraFragment.newInstance("相机");
                         }
                         qhTitleView.setTitle("相机");
                         transaction.replace(R.id.tabs, mCameraFragment);
@@ -79,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         if (mSearchFragment == null) {
-                            mSearchFragment = LocationFragment.newInstance("搜索");
+                            mSearchFragment = SearchFragment.newInstance("搜索");
                         }
                         qhTitleView.setTitle("搜索");
                         transaction.replace(R.id.tabs, mSearchFragment);
                         break;
                     case 3:
                         if (mHelpFragment == null) {
-                            mHelpFragment = LocationFragment.newInstance("帮助");
+                            mHelpFragment = HelpFragment.newInstance("帮助");
                         }
                         qhTitleView.setTitle("帮助");
                         transaction.replace(R.id.tabs, mHelpFragment);
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDefaultFragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mCameraFragment = LocationFragment.newInstance("相机");
+        mCameraFragment = CameraFragment.newInstance("相机");
         qhTitleView.setTitle("相机");
         transaction.replace(R.id.tabs, mCameraFragment);
         transaction.commit();

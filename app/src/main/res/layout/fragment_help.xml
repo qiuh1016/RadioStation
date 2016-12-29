@@ -2,22 +2,12 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".Fragment.LocationFragment">
+             tools:context="com.cetcme.radiostation.Fragment.HelpFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Button
-            android:text="Socket"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button2"/>
-
-    </LinearLayout>
-
+        android:text="help"/>
 
 </FrameLayout>

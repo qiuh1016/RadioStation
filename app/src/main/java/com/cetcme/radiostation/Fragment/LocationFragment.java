@@ -1,4 +1,4 @@
-package com.cetcme.radiostation;
+package com.cetcme.radiostation.Fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.cetcme.radiostation.R;
+import com.cetcme.radiostation.SocketActivity;
 
 
 public class LocationFragment extends Fragment {
@@ -35,8 +38,7 @@ public class LocationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         Bundle bundle = getArguments();
         String agrs1 = bundle.getString("agrs1");
-        TextView tv = (TextView)view.findViewById(R.id.textView_location);
-        tv.setText(agrs1);
+
         view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

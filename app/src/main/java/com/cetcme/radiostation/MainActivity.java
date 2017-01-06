@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initTitleView() {
         qhTitleView = (QHTitleView) findViewById(R.id.main_QHTitleView);
-        qhTitleView.setTitle("main");
+        qhTitleView.setTitle("activity_audio_player");
         qhTitleView.setBackView(0);
         qhTitleView.setRightView(0);
         qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
@@ -104,12 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(int position) {//选中 -> 未选中
-                Log.i("main", "onTabUnselected: " + position);
+                Log.i("activity_audio_player", "onTabUnselected: " + position);
             }
 
             @Override
             public void onTabReselected(int position) {//选中 -> 选中
-                Log.i("main", "onTabReselected: " + position);
+                Log.i("activity_audio_player", "onTabReselected: " + position);
             }
         });
 

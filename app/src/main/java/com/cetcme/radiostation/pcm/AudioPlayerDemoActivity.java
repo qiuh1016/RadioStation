@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.cetcme.radiostation.R;
 
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -181,8 +183,9 @@ public class AudioPlayerDemoActivity extends Activity implements OnClickListener
 	
 	
 	
-//	String  filePath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmusic.pcm";
-String  filePath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/0RadioStation/FinalAudio.wav";
+	String  filePath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmusic-0.pcm";
+	//String  filePath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/0RadioStation/FinalAudio.wav";
+
     /*
      * 获得PCM音频数据
      */

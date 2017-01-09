@@ -7,6 +7,8 @@ import android.os.Message;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 
+import java.util.Arrays;
+
 public class AudioPlayer implements IPlayComplete{
 
 	private final static String TAG = "AudioPlayer";
@@ -247,7 +249,7 @@ public class AudioPlayer implements IPlayComplete{
 	}
 
 	
-	private boolean mThreadExitFlag = false;						//线程退出标志
+	private boolean mThreadExitFlag = false;						// 线程退出标志
 	
 	private int     mPrimePlaySize = 0;								// 较优播放块大小
 	
@@ -285,7 +287,7 @@ public class AudioPlayer implements IPlayComplete{
 						int size = mAudioTrack.write(mData, mPlayOffset, mPrimePlaySize);
 					
 						mPlayOffset += mPrimePlaySize;
-		
+
 						
 					} catch (Exception e) {
 						// TODO: handle exception

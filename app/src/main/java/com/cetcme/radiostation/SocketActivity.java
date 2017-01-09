@@ -1,5 +1,6 @@
 package com.cetcme.radiostation;
 
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -25,7 +29,7 @@ public class SocketActivity extends AppCompatActivity {
 //    private String serverIP = "192.168.1.179";
 //    private int serverPort = 1025;
 
-    private String serverIP = "192.168.0.138";
+    private String serverIP = "192.168.0.219";
     private int serverPort = 9999;
 
     @Override
@@ -42,6 +46,8 @@ public class SocketActivity extends AppCompatActivity {
         portEditText = (EditText) findViewById(R.id.port_editText);
         ipEditText.setText(serverIP);
         portEditText.setText(serverPort + "");
+
+//        new SocketServer();
     }
 
     private Socket socket;
@@ -98,7 +104,8 @@ public class SocketActivity extends AppCompatActivity {
                         return;
                     }
                     DataOutputStream writer = new DataOutputStream(socket.getOutputStream());
-                    writer.writeUTF("我是客户端.."); // 写一个UTF-8的信息
+//                    writer.writeUTF("我是客户端.."); // 写一个UTF-8的信息
+                    writer.write(getPCMData());
 
                     System.out.println("发送消息");
                     runOnUiThread(new Runnable() {
@@ -160,6 +167,47 @@ public class SocketActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_right_in_no_alpha,
                 R.anim.push_right_out_no_alpha);
+    }
+
+
+    String  filePath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmusic-0.pcm";
+    //String  filePath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/0RadioStation/FinalAudio.wav";
+
+    /*
+     * 获得PCM音频数据
+     */
+    public byte[] getPCMData()
+    {
+
+        File file = new File(filePath);
+        if (file == null){
+            return null;
+        }
+
+        FileInputStream inStream;
+        try {
+            inStream = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        byte[] data_pack = null;
+        if (inStream != null){
+            long size = file.length();
+
+            data_pack = new byte[(int) size];
+            try {
+                inStream.read(data_pack);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+
+        return data_pack;
     }
 
 }

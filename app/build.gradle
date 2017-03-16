@@ -10,6 +10,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk{
+            moduleName "JniG726"  //.so file name
+            abiFilters "armeabi", "armeabi-v7a", "x86" //输出指定三种abi体系结构下的so库
+        }
     }
     buildTypes {
         release {

@@ -26,7 +26,8 @@
         </activity>
         <activity android:name=".pcm.AudioPlayerDemoActivity">
         </activity>
+        <activity android:name=".VoiceShareActivity">
+        </activity>
     </application>
-
 
 </manifest>

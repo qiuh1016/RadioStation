@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.RecordActivity;
+import com.cetcme.radiostation.VoiceShareActivity;
 import com.cetcme.radiostation.pcm.AudioPlayerDemoActivity;
 
 
@@ -50,6 +51,14 @@ public class CameraFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AudioPlayerDemoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        view.findViewById(R.id.share_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), VoiceShareActivity.class);
                 startActivity(intent);
             }
         });

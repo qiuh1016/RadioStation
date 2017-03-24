@@ -43,16 +43,12 @@ public class AudioRecordFunc {
 
     public int startRecordAndFile() {
         //判断是否有外部存储设备sdcard
-        if(AudioFileFunc.isSdcardExit())
-        {
-            if(isRecord)
-            {
+        if(AudioFileFunc.isSdcardExit()) {
+            if(isRecord) {
                 return ErrorCode.E_STATE_RECODING;
-            }
-            else
-            {
+            } else {
                 if(audioRecord == null)
-                    creatAudioRecord();
+                    createAudioRecord();
 
                 audioRecord.startRecording();
                 // 让录制状态为true
@@ -63,9 +59,7 @@ public class AudioRecordFunc {
                 return ErrorCode.SUCCESS;
             }
 
-        }
-        else
-        {
+        } else {
             return ErrorCode.E_NOSDCARD;
         }
 
@@ -84,15 +78,15 @@ public class AudioRecordFunc {
     private void close() {
         if (audioRecord != null) {
             System.out.println("stopRecord");
-            isRecord = false;//停止文件写入
+            isRecord = false;      //停止文件写入
             audioRecord.stop();
-            audioRecord.release();//释放资源
+            audioRecord.release(); //释放资源
             audioRecord = null;
         }
     }
 
 
-    private void creatAudioRecord() {
+    private void createAudioRecord() {
         // 获取音频文件路径
         AudioName = AudioFileFunc.getRawFilePath();
         NewAudioName = AudioFileFunc.getWavFilePath();
@@ -122,9 +116,9 @@ public class AudioRecordFunc {
      */
     private void writeDateTOFile() {
         // new一个byte数组用来存一些字节数据，大小为缓冲区大小
-        byte[] audiodata = new byte[bufferSizeInBytes];
+        byte[] audioData = new byte[bufferSizeInBytes];
         FileOutputStream fos = null;
-        int readsize = 0;
+        int readSize = 0;
         try {
             File file = new File(AudioName);
             if (file.exists()) {
@@ -134,11 +128,11 @@ public class AudioRecordFunc {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        while (isRecord == true) {
-            readsize = audioRecord.read(audiodata, 0, bufferSizeInBytes);
-            if (AudioRecord.ERROR_INVALID_OPERATION != readsize && fos!=null) {
+        while (isRecord) {
+            readSize = audioRecord.read(audioData, 0, bufferSizeInBytes);
+            if (AudioRecord.ERROR_INVALID_OPERATION != readSize && fos!=null) {
                 try {
-                    fos.write(audiodata);
+                    fos.write(audioData);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

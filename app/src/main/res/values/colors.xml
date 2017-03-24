@@ -6,4 +6,11 @@
     <color name="littleGray">#EEEEEE</color>
 
     <color name="tab_text_selected">#303F9F</color>
+    <color name="tab_text_unselected">#000000</color>
+
+
+
+    <color name="tab_text_selector">#303F9F</color>
+    <color name="msg_num_shape">#00FFFFFF</color>
+    <color name="white_1">#FFFFFF</color>
 </resources>

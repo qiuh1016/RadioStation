@@ -53,10 +53,11 @@ public class MainActivity extends AppCompatActivity {
     private void initBottomView() {
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
 
-        bottomNavigationBar.addItem(new BottomNavigationItem(android.R.drawable.ic_menu_camera, "相机"))
-                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_compass, "位置"))
-                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_search, "搜索"))
-                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_help, "帮助"))
+        bottomNavigationBar.addItem(new BottomNavigationItem(android.R.drawable.ic_menu_camera, "首页"))
+                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_compass, "消息"))
+                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_search, "日志"))
+                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_help, "功能"))
+                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_help, "设置"))
                 .initialise();//所有的设置需在调用该方法前完成
 
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {//这里也可以使用SimpleOnTabSelectedListener
@@ -69,30 +70,37 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         if (mCameraFragment == null) {
-                            mCameraFragment = CameraFragment.newInstance("相机");
+                            mCameraFragment = CameraFragment.newInstance("首页");
                         }
-                        qhTitleView.setTitle("相机");
+                        qhTitleView.setTitle("首页");
                         transaction.replace(R.id.tabs, mCameraFragment);
                         break;
                     case 1:
                         if (mLocationFragment == null) {
-                            mLocationFragment = LocationFragment.newInstance("位置");
+                            mLocationFragment = LocationFragment.newInstance("消息");
                         }
-                        qhTitleView.setTitle("位置");
+                        qhTitleView.setTitle("消息");
                         transaction.replace(R.id.tabs, mLocationFragment);
                         break;
                     case 2:
                         if (mSearchFragment == null) {
-                            mSearchFragment = SearchFragment.newInstance("搜索");
+                            mSearchFragment = SearchFragment.newInstance("日志");
                         }
-                        qhTitleView.setTitle("搜索");
+                        qhTitleView.setTitle("日志");
                         transaction.replace(R.id.tabs, mSearchFragment);
                         break;
                     case 3:
                         if (mHelpFragment == null) {
-                            mHelpFragment = HelpFragment.newInstance("帮助");
+                            mHelpFragment = HelpFragment.newInstance("功能");
                         }
-                        qhTitleView.setTitle("帮助");
+                        qhTitleView.setTitle("功能");
+                        transaction.replace(R.id.tabs, mHelpFragment);
+                        break;
+                    case 4:
+                        if (mHelpFragment == null) {
+                            mHelpFragment = HelpFragment.newInstance("设置");
+                        }
+                        qhTitleView.setTitle("设置");
                         transaction.replace(R.id.tabs, mHelpFragment);
                         break;
                     default:
@@ -122,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
     private void setDefaultFragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mCameraFragment = CameraFragment.newInstance("相机");
-        qhTitleView.setTitle("相机");
+        mCameraFragment = CameraFragment.newInstance("首页");
+        qhTitleView.setTitle("首页");
         transaction.replace(R.id.tabs, mCameraFragment);
         transaction.commit();
     }

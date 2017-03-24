@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/tab_layout"
+              android:layout_width="match_parent"
+              android:layout_height="56dp"
+              android:layout_alignParentBottom="true"
+              android:orientation="horizontal"
+              android:background="#27282c"
+    >
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1">
+
+        <RadioButton
+            android:id="@+id/rb_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:button="@null"
+            android:background="@null"
+            android:checked="true"
+            android:clickable="false"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="首页"
+            android:textColor="@color/tab_text_selected"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignRight="@id/rb_1"
+            android:layout_alignTop="@id/rb_1"
+            android:layout_marginTop="-6dp"
+            android:layout_marginRight="-6dp"
+            android:layout_gravity="right"
+            android:background="@color/msg_num_shape"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white_1"
+            android:textSize="10sp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:focusable="true">
+
+        <RadioButton
+            android:id="@+id/rb_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:button="@null"
+            android:clickable="false"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="商品"
+            android:textColor="@color/tab_text_selected"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignRight="@id/rb_2"
+            android:layout_alignTop="@id/rb_2"
+            android:layout_marginTop="-6dp"
+            android:layout_marginRight="-6dp"
+            android:layout_gravity="right"
+            android:background="@color/msg_num_shape"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white_1"
+            android:textSize="10sp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1">
+
+        <RadioButton
+            android:id="@+id/rb_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:button="@null"
+            android:clickable="false"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="进货单"
+            android:textColor="@color/tab_text_selected"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignRight="@id/rb_3"
+            android:layout_alignTop="@id/rb_3"
+            android:layout_marginTop="-6dp"
+            android:layout_gravity="right"
+            android:background="@color/msg_num_shape"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white_1"
+            android:textSize="10sp"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1">
+
+        <RadioButton
+            android:id="@+id/rb_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:button="@null"
+            android:clickable="false"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="会员"
+            android:textColor="@color/tab_text_selected"
+            android:textSize="10sp" />
+
+
+        <TextView
+            android:id="@+id/tv_4"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignRight="@id/rb_4"
+            android:layout_alignTop="@id/rb_4"
+            android:layout_marginTop="-6dp"
+            android:layout_marginRight="-6dp"
+            android:layout_gravity="right"
+            android:background="@color/msg_num_shape"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white_1"
+            android:textSize="10sp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_5"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1">
+
+        <RadioButton
+            android:id="@+id/rb_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:button="@null"
+            android:clickable="false"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:text="会员"
+            android:textColor="@color/tab_text_selected"
+            android:textSize="10sp" />
+
+
+        <TextView
+            android:id="@+id/tv_5"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignRight="@id/rb_5"
+            android:layout_alignTop="@id/rb_5"
+            android:layout_marginTop="-6dp"
+            android:layout_marginRight="-6dp"
+            android:layout_gravity="right"
+            android:background="@color/msg_num_shape"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white_1"
+            android:textSize="10sp"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

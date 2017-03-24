@@ -55,7 +55,7 @@ public class VoiceShareActivity extends AppCompatActivity {
     public Runnable AudioRecordTask = null;
     public boolean AudioRecordTimerRun = false;
 
-    public String RawFilePath = "/sdcard/VoiceshareRecord.pcm";
+    public String RawFilePath = "/sdcard/VoiceShareRecord.pcm";
     public File RawFile = null;
     public FileOutputStream RawFOStream = null;
     public BufferedOutputStream RawBOStream = null;
@@ -64,19 +64,21 @@ public class VoiceShareActivity extends AppCompatActivity {
 
     //-------------------------------------------------
     static final int VOICE_FRAME_SIZE = 480;
-    public String EncodeDataFilePath = "/sdcard/VoiceshareEncodeResult.g726";
-    public String DecodeDataFilePath = "/sdcard/VoiceshareDecodeResult.pcm";
+    public String EncodeDataFilePath = "/sdcard/VoiceShareEncodeResult.g726";
+    public String DecodeDataFilePath = "/sdcard/VoiceShareDecodeResult.pcm";
 
     //Multicast Encoded Voice Data!!!
-    static String MultiSenderAddress = "229.2.2.2";
-    static int MultiSenderPort = 8888;
+    static String MultiSenderAddress = "192.168.0.196";
+    static int MultiSenderPort = 9999;
     static InetAddress IA = null;
     static MulticastSocket MultiReceiver = null;
 
+    private ProgressDialog AudioRecordPD = null;
+    private ProgressDialog AudioRecogPD = null;
+
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         //默认竖屏!!!
         super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -96,17 +98,15 @@ public class VoiceShareActivity extends AppCompatActivity {
 
         audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, frequency, channelConfiguration, audioEncoding, recBufSize);
         playBufSize = AudioTrack.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
-        Log.d("main", "playBufSize:"+playBufSize);
+        Log.d("main", "playBufSize:" + playBufSize);
 
         //playBufSize:1486
         audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, frequency, channelConfiguration, audioEncoding, playBufSize, AudioTrack.MODE_STREAM);
 
         StartRecordButton= (Button) findViewById(R.id.StartRecordButton);
-        StartRecordButton.setOnClickListener(new Button.OnClickListener()
-        {
+        StartRecordButton.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 AudioRecordPD = new ProgressDialog(VoiceShareActivity.this);
                 AudioRecordPD.setMessage("Please Speak...");
                 AudioRecordPD.show();
@@ -115,77 +115,55 @@ public class VoiceShareActivity extends AppCompatActivity {
         });
 
         AudioRecordHandler = new Handler();
-        AudioRecordTask = new Runnable()
-        {
-            public void run()
-            {
+        AudioRecordTask = new Runnable() {
+            public void run() {
                 //Stop!!!
-                if (AudioRecordTimerRun)
-                {
+                if (AudioRecordTimerRun) {
                     //HideList();
                     AudioRecordTimerRun = false;
                 }
             }
         };
 
-        try
-        {
+        try {
             IA = InetAddress.getByName(MultiSenderAddress);
-        }
-        catch(UnknownHostException e)
-        {
+        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        try
-        {
+        try {
             MultiReceiver = new MulticastSocket(MultiSenderPort);
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try
-        {
+        try {
             //MultiReceiver.setTimeToLive(255);
             MultiReceiver.setTimeToLive(2);
             //MultiReceiver.setReceiveBufferSize(10240);
             //MultiReceiver.setSoTimeout(10);    //Wait 10ms!!!
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try
-        {
+        try {
             MultiReceiver.joinGroup(IA);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    private ProgressDialog AudioRecordPD=null;
-    private ProgressDialog AudioRecogPD=null;
 
     // 设置三种类型参数分别为String,Integer,String
     class AudioRecordTask extends AsyncTask<String, Integer, String>
     {
         // 可变长的输入参数，与AsyncTask.exucute()对应
         @Override
-        protected String doInBackground(String... params)
-        {
+        protected String doInBackground(String... params) {
             //Start!!!
             //Create New Raw File
             RawFile = new File(RawFilePath);
-            try
-            {
+            try {
                 RawFOStream = new FileOutputStream(RawFile);
-            }
-            catch (FileNotFoundException e)
-            {
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
             RawBOStream = new BufferedOutputStream(RawFOStream);
@@ -197,63 +175,55 @@ public class VoiceShareActivity extends AppCompatActivity {
             AudioRecordTimerRun = true;
             //AudioRecordHandler.postDelayed(AudioRecordTask, 5000);
 
-            while(AudioRecordTimerRun)
-            {
+
+            String FILE_NAME = System.currentTimeMillis() + ".txt";
+            FileUtil.saveFile(FILE_NAME, "");
+
+            while(AudioRecordTimerRun) {
                 //1600->OK 960->OK!!!Has Lost???
-                int bufferReadResult = audioRecord.read(RecordBuffer, 0,VOICE_FRAME_SIZE*2);  //480*2=960
+                int bufferReadResult = audioRecord.read(RecordBuffer, 0, VOICE_FRAME_SIZE * 2);  //480*2=960
                 Log.d("bufferReadResult", String.valueOf(bufferReadResult));
                 byte[] TmpBuf = new byte[bufferReadResult];
-                System.arraycopy(RecordBuffer, 0, TmpBuf, 0,bufferReadResult);
 
-                short[] ou_dec_pcmbuf = new short[VOICE_FRAME_SIZE];     //decoder output
-                short[] in_enc_pcmbuf = new short[VOICE_FRAME_SIZE];     //encoder input
-                short[] ou_enc_unpacked = new short[VOICE_FRAME_SIZE];   //encoder output
-                //byte[] TmpArr=new byte[VOICE_FRAME_SIZE*2];
-                byte[] TmpEnArr = new byte[VOICE_FRAME_SIZE/8*2];
+                Log.i("main", "doInBackground: "+ RecordBuffer);
+                FileUtil.appendData(FILE_NAME, String.valueOf(RecordBuffer));
 
-                JniUtils jniUtils = new JniUtils();
-                jniUtils.VoiceEncode(TmpBuf, TmpEnArr);
+                System.arraycopy(RecordBuffer, 0, TmpBuf, 0, bufferReadResult);
 
-                DatagramPacket packet = new DatagramPacket(TmpEnArr, VOICE_FRAME_SIZE / 8 * 2,IA, MultiSenderPort);
+                byte[] TmpEnArr = new byte[VOICE_FRAME_SIZE / 8 * 2];
+
+//                JniUtils jniUtils = new JniUtils();
+//                jniUtils.VoiceEncode(TmpBuf, TmpEnArr);
+
+                DatagramPacket packet = new DatagramPacket(TmpEnArr, VOICE_FRAME_SIZE / 8 * 2, IA, MultiSenderPort);
                 packet.setLength(VOICE_FRAME_SIZE / 8 * 2);  //480*2/8=120
 
-                try
-                {
+//                Log.i("main", "doInBackground: "+ packet);
+
+                try {
                     MultiReceiver.send(packet);
-                }
-                catch (IOException e)
-                {
-                    // TODO Auto-generated catch block
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 //RAEncodeFile.write(TmpEnArr, 0, VOICE_FRAME_SIZE/8*2);  //480/8*2=120
 				/*
-				try
-				{
+				try {
 					RawBOStream.write(TmpBuf, 0, bufferReadResult);
-				}
-				catch (IOException e)
-				{
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				*/
             }
 
-            try
-            {
+            try {
                 RawBOStream.close();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            try
-            {
+            try {
                 RawFOStream.close();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             audioRecord.stop();
@@ -263,14 +233,12 @@ public class VoiceShareActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onCancelled()
-        {
+        protected void onCancelled() {
             super.onCancelled();
         }
 
         @Override
-        protected void onPostExecute(String result)
-        {
+        protected void onPostExecute(String result) {
             Toast.makeText(VoiceShareActivity.this, "Record OK!", Toast.LENGTH_SHORT).show();
             //AudioRecogPD=new ProgressDialog(voiceshare.this);
             //AudioRecogPD.setMessage("Recoging...");
@@ -278,26 +246,21 @@ public class VoiceShareActivity extends AppCompatActivity {
             //new AudioRecogTask().execute("Start");
             ////new VoiceEncodeDecodeTask().execute("Start");
 
-            try
-            {
+            try {
                 MultiReceiver.leaveGroup(IA);
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             //任务启动
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values)
-        {
+        protected void onProgressUpdate(Integer... values) {
             //更新进度
         }
     }
@@ -369,9 +332,9 @@ public class VoiceShareActivity extends AppCompatActivity {
     }
 
     public static final int EXIT_ID = Menu.FIRST;
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.add(0, EXIT_ID, 0, "Exit");
         return true;
@@ -379,10 +342,8 @@ public class VoiceShareActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case EXIT_ID:
-            {
+        switch (item.getItemId()) {
+            case EXIT_ID: {
                 VoiceShareActivity.this.finish();
                 android.os.Process.killProcess(android.os.Process.myPid());
                 System.exit(0);
@@ -392,8 +353,7 @@ public class VoiceShareActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    static
-    {
+    static {
         System.loadLibrary("JniG726");
     }
 

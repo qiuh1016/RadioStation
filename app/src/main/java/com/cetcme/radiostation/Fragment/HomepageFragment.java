@@ -1,6 +1,6 @@
 package com.cetcme.radiostation.Fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,8 +44,8 @@ public class HomepageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
-        Bundle bundle = getArguments();
-        String agrs1 = bundle.getString("agrs1");
+//        Bundle bundle = getArguments();
+//        String agrs1 = bundle.getString("agrs1");
 
 
         agc_spinner = (Spinner) view.findViewById(R.id.agc_spinner);

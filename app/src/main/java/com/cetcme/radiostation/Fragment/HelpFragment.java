@@ -1,6 +1,6 @@
 package com.cetcme.radiostation.Fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +31,8 @@ public class HelpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_help, container, false);
-        Bundle bundle = getArguments();
-        String agrs1 = bundle.getString("agrs1");
+//        Bundle bundle = getArguments();
+//        String agrs1 = bundle.getString("agrs1");
 
         return view;
     }

@@ -27,7 +27,7 @@
                 android:layout_margin="5dp"
                 android:gravity="end"
                 android:paddingRight="20dp"
-                android:text="MMSI  123456789"
+                android:text="MMSI    123456789"
                 android:textColor="@color/homepage_text_color"/>
 
             <TextView

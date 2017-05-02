@@ -24,4 +24,18 @@
         <item>L</item>
     </string-array>
 
+    <string-array name="messageList">
+        <item>个人呼叫</item>
+        <item>船队呼叫</item>
+        <item>海区呼叫</item>
+        <item>位置呼叫</item>
+        <item>测试呼叫</item>
+        <item>PSTN呼叫</item>
+        <item>遇险呼叫</item>
+        <item>海区转发</item>
+        <item>岸台转发</item>
+        <item>中立呼叫</item>
+        <item>医疗呼叫</item>
+    </string-array>
+
 </resources>

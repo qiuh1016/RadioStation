@@ -1,7 +1,7 @@
 package com.cetcme.radiostation;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +15,8 @@ import com.cetcme.radiostation.Fragment.CameraFragment;
 import com.cetcme.radiostation.Fragment.HelpFragment;
 import com.cetcme.radiostation.Fragment.HomepageFragment;
 import com.cetcme.radiostation.Fragment.LocationFragment;
+import com.cetcme.radiostation.Fragment.LogFragment;
+import com.cetcme.radiostation.Fragment.MessageFragment;
 import com.cetcme.radiostation.Fragment.SearchFragment;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 import com.qiuhong.qhlibrary.Utils.DensityUtil;
@@ -44,7 +46,10 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private LocationFragment mLocationFragment;
     private SearchFragment mSearchFragment;
     private HelpFragment mHelpFragment;
+
     private HomepageFragment mHomepageFragment;
+    private MessageFragment mMessageFragment;
+    private LogFragment mLogFragment;
 
 
     @Override
@@ -147,7 +152,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         switch (v.getId()) {
             case R.id.rb_1:
@@ -160,19 +165,19 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.rb_2:
                 Log.i(TAG, "onClick: 2");
-                if (mLocationFragment == null) {
-                    mLocationFragment = LocationFragment.newInstance(getString(R.string.main_tab_name_2));
+                if (mMessageFragment == null) {
+                    mMessageFragment = MessageFragment.newInstance(getString(R.string.main_tab_name_2));
                 }
                 qhTitleView.setTitle(getString(R.string.main_tab_name_2));
-                transaction.replace(R.id.tabs, mLocationFragment);
+                transaction.replace(R.id.tabs, mMessageFragment);
                 break;
             case R.id.rb_3:
                 Log.i(TAG, "onClick: 3");
-                if (mSearchFragment == null) {
-                    mSearchFragment = SearchFragment.newInstance(getString(R.string.main_tab_name_3));
+                if (mLogFragment == null) {
+                    mLogFragment = LogFragment.newInstance(getString(R.string.main_tab_name_3));
                 }
                 qhTitleView.setTitle(getString(R.string.main_tab_name_3));
-                transaction.replace(R.id.tabs, mSearchFragment);
+                transaction.replace(R.id.tabs, mLogFragment);
                 break;
             case R.id.rb_4:
                 Log.i(TAG, "onClick: 4");
@@ -198,7 +203,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
      * 设置默认的
      */
     private void setDefaultFragment() {
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
         qhTitleView.setTitle(getString(R.string.main_tab_name_1));

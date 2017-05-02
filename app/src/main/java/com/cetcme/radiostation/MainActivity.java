@@ -28,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        initTitleView();
-        initBottomView();
+//        initTitleView();
+//        initBottomView();
     }
 
+    /*
     private void initTitleView() {
         qhTitleView = (QHTitleView) findViewById(R.id.main_QHTitleView);
         qhTitleView.setTitle("activity_audio_player");
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     private void initBottomView() {
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
 
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(int position) {//未选中 -> 选中
                 Log.d("Main", "onTabSelected() called with: " + "position = [" + position + "]");
-                FragmentManager fm = getFragmentManager();
+                FragmentManager fm = getSupportFragmentManager();
                 //开启事务
                 FragmentTransaction transaction = fm.beginTransaction();
                 switch (position) {
@@ -124,9 +126,7 @@ public class MainActivity extends AppCompatActivity {
         setDefaultFragment();
     }
 
-    /**
-     * 设置默认的
-     */
+
     private void setDefaultFragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
@@ -135,4 +135,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.tabs, mCameraFragment);
         transaction.commit();
     }
+
+    */
 }

@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cetcme.radiostation.Fragment.CameraFragment;
 import com.cetcme.radiostation.Fragment.HelpFragment;
+import com.cetcme.radiostation.Fragment.HomepageFragment;
 import com.cetcme.radiostation.Fragment.LocationFragment;
 import com.cetcme.radiostation.Fragment.SearchFragment;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
@@ -42,6 +44,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private LocationFragment mLocationFragment;
     private SearchFragment mSearchFragment;
     private HelpFragment mHelpFragment;
+    private HomepageFragment mHomepageFragment;
 
 
     @Override
@@ -51,14 +54,19 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         getSupportActionBar().hide();
 
         initTitleView();
-        setupView();
+        setupTabBar();
         setDefaultFragment();
 
+//        messageTips(-1, tv_1);
+//        messageTips(-2, tv_2);
+//        messageTips(1, tv_3);
+//        messageTips(3, tv_4);
+//        messageTips(100, tv_5);
         messageTips(-1, tv_1);
-        messageTips(-2, tv_2);
-        messageTips(1, tv_3);
-        messageTips(3, tv_4);
-        messageTips(100, tv_5);
+        messageTips(-1, tv_2);
+        messageTips(-1, tv_3);
+        messageTips(-1, tv_4);
+        messageTips(-1, tv_5);
     }
 
     private void initTitleView() {
@@ -79,7 +87,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void setupView() {
+    private void setupTabBar() {
         tv_1 = (TextView) findViewById(R.id.tv_1);
         tv_2 = (TextView) findViewById(R.id.tv_2);
         tv_3 = (TextView) findViewById(R.id.tv_3);
@@ -144,11 +152,11 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.rb_1:
                 Log.i(TAG, "onClick: 1");
-                if (mCameraFragment == null) {
-                    mCameraFragment = CameraFragment.newInstance(getString(R.string.main_tab_name_1));
+                if (mHomepageFragment == null) {
+                    mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
                 }
                 qhTitleView.setTitle(getString(R.string.main_tab_name_1));
-                transaction.replace(R.id.tabs, mCameraFragment);
+                transaction.replace(R.id.tabs, mHomepageFragment);
                 break;
             case R.id.rb_2:
                 Log.i(TAG, "onClick: 2");
@@ -176,11 +184,11 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.rb_5:
                 Log.i(TAG, "onClick: 5");
-                if (mHelpFragment == null) {
-                    mHelpFragment = HelpFragment.newInstance(getString(R.string.main_tab_name_5));
+                if (mCameraFragment == null) {
+                    mCameraFragment = CameraFragment.newInstance(getString(R.string.main_tab_name_5));
                 }
                 qhTitleView.setTitle(getString(R.string.main_tab_name_5));
-                transaction.replace(R.id.tabs, mHelpFragment);
+                transaction.replace(R.id.tabs, mCameraFragment);
                 break;
         }
         transaction.commit();
@@ -192,9 +200,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private void setDefaultFragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mCameraFragment = CameraFragment.newInstance(getString(R.string.main_tab_name_1));
+        mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
         qhTitleView.setTitle(getString(R.string.main_tab_name_1));
-        transaction.replace(R.id.tabs, mCameraFragment);
+        transaction.replace(R.id.tabs, mHomepageFragment);
         transaction.commit();
     }
 }

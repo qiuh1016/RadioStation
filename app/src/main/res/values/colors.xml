@@ -5,12 +5,13 @@
     <color name="colorAccent">#FF4081</color>
     <color name="littleGray">#EEEEEE</color>
 
-    <color name="tab_text_selected">#303F9F</color>
+    <color name="tab_text_selected">#3D5C94</color>
     <color name="tab_text_unselected">#000000</color>
 
-
-
-    <color name="tab_text_selector">#303F9F</color>
+    <color name="homepage_text_color">#3e3f40</color>
+    <color name="homepage_background_color">#EDEEEF</color>
+    <!--303F9F-->
+    <color name="tab_text_selector">#3D5C94</color>
     <color name="msg_num_shape">#00FFFFFF</color>
     <color name="white_1">#FFFFFF</color>
 </resources>

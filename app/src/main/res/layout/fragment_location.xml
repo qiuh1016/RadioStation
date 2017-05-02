@@ -17,6 +17,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/button2"/>
 
+        <Button
+            android:text="RTP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rtp_button"/>
+
     </LinearLayout>
 
 

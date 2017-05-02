@@ -130,7 +130,7 @@ public class AudioRecordFunc {
         }
         while (isRecord) {
             readSize = audioRecord.read(audioData, 0, bufferSizeInBytes);
-            if (AudioRecord.ERROR_INVALID_OPERATION != readSize && fos!=null) {
+            if (AudioRecord.ERROR_INVALID_OPERATION != readSize && fos != null) {
                 try {
                     fos.write(audioData);
                 } catch (IOException e) {

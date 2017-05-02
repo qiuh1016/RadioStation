@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.SocketActivity;
+import com.cetcme.radiostation.rtp.RtpActivity;
 
 
 public class LocationFragment extends Fragment {
@@ -44,6 +45,16 @@ public class LocationFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), SocketActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
+            }
+        });
+
+        view.findViewById(R.id.rtp_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), RtpActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
             }

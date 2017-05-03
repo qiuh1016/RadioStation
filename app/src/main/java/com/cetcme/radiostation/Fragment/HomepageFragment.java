@@ -11,12 +11,14 @@ import android.widget.Spinner;
 
 import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.RecordActivity;
+import com.cetcme.radiostation.SocketActivity;
 import com.cetcme.radiostation.VoiceShareActivity;
+import com.cetcme.radiostation.VoiceSocketActivity;
 import com.cetcme.radiostation.pcm.AudioPlayerDemoActivity;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 
-public class HomepageFragment extends Fragment {
+public class HomepageFragment extends Fragment implements View.OnClickListener{
 
 
     private Spinner agc_spinner;
@@ -55,7 +57,7 @@ public class HomepageFragment extends Fragment {
         sql_spinner = (Spinner) view.findViewById(R.id.sql_spinner);
         pow_spinner = (Spinner) view.findViewById(R.id.pow_spinner);
 
-
+        view.findViewById(R.id.voiceTextView).setOnClickListener(this);
 
 
         return view;
@@ -80,5 +82,15 @@ public class HomepageFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.voiceTextView:
+                Intent intent = new Intent(getActivity(), SocketActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+    }
 }

@@ -413,7 +413,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/voiceTextView"
             android:layout_width="96dp"
             android:layout_height="30dp"
             android:background="@drawable/homepage_voice_button"

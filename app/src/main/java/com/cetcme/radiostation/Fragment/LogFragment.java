@@ -157,9 +157,9 @@ public class LogFragment extends Fragment {
         tv3.setOnClickListener(new TabOnClickListener(2));
 
         fragments.clear();
-        fragments.add(new MessageFragment());
-        fragments.add(new MessageFragment());
-        fragments.add(new MessageFragment());
+        fragments.add(new LogDangerReceiveFragment());
+        fragments.add(new LogDangerReceiveFragment());
+        fragments.add(new LogDangerReceiveFragment());
 
         mTab1=(LinearLayout) view.findViewById(R.id.id_tab1);
         mTab2=(LinearLayout) view.findViewById(R.id.id_tab2);

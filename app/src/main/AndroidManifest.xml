@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".rtp.RtpActivity">
         </activity>
+        <activity android:name=".VoiceSocketActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -18,8 +18,8 @@
     <string name="main_tab_name_4">功能</string>
     <string name="main_tab_name_5">设置</string>
 
-    <string name="log_viewpager_title_1">常规接收</string>
-    <string name="log_viewpager_title_2">遇险接收</string>
+    <string name="log_viewpager_title_1">遇险接收</string>
+    <string name="log_viewpager_title_2">常规接收</string>
     <string name="log_viewpager_title_3">发送</string>
 
 </resources>

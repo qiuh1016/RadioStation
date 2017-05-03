@@ -13,6 +13,7 @@ import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.RecordActivity;
 import com.cetcme.radiostation.VoiceShareActivity;
 import com.cetcme.radiostation.pcm.AudioPlayerDemoActivity;
+import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 
 public class HomepageFragment extends Fragment {
@@ -47,20 +48,35 @@ public class HomepageFragment extends Fragment {
 //        Bundle bundle = getArguments();
 //        String agrs1 = bundle.getString("agrs1");
 
+        initTitleView(view);
 
         agc_spinner = (Spinner) view.findViewById(R.id.agc_spinner);
         att_spinner = (Spinner) view.findViewById(R.id.att_spinner);
         sql_spinner = (Spinner) view.findViewById(R.id.sql_spinner);
         pow_spinner = (Spinner) view.findViewById(R.id.pow_spinner);
 
-        String[] agcString = new String[] {"FAST", "SLOW"};
-        String[] attString = new String[] {"H", "L"};
-        String[] sqlString = new String[] {"20", "10", "5", "0"};
-        String[] powString = new String[] {"H", "M", "L"};
 
 
 
         return view;
+    }
+
+    private void initTitleView(View view) {
+        QHTitleView qhTitleView = (QHTitleView) view.findViewById(R.id.qhTitleView);
+        qhTitleView.setTitle(getString(R.string.main_tab_name_1));
+        qhTitleView.setBackView(0);
+        qhTitleView.setRightView(0);
+        qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
+            @Override
+            public void onBackClick() {
+                //
+            }
+
+            @Override
+            public void onRightClick() {
+                //
+            }
+        });
     }
 
 

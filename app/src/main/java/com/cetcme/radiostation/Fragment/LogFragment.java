@@ -3,6 +3,8 @@ package com.cetcme.radiostation.Fragment;
 import android.support.v4.app.Fragment;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cetcme.radiostation.R;
+import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,13 +78,33 @@ public class LogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_log, container, false);
-        Bundle bundle = getArguments();
-        String agrs1 = bundle.getString("agrs1");
+//        Bundle bundle = getArguments();
+//        String agrs1 = bundle.getString("agrs1");
+
+        initTitleView(view);
 
         res = getResources();
         initViewPager(view);
 
         return view;
+    }
+
+    private void initTitleView(View view) {
+        QHTitleView qhTitleView = (QHTitleView) view.findViewById(R.id.qhTitleView);
+        qhTitleView.setTitle(getString(R.string.main_tab_name_3));
+        qhTitleView.setBackView(0);
+        qhTitleView.setRightView(0);
+        qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
+            @Override
+            public void onBackClick() {
+                //
+            }
+
+            @Override
+            public void onRightClick() {
+                //
+            }
+        });
     }
 
     private void initViewPager(View view) {
@@ -94,11 +117,11 @@ public class LogFragment extends Fragment {
          * 初始化Adapter
          */
 
-        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
-        mAdapter = new FragmentAdapter(appCompatActivity.getSupportFragmentManager(), fragments);
+        //getFragmentManager到的是activity对所包含fragment的Manager
+        //而如果是fragment嵌套fragment，那么就需要利用getChildFragmentManager()
+        mAdapter = new FragmentAdapter(getChildFragmentManager(), fragments);
 
         mViewPager.setAdapter(mAdapter);
-//        mViewPager.setOnPageChangeListener(new TabOnPageChangeListener());
         mViewPager.addOnPageChangeListener(new TabOnPageChangeListener());
 
         initTabLine(view);
@@ -133,6 +156,7 @@ public class LogFragment extends Fragment {
         tv2.setOnClickListener(new TabOnClickListener(1));
         tv3.setOnClickListener(new TabOnClickListener(2));
 
+        fragments.clear();
         fragments.add(new MessageFragment());
         fragments.add(new MessageFragment());
         fragments.add(new MessageFragment());
@@ -205,6 +229,29 @@ public class LogFragment extends Fragment {
                     break;
             }
         }
+    }
+
+
+    /**
+     * 功能：主页引导栏的三个Fragment页面设置适配器
+     */
+    private class FragmentAdapter extends FragmentPagerAdapter {
+
+        private List<Fragment> fragments;
+
+        public FragmentAdapter(FragmentManager fm, List<Fragment> fragments) {
+            super(fm);
+            this.fragments=fragments;
+        }
+
+        public Fragment getItem(int fragment) {
+            return fragments.get(fragment);
+        }
+
+        public int getCount() {
+            return fragments.size();
+        }
+
     }
 
 

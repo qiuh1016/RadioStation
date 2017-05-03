@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.cetcme.radiostation.R;
+import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,8 @@ public class MessageFragment extends Fragment {
 //        Bundle bundle = getArguments();
 //        String agrs1 = bundle.getString("agrs1");
 
+        initTitleView(view);
+
         mList = (ListView) view.findViewById(R.id.messageList);
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),R.layout.list_cell_message, R.id.titleTextView, getData());
         mList.setAdapter(arrayAdapter);
@@ -57,6 +60,24 @@ public class MessageFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void initTitleView(View view) {
+        QHTitleView qhTitleView = (QHTitleView) view.findViewById(R.id.qhTitleView);
+        qhTitleView.setTitle(getString(R.string.main_tab_name_2));
+        qhTitleView.setBackView(0);
+        qhTitleView.setRightView(0);
+        qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
+            @Override
+            public void onBackClick() {
+                //
+            }
+
+            @Override
+            public void onRightClick() {
+                //
+            }
+        });
     }
 
     private List<String> getData() {

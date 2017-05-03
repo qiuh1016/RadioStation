@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="下载管理"
+                android:text="@string/log_viewpager_title_1"
                 android:textColor="@color/tab_text_selected"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="城市列表"
+                android:text="@string/log_viewpager_title_2"
                 android:textColor="@color/homepage_text_color"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="城市列表"
+                android:text="@string/log_viewpager_title_3"
                 android:textColor="@color/homepage_text_color"
                 android:textSize="13sp" />
         </LinearLayout>

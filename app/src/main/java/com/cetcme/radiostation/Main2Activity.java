@@ -69,27 +69,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 //        messageTips(100, tv_5);
         messageTips(-1, tv_1);
         messageTips(-1, tv_2);
-        messageTips(-1, tv_3);
+        messageTips(3, tv_3);
         messageTips(-1, tv_4);
         messageTips(-1, tv_5);
-    }
-
-    private void initTitleView() {
-        qhTitleView = (QHTitleView) findViewById(R.id.main_QHTitleView);
-        qhTitleView.setTitle("activity_audio_player");
-        qhTitleView.setBackView(0);
-        qhTitleView.setRightView(0);
-        qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
-            @Override
-            public void onBackClick() {
-                //
-            }
-
-            @Override
-            public void onRightClick() {
-                //
-            }
-        });
     }
 
     private void setupTabBar() {
@@ -160,7 +142,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 if (mHomepageFragment == null) {
                     mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
                 }
-//                qhTitleView.setTitle(getString(R.string.main_tab_name_1));
                 transaction.replace(R.id.tabs, mHomepageFragment);
                 break;
             case R.id.rb_2:
@@ -168,7 +149,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 if (mMessageFragment == null) {
                     mMessageFragment = MessageFragment.newInstance(getString(R.string.main_tab_name_2));
                 }
-//                qhTitleView.setTitle(getString(R.string.main_tab_name_2));
                 transaction.replace(R.id.tabs, mMessageFragment);
                 break;
             case R.id.rb_3:
@@ -176,7 +156,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 if (mLogFragment == null) {
                     mLogFragment = LogFragment.newInstance(getString(R.string.main_tab_name_3));
                 }
-//                qhTitleView.setTitle(getString(R.string.main_tab_name_3));
                 transaction.replace(R.id.tabs, mLogFragment);
                 break;
             case R.id.rb_4:
@@ -184,7 +163,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 if (mHelpFragment == null) {
                     mHelpFragment = HelpFragment.newInstance(getString(R.string.main_tab_name_4));
                 }
-//                qhTitleView.setTitle(getString(R.string.main_tab_name_4));
                 transaction.replace(R.id.tabs, mHelpFragment);
                 break;
             case R.id.rb_5:
@@ -192,7 +170,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 if (mCameraFragment == null) {
                     mCameraFragment = CameraFragment.newInstance(getString(R.string.main_tab_name_5));
                 }
-//                qhTitleView.setTitle(getString(R.string.main_tab_name_5));
                 transaction.replace(R.id.tabs, mCameraFragment);
                 break;
         }
@@ -206,7 +183,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
-//        qhTitleView.setTitle(getString(R.string.main_tab_name_1));
         transaction.replace(R.id.tabs, mHomepageFragment);
         transaction.commit();
     }

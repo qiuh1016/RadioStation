@@ -1,16 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="vertical"
-             tools:context="com.cetcme.radiostation.Fragment.LogFragment">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".AddressActivity">
 
     <com.qiuhong.qhlibrary.QHTitleView.QHTitleView
         android:id="@+id/qhTitleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <include layout="@layout/view_pager_log"/>
+    <include layout="@layout/view_pager_address"/>
 
     <LinearLayout
         android:layout_width="match_parent"

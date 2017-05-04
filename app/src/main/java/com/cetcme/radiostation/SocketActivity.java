@@ -167,8 +167,6 @@ public class SocketActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.push_right_in_no_alpha,
-                R.anim.push_right_out_no_alpha);
     }
 
 

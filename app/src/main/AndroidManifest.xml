@@ -37,6 +37,12 @@
         </activity>
         <activity android:name=".VoiceSocketActivity">
         </activity>
+        <activity android:name=".Call.PersonalCallActivity">
+        </activity>
+        <activity android:name=".Call.PersonalCallDetailActivity">
+        </activity>
+        <activity android:name=".AddressActivity">
+        </activity>
     </application>
 
 </manifest>

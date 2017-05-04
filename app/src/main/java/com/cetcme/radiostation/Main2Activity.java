@@ -39,6 +39,12 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private RadioButton rb_4;
     private RadioButton rb_5;
 
+    private RelativeLayout rl_1;
+    private RelativeLayout rl_2;
+    private RelativeLayout rl_3;
+    private RelativeLayout rl_4;
+    private RelativeLayout rl_5;
+
     private CameraFragment mCameraFragment;
     private LocationFragment mLocationFragment;
 
@@ -71,12 +77,12 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
         messageTips(-1, tv_1);
         messageTips(-1, tv_2);
-        messageTips(3, tv_3);
+        messageTips(-2, tv_3);
         messageTips(-1, tv_4);
         messageTips(-1, tv_5);
 
 
-        connectServer();
+//        connectServer();
     }
 
     public void connectServer() {
@@ -110,11 +116,23 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         rb_4 = (RadioButton) findViewById(R.id.rb_4);
         rb_5 = (RadioButton) findViewById(R.id.rb_5);
 
+        rl_1 = (RelativeLayout) findViewById(R.id.rl_1);
+        rl_2 = (RelativeLayout) findViewById(R.id.rl_2);
+        rl_3 = (RelativeLayout) findViewById(R.id.rl_3);
+        rl_4 = (RelativeLayout) findViewById(R.id.rl_4);
+        rl_5 = (RelativeLayout) findViewById(R.id.rl_5);
+
         rb_1.setOnClickListener(this);
         rb_2.setOnClickListener(this);
         rb_3.setOnClickListener(this);
         rb_4.setOnClickListener(this);
         rb_5.setOnClickListener(this);
+
+        rl_1.setOnClickListener(this);
+        rl_2.setOnClickListener(this);
+        rl_3.setOnClickListener(this);
+        rl_4.setOnClickListener(this);
+        rl_5.setOnClickListener(this);
     }
 
     /**
@@ -160,6 +178,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         switch (v.getId()) {
+            case R.id.rl_1:
             case R.id.rb_1:
                 Log.i(TAG, "onClick: 1");
                 if (mHomepageFragment == null) {
@@ -168,6 +187,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 transaction.replace(R.id.tabs, mHomepageFragment);
                 setTabButtonAction(0);
                 break;
+            case R.id.rl_2:
             case R.id.rb_2:
                 Log.i(TAG, "onClick: 2");
                 if (mMessageFragment == null) {
@@ -176,6 +196,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 transaction.replace(R.id.tabs, mMessageFragment);
                 setTabButtonAction(1);
                 break;
+            case R.id.rl_3:
             case R.id.rb_3:
                 Log.i(TAG, "onClick: 3");
                 if (mLogFragment == null) {
@@ -184,6 +205,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 transaction.replace(R.id.tabs, mLogFragment);
                 setTabButtonAction(2);
                 break;
+            case R.id.rl_4:
             case R.id.rb_4:
                 Log.i(TAG, "onClick: 4");
                 if (mFunctionFragment == null) {
@@ -192,6 +214,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 transaction.replace(R.id.tabs, mFunctionFragment);
                 setTabButtonAction(3);
                 break;
+            case R.id.rl_5:
             case R.id.rb_5:
                 Log.i(TAG, "onClick: 5");
                 if (mSettingFragment == null) {

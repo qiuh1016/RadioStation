@@ -1,5 +1,6 @@
 package com.cetcme.radiostation.Fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,13 +11,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.cetcme.radiostation.Call.PersonalCallActivity;
 import com.cetcme.radiostation.R;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageFragment extends Fragment {
+public class MessageFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     String TAG = "MessageFragment";
 
@@ -52,12 +54,7 @@ public class MessageFragment extends Fragment {
         mList = (ListView) view.findViewById(R.id.list);
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),R.layout.list_cell_one_title, R.id.titleTextView, getData());
         mList.setAdapter(arrayAdapter);
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(TAG, "onItemClick: " + position);
-            }
-        });
+        mList.setOnItemClickListener(this);
 
         return view;
     }
@@ -89,4 +86,11 @@ public class MessageFragment extends Fragment {
         return data;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i(TAG, "onItemClick: " + position);
+        Intent intent = new Intent(getActivity(), PersonalCallActivity.class);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
+    }
 }

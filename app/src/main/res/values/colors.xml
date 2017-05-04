@@ -10,6 +10,8 @@
 
     <color name="homepage_text_color">#3e3f40</color>
     <color name="homepage_background_color">#EDEEEF</color>
+
+    <color name="separate_line_color">#7e7e7e</color>
     <!--303F9F-->
     <color name="tab_text_selector">#3D5C94</color>
     <color name="msg_num_shape">#00FFFFFF</color>

@@ -121,11 +121,7 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/homepage_text_color"/>
+    <include layout="@layout/separate_line"/>
 
     <LinearLayout
         android:id="@+id/ssb_layout"
@@ -286,11 +282,7 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/homepage_text_color"/>
+    <include layout="@layout/separate_line"/>
 
     <LinearLayout
         android:id="@+id/changjing_layout"
@@ -398,11 +390,8 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/homepage_text_color"/>
+
+    <include layout="@layout/separate_line"/>
 
     <LinearLayout
         android:id="@+id/voice_layout"

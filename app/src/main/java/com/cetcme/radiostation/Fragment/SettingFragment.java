@@ -1,5 +1,6 @@
 package com.cetcme.radiostation.Fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.cetcme.radiostation.AddressActivity;
+import com.cetcme.radiostation.Call.PersonalCallActivity;
 import com.cetcme.radiostation.R;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
@@ -40,7 +43,7 @@ public class SettingFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 //        Bundle bundle = getArguments();
@@ -55,6 +58,17 @@ public class SettingFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i(TAG, "onItemClick: " + position);
+                Intent intent = null;
+                switch (position) {
+                    case 0:
+                        intent = new Intent(getActivity(), AddressActivity.class);
+                        break;
+                }
+                if (intent == null) {
+                    return;
+                }
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
             }
         });
 

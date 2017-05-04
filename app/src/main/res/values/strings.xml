@@ -24,4 +24,8 @@
     <string name="log_viewpager_title_2">常规接收</string>
     <string name="log_viewpager_title_3">发送</string>
 
+    <string name="address_viewpager_title_1">船台</string>
+    <string name="address_viewpager_title_2">岸台</string>
+    <string name="address_viewpager_title_3">船队</string>
+    <string name="address_viewpager_title_4">PSTN</string>
 </resources>

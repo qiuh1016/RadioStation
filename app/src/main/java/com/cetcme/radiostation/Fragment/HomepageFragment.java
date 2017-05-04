@@ -59,7 +59,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         pow_spinner = (Spinner) view.findViewById(R.id.pow_spinner);
 
         view.findViewById(R.id.voiceTextView).setOnClickListener(this);
-
+        view.findViewById(R.id.voice_layout).setOnClickListener(this);
 
         return view;
     }
@@ -88,6 +88,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.voiceTextView:
+//            case R.id.voice_layout:
                 Intent intent = new Intent(getActivity(), SocketActivity.class);
                 startActivity(intent);
                 break;

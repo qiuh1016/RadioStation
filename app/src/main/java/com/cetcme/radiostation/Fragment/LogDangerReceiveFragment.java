@@ -2,6 +2,7 @@ package com.cetcme.radiostation.Fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -18,6 +19,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cetcme.radiostation.Call.PersonalCallActivity;
+import com.cetcme.radiostation.Call.PersonalCallDetailActivity;
 import com.cetcme.radiostation.MainActivity;
 import com.cetcme.radiostation.R;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
@@ -77,6 +80,12 @@ public class LogDangerReceiveFragment extends Fragment {
                 Log.i(TAG, "onItemClick: " + position);
                 dataList.get(position).put("readed", "1");
                 mList.setAdapter(myListAdapter);
+
+                //TODO: 打开查看界面
+                Intent intent = new Intent(getActivity(), PersonalCallDetailActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
+
             }
         });
         mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

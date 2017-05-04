@@ -11,6 +11,8 @@
     <string name="error_state_record">正在录音中，请先停止录音</string>
     <string name="error_unknown">无法识别的错误</string>
 
+    <string name="connect_server_progress">连接中</string>
+    <string name="connect_server_ok">连接成功</string>
 
     <string name="main_tab_name_1">首页</string>
     <string name="main_tab_name_2">消息</string>

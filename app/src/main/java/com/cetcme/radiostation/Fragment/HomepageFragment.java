@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.cetcme.radiostation.Main2Activity;
 import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.RecordActivity;
 import com.cetcme.radiostation.SocketActivity;
@@ -67,7 +68,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         QHTitleView qhTitleView = (QHTitleView) view.findViewById(R.id.qhTitleView);
         qhTitleView.setTitle(getString(R.string.main_tab_name_1));
         qhTitleView.setBackView(0);
-        qhTitleView.setRightView(0);
+        qhTitleView.setRightView(R.drawable.connect_icon);
         qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
             @Override
             public void onBackClick() {
@@ -76,6 +77,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onRightClick() {
+                ((Main2Activity) getActivity()).connectServer();
                 //
             }
         });

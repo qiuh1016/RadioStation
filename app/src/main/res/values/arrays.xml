@@ -38,4 +38,16 @@
         <item>医疗呼叫</item>
     </string-array>
 
+    <string-array name="functionList">
+        <item>SSB扫描</item>
+        <item>密话</item>
+    </string-array>
+
+    <string-array name="settingList">
+        <item>地址簿</item>
+        <item>SSB扫描设置</item>
+        <item>DSC设置</item>
+        <item>系统设置</item>
+        <item>DSC测试</item>
+    </string-array>
 </resources>

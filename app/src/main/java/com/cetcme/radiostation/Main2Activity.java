@@ -1,28 +1,27 @@
 package com.cetcme.radiostation;
 
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cetcme.radiostation.Fragment.CameraFragment;
-import com.cetcme.radiostation.Fragment.HelpFragment;
+import com.cetcme.radiostation.Fragment.FunctionFragment;
+import com.cetcme.radiostation.Fragment.SettingFragment;
 import com.cetcme.radiostation.Fragment.HomepageFragment;
 import com.cetcme.radiostation.Fragment.LocationFragment;
 import com.cetcme.radiostation.Fragment.LogFragment;
 import com.cetcme.radiostation.Fragment.MessageFragment;
-import com.cetcme.radiostation.Fragment.SearchFragment;
-import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.qiuhong.qhlibrary.Utils.DensityUtil;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener{
 
@@ -40,16 +39,24 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private RadioButton rb_4;
     private RadioButton rb_5;
 
-    private QHTitleView qhTitleView;
-
     private CameraFragment mCameraFragment;
     private LocationFragment mLocationFragment;
-    private SearchFragment mSearchFragment;
-    private HelpFragment mHelpFragment;
+
+
 
     private HomepageFragment mHomepageFragment;
     private MessageFragment mMessageFragment;
     private LogFragment mLogFragment;
+    private FunctionFragment mFunctionFragment;
+    private SettingFragment mSettingFragment;
+
+    //按2次返回退出
+    private boolean hasPressedBackOnce = false;
+    //back toast
+    private Toast backToast;
+
+    private KProgressHUD kProgressHUD;
+    private KProgressHUD okHUD;
 
 
     @Override
@@ -58,20 +65,36 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_main2);
         getSupportActionBar().hide();
 
-//        initTitleView();
+        initHud();
         setupTabBar();
         setDefaultFragment();
 
-//        messageTips(-1, tv_1);
-//        messageTips(-2, tv_2);
-//        messageTips(1, tv_3);
-//        messageTips(3, tv_4);
-//        messageTips(100, tv_5);
         messageTips(-1, tv_1);
         messageTips(-1, tv_2);
         messageTips(3, tv_3);
         messageTips(-1, tv_4);
         messageTips(-1, tv_5);
+
+
+        connectServer();
+    }
+
+    public void connectServer() {
+        kProgressHUD.show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                kProgressHUD.dismiss();
+                okHUD.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        okHUD.dismiss();
+                    }
+                },1000);
+            }
+        },2000);
     }
 
     private void setupTabBar() {
@@ -143,6 +166,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
                 }
                 transaction.replace(R.id.tabs, mHomepageFragment);
+                setTabButtonAction(0);
                 break;
             case R.id.rb_2:
                 Log.i(TAG, "onClick: 2");
@@ -150,6 +174,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     mMessageFragment = MessageFragment.newInstance(getString(R.string.main_tab_name_2));
                 }
                 transaction.replace(R.id.tabs, mMessageFragment);
+                setTabButtonAction(1);
                 break;
             case R.id.rb_3:
                 Log.i(TAG, "onClick: 3");
@@ -157,20 +182,23 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     mLogFragment = LogFragment.newInstance(getString(R.string.main_tab_name_3));
                 }
                 transaction.replace(R.id.tabs, mLogFragment);
+                setTabButtonAction(2);
                 break;
             case R.id.rb_4:
                 Log.i(TAG, "onClick: 4");
-                if (mHelpFragment == null) {
-                    mHelpFragment = HelpFragment.newInstance(getString(R.string.main_tab_name_4));
+                if (mFunctionFragment == null) {
+                    mFunctionFragment = FunctionFragment.newInstance(getString(R.string.main_tab_name_4));
                 }
-                transaction.replace(R.id.tabs, mHelpFragment);
+                transaction.replace(R.id.tabs, mFunctionFragment);
+                setTabButtonAction(3);
                 break;
             case R.id.rb_5:
                 Log.i(TAG, "onClick: 5");
-                if (mCameraFragment == null) {
-                    mCameraFragment = CameraFragment.newInstance(getString(R.string.main_tab_name_5));
+                if (mSettingFragment == null) {
+                    mSettingFragment = SettingFragment.newInstance(getString(R.string.main_tab_name_5));
                 }
-                transaction.replace(R.id.tabs, mCameraFragment);
+                transaction.replace(R.id.tabs, mSettingFragment);
+                setTabButtonAction(4);
                 break;
         }
         transaction.commit();
@@ -185,5 +213,60 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
         transaction.replace(R.id.tabs, mHomepageFragment);
         transaction.commit();
+        setTabButtonAction(0);
+    }
+
+    private void initHud() {
+        //hudView
+        kProgressHUD = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(getString(R.string.connect_server_progress))
+                .setAnimationSpeed(1)
+                .setDimAmount(0.3f)
+                .setSize(110, 110)
+                .setCancellable(false);
+        ImageView imageView = new ImageView(this);
+        imageView.setBackgroundResource(R.drawable.checkmark);
+        okHUD  =  KProgressHUD.create(this)
+                .setCustomView(imageView)
+                .setLabel(getString(R.string.connect_server_ok))
+                .setCancellable(false)
+                .setSize(110,110)
+                .setDimAmount(0.3f);
+    }
+
+    public void onBackPressed() {
+
+        if (!hasPressedBackOnce) {
+            backToast = Toast.makeText(this, "再按一次返回键退出程序", Toast.LENGTH_SHORT);
+            backToast.show();
+            hasPressedBackOnce = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    hasPressedBackOnce = false;
+                }
+            },2500);
+        } else {
+            backToast.cancel();
+            super.onBackPressed();
+        }
+    }
+
+    private void setTabButtonAction(int index) {
+        RadioButton[] radioButtons = new RadioButton[] {rb_1, rb_2, rb_3, rb_4, rb_5};
+
+        for (int i = 0; i < 5; i++) {
+            if (i == index) {
+                radioButtons[i].setTextColor(getResources().getColor(R.color.tab_text_selected));
+                radioButtons[i].getPaint().setFakeBoldText(true);
+                radioButtons[i].setChecked(true);
+            } else {
+                radioButtons[i].setTextColor(getResources().getColor(R.color.homepage_text_color));
+                radioButtons[i].getPaint().setFakeBoldText(false);
+                radioButtons[i].setChecked(false);
+            }
+        }
+
     }
 }

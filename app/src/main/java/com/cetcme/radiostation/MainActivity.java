@@ -1,25 +1,20 @@
 package com.cetcme.radiostation;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.ashokvarma.bottomnavigation.BottomNavigationBar;
-import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.cetcme.radiostation.Fragment.CameraFragment;
-import com.cetcme.radiostation.Fragment.HelpFragment;
+import com.cetcme.radiostation.Fragment.FunctionFragment;
+import com.cetcme.radiostation.Fragment.SettingFragment;
 import com.cetcme.radiostation.Fragment.LocationFragment;
-import com.cetcme.radiostation.Fragment.SearchFragment;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 public class MainActivity extends AppCompatActivity {
 
     private CameraFragment mCameraFragment;
     private LocationFragment mLocationFragment;
-    private SearchFragment mSearchFragment;
-    private HelpFragment mHelpFragment;
+    private FunctionFragment mFunctionFragment;
+    private SettingFragment mSettingFragment;
 
     private QHTitleView qhTitleView;
 
@@ -85,25 +80,25 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.tabs, mLocationFragment);
                         break;
                     case 2:
-                        if (mSearchFragment == null) {
-                            mSearchFragment = SearchFragment.newInstance("日志");
+                        if (mFunctionFragment == null) {
+                            mFunctionFragment = FunctionFragment.newInstance("日志");
                         }
                         qhTitleView.setTitle("日志");
-                        transaction.replace(R.id.tabs, mSearchFragment);
+                        transaction.replace(R.id.tabs, mFunctionFragment);
                         break;
                     case 3:
-                        if (mHelpFragment == null) {
-                            mHelpFragment = HelpFragment.newInstance("功能");
+                        if (mSettingFragment == null) {
+                            mSettingFragment = SettingFragment.newInstance("功能");
                         }
                         qhTitleView.setTitle("功能");
-                        transaction.replace(R.id.tabs, mHelpFragment);
+                        transaction.replace(R.id.tabs, mSettingFragment);
                         break;
                     case 4:
-                        if (mHelpFragment == null) {
-                            mHelpFragment = HelpFragment.newInstance("设置");
+                        if (mSettingFragment == null) {
+                            mSettingFragment = SettingFragment.newInstance("设置");
                         }
                         qhTitleView.setTitle("设置");
-                        transaction.replace(R.id.tabs, mHelpFragment);
+                        transaction.replace(R.id.tabs, mSettingFragment);
                         break;
                     default:
                         break;

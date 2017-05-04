@@ -16,22 +16,22 @@ import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageFragment extends Fragment {
 
-    String TAG = "MessageFragment";
+public class FunctionFragment extends Fragment {
+
+    String TAG = "FunctionFragment";
 
     private ListView mList;
 
-
-    public static MessageFragment newInstance(String param1) {
-        MessageFragment fragment = new MessageFragment();
+    public static FunctionFragment newInstance(String param1) {
+        FunctionFragment fragment = new FunctionFragment();
         Bundle args = new Bundle();
         args.putString("agrs1", param1);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public MessageFragment() {
+    public FunctionFragment() {
 
     }
 
@@ -43,7 +43,7 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_function, container, false);
 //        Bundle bundle = getArguments();
 //        String agrs1 = bundle.getString("agrs1");
 
@@ -64,7 +64,7 @@ public class MessageFragment extends Fragment {
 
     private void initTitleView(View view) {
         QHTitleView qhTitleView = (QHTitleView) view.findViewById(R.id.qhTitleView);
-        qhTitleView.setTitle(getString(R.string.main_tab_name_2));
+        qhTitleView.setTitle(getString(R.string.main_tab_name_4));
         qhTitleView.setBackView(0);
         qhTitleView.setRightView(0);
         qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
@@ -82,7 +82,7 @@ public class MessageFragment extends Fragment {
 
     private List<String> getData() {
         List<String> data = new ArrayList<>();
-        String[] contentList = getResources().getStringArray(R.array.messageList);
+        String[] contentList = getResources().getStringArray(R.array.functionList);
         for (String str : contentList ){
             data.add(str);
         }

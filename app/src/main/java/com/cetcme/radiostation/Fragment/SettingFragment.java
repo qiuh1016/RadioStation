@@ -16,22 +16,21 @@ import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageFragment extends Fragment {
+public class SettingFragment extends Fragment {
 
-    String TAG = "MessageFragment";
+    String TAG = "SettingFragment";
 
     private ListView mList;
 
-
-    public static MessageFragment newInstance(String param1) {
-        MessageFragment fragment = new MessageFragment();
+    public static SettingFragment newInstance(String param1) {
+        SettingFragment fragment = new SettingFragment();
         Bundle args = new Bundle();
         args.putString("agrs1", param1);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public MessageFragment() {
+    public SettingFragment() {
 
     }
 
@@ -43,7 +42,7 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
 //        Bundle bundle = getArguments();
 //        String agrs1 = bundle.getString("agrs1");
 
@@ -64,7 +63,7 @@ public class MessageFragment extends Fragment {
 
     private void initTitleView(View view) {
         QHTitleView qhTitleView = (QHTitleView) view.findViewById(R.id.qhTitleView);
-        qhTitleView.setTitle(getString(R.string.main_tab_name_2));
+        qhTitleView.setTitle(getString(R.string.main_tab_name_5));
         qhTitleView.setBackView(0);
         qhTitleView.setRightView(0);
         qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
@@ -82,7 +81,7 @@ public class MessageFragment extends Fragment {
 
     private List<String> getData() {
         List<String> data = new ArrayList<>();
-        String[] contentList = getResources().getStringArray(R.array.messageList);
+        String[] contentList = getResources().getStringArray(R.array.settingList);
         for (String str : contentList ){
             data.add(str);
         }

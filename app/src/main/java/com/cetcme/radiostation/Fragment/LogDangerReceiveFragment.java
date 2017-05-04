@@ -83,7 +83,7 @@ public class LogDangerReceiveFragment extends Fragment {
             @Override
             public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
                 QHDialog qhDialog = new QHDialog(getActivity(),"提示", "是否删除第" + dataList.get(position).get("number") + "条消息？");
-                qhDialog.setPositiveButton("删除", 0, new DialogInterface.OnClickListener(){
+                qhDialog.setPositiveButton("删除", R.drawable.button_background_alert, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
                         deleteData(position);

@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
               android:orientation="vertical"
-             tools:context="com.cetcme.radiostation.Fragment.HelpFragment">
+             tools:context="com.cetcme.radiostation.Fragment.SettingFragment">
 
     <ListView
         android:id="@+id/list"

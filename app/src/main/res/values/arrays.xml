@@ -50,4 +50,41 @@
         <item>系统设置</item>
         <item>DSC测试</item>
     </string-array>
+
+
+    <string-array name="ssbTypeString">
+        <item>信道</item>
+        <item>频率</item>
+    </string-array>
+
+    <string-array name="OnOffString">
+        <item>打开</item>
+        <item>关闭</item>
+    </string-array>
+
+    <string-array name="DutyString">
+        <item>DISTRESS1  ——  2187.50Khz</item>
+        <item>DISTRESS2  ——  2187.50Khz</item>
+        <item>DISTRESS3  ——  2187.50Khz</item>
+        <item>DISTRESS4  ——  2187.50Khz</item>
+        <item>DISTRESS5  ——  2187.50Khz</item>
+        <item>DISTRESS6  ——  2187.50Khz</item>
+        <item>DISTRESS7  ——  2187.50Khz</item>
+        <item>DISTRESS8  ——  2187.50Khz</item>
+    </string-array>
+
+    <string-array name="AutoAckString">
+        <item>手动</item>
+        <item>自动（遵守）</item>
+    </string-array>
+
+    <string-array name="ReasonString">
+        <item>不详</item>
+        <item>原因1</item>
+        <item>原因2</item>
+        <item>原因3</item>
+        <item>原因4</item>
+        <item>原因5</item>
+    </string-array>
+
 </resources>

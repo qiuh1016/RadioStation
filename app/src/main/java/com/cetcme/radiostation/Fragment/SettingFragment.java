@@ -11,9 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.cetcme.radiostation.AddressActivity;
-import com.cetcme.radiostation.Call.PersonalCallActivity;
+import com.cetcme.radiostation.Setting.AddressActivity;
 import com.cetcme.radiostation.R;
+import com.cetcme.radiostation.Setting.DSCSettingActivity;
+import com.cetcme.radiostation.Setting.SSBSettingActivity;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 import java.util.ArrayList;
@@ -62,6 +63,12 @@ public class SettingFragment extends Fragment {
                 switch (position) {
                     case 0:
                         intent = new Intent(getActivity(), AddressActivity.class);
+                        break;
+                    case 1:
+                        intent = new Intent(getActivity(), SSBSettingActivity.class);
+                        break;
+                    case 2:
+                        intent = new Intent(getActivity(), DSCSettingActivity.class);
                         break;
                 }
                 if (intent == null) {

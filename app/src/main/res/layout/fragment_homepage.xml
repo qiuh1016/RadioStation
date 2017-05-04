@@ -180,7 +180,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:entries="@array/agcString"/>
+                    android:entries="@array/agcString"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"/>
 
             </LinearLayout>
 
@@ -211,7 +213,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:entries="@array/sqlString"/>
+                    android:entries="@array/sqlString"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"/>
 
             </LinearLayout>
 
@@ -244,7 +248,8 @@
                     android:id="@+id/att_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/attString"/>
+                    android:entries="@array/attString"
+                    />
 
             </LinearLayout>
 
@@ -274,7 +279,8 @@
                     android:id="@+id/pow_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/powString"/>
+                    android:entries="@array/powString"
+                    />
 
             </LinearLayout>
 

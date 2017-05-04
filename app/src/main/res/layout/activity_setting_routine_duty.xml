@@ -6,15 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    tools:context="com.cetcme.radiostation.Call.PersonalCallActivity">
+    tools:context=".Setting.DSCSettingActivity">
 
     <com.qiuhong.qhlibrary.QHTitleView.QHTitleView
         android:id="@+id/qhTitleView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,192 +24,201 @@
 
 
             <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:gravity="center_vertical"
-                          android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/numberTextView"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="发往"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-                <EditText
-                    android:id="@+id/numberEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="#00FFFFFF"
-                    android:ems="10"
-                    android:hint="请输入发送对方号码"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <include layout="@layout/separate_line"/>
-
-            <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="优先级"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="1"
-                    android:text="例行"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <include layout="@layout/separate_line"/>
-
-            <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="后续通信"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="1"
-                    android:text="无线电话"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <include layout="@layout/separate_line"/>
-
-            <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="通信频率"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="1"
-                    android:text="未知"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <include layout="@layout/separate_line"/>
-
-            <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="DSC频率"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="1"
-                    android:text="2M-INTL"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <include layout="@layout/separate_line"/>
-
-            <Button
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="发送"
-                android:id="@+id/send_button"
-                android:background="@drawable/single_select"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                android:onClick="send"/>
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="值守1："
+                    android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:entries="@array/DutyString"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/separate_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="值守2："
+                    android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:entries="@array/DutyString"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/separate_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="值守3："
+                    android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:entries="@array/DutyString"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/separate_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="值守4："
+                    android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spinner4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:entries="@array/DutyString"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/separate_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="值守5："
+                    android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spinner5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:entries="@array/DutyString"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/separate_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="值守6："
+                    android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spinner6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:entries="@array/DutyString"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/separate_line"/>
 
 
         </LinearLayout>
 
 
     </ScrollView>
-
-
 
 </LinearLayout>

@@ -41,7 +41,17 @@
         </activity>
         <activity android:name=".Call.PersonalCallDetailActivity">
         </activity>
-        <activity android:name=".AddressActivity">
+        <activity android:name=".Setting.AddressActivity">
+        </activity>
+        <activity android:name=".Setting.AddressAddActivity">
+        </activity>
+        <activity android:name=".Setting.SSBSettingActivity">
+        </activity>
+        <activity android:name=".Setting.DSCSettingActivity">
+        </activity>
+        <activity android:name=".Setting.RoutineDutyActivity">
+        </activity>
+        <activity android:name=".Setting.AutoAckActivity">
         </activity>
     </application>
 

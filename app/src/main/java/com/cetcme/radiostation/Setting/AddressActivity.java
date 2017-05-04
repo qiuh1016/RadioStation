@@ -1,5 +1,6 @@
-package com.cetcme.radiostation;
+package com.cetcme.radiostation.Setting;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,9 +13,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cetcme.radiostation.Address.AddressShipFragment;
+import com.cetcme.radiostation.R;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 import java.util.ArrayList;
@@ -81,8 +82,9 @@ public class AddressActivity extends AppCompatActivity {
 
             @Override
             public void onRightClick() {
-                //TODO: add
-                Toast.makeText(AddressActivity.this, "add", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AddressActivity.this, AddressAddActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
             }
         });
     }
@@ -91,7 +93,7 @@ public class AddressActivity extends AppCompatActivity {
 
         initView();
 
-        mViewPager = (ViewPager) findViewById(R.id.viewpager_in_log_fragment);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         /**
          * 初始化Adapter
@@ -136,7 +138,7 @@ public class AddressActivity extends AppCompatActivity {
         tv1.setOnClickListener(new AddressActivity.TabOnClickListener(0));
         tv2.setOnClickListener(new AddressActivity.TabOnClickListener(1));
         tv3.setOnClickListener(new AddressActivity.TabOnClickListener(2));
-        tv4.setOnClickListener(new AddressActivity.TabOnClickListener(2));
+        tv4.setOnClickListener(new AddressActivity.TabOnClickListener(3));
 
         fragments.add(new AddressShipFragment());
         fragments.add(new AddressShipFragment());
@@ -212,7 +214,7 @@ public class AddressActivity extends AppCompatActivity {
                 case 2:
                     tv3.setTextColor(res.getColor(R.color.tab_text_selected));
                     break;
-                case 4:
+                case 3:
                     tv4.setTextColor(res.getColor(R.color.tab_text_selected));
                     break;
             }

@@ -10,7 +10,7 @@ import android.widget.Spinner;
 import com.cetcme.radiostation.R;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
-public class SSBSettingActivity extends AppCompatActivity {
+public class SsbSettingActivity extends AppCompatActivity {
 
     private LinearLayout channelLayout;
     private LinearLayout feqLayout;

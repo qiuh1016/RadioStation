@@ -87,4 +87,21 @@
         <item>原因5</item>
     </string-array>
 
+    <string-array name="LanguageString">
+        <item>中文</item>
+        <item>英语</item>
+    </string-array>
+
+    <string-array name="LocationRefreshString">
+        <item>0.5H</item>
+        <item>1H</item>
+    </string-array>
+
+    <string-array name="DscTestString">
+        <item>数据</item>
+        <item>xxxx</item>
+        <item>xxxx</item>
+        <item>xxxx</item>
+    </string-array>
+
 </resources>

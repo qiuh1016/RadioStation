@@ -100,6 +100,7 @@ public class LogDangerReceiveFragment extends Fragment {
                     }
                 });
                 qhDialog.setNegativeButton("取消", 0, null);
+                qhDialog.setCancelable(false);
                 qhDialog.show();
                 return false;
             }

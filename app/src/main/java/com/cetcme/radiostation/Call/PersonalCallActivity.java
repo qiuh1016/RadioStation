@@ -86,7 +86,7 @@ public class PersonalCallActivity extends AppCompatActivity {
                     sendButton.setText("发送");
 
                     // 测试用
-//                    newMessageDialog();
+                    newMessageDialog();
                 }
             });
 
@@ -103,6 +103,7 @@ public class PersonalCallActivity extends AppCompatActivity {
                 //TODO: 打开查看界面
                 Intent intent = new Intent(getApplicationContext(), PersonalCallDetailActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
             }
         });
         qhDialog.setNegativeButton("取消", 0, null);

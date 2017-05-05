@@ -45,13 +45,21 @@
         </activity>
         <activity android:name=".Setting.AddressAddActivity">
         </activity>
-        <activity android:name=".Setting.SSBSettingActivity">
+        <activity android:name=".Setting.SsbSettingActivity">
         </activity>
-        <activity android:name=".Setting.DSCSettingActivity">
+        <activity android:name=".Setting.DscSettingActivity">
         </activity>
         <activity android:name=".Setting.RoutineDutyActivity">
         </activity>
         <activity android:name=".Setting.AutoAckActivity">
+        </activity>
+        <activity android:name=".Setting.SysSettingActivity">
+        </activity>
+        <activity android:name=".Setting.DeviceInfoActivity">
+        </activity>
+        <activity android:name=".Setting.SelfCheckActivity">
+        </activity>
+        <activity android:name=".Setting.DscTestActivity">
         </activity>
     </application>
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Setting.DscSettingActivity">
+    tools:context=".Setting.SysSettingActivity">
 
     <com.qiuhong.qhlibrary.QHTitleView.QHTitleView
         android:id="@+id/qhTitleView"
@@ -23,6 +23,7 @@
             android:orientation="vertical">
 
 
+            <!--位置-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,13 +36,13 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:text="单呼"
+                    android:text="位置"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
                 <Spinner
-                    android:id="@+id/spinner1"
+                    android:id="@+id/spinner_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -55,6 +56,8 @@
 
             <include layout="@layout/separate_line"/>
 
+
+            <!--语言-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,19 +70,19 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:text="PSTN"
+                    android:text="语言"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
                 <Spinner
-                    android:id="@+id/spinner2"
+                    android:id="@+id/spinner_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_weight="1"
-                    android:entries="@array/AutoAckString"
+                    android:entries="@array/LanguageString"
                     android:gravity="end"
                     android:textAlignment="textEnd"/>
 
@@ -87,70 +90,64 @@
 
             <include layout="@layout/separate_line"/>
 
+
             <LinearLayout
+                android:id="@+id/info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="本机信息"
+                    android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:text="原因"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"
                     android:textStyle="bold"/>
 
-                <Spinner
-                    android:id="@+id/spinner3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="1"
-                    android:entries="@array/ReasonString"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"/>
-
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="15dp"
+                    app:srcCompat="@drawable/setting_arrow_big"/>
             </LinearLayout>
 
             <include layout="@layout/separate_line"/>
 
             <LinearLayout
+                android:id="@+id/check_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="自检"
+                    android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:text="位置呼叫"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"
                     android:textStyle="bold"/>
 
-                <Spinner
-                    android:id="@+id/spinner4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="1"
-                    android:entries="@array/AutoAckString"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"/>
-
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="15dp"
+                    app:srcCompat="@drawable/setting_arrow_big"/>
             </LinearLayout>
 
             <include layout="@layout/separate_line"/>
 
+            <!--位置更新提醒-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -158,56 +155,24 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:text="查询呼叫"
+                    android:text="位置更新提醒"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
                 <Spinner
-                    android:id="@+id/spinner5"
+                    android:id="@+id/spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_weight="1"
-                    android:entries="@array/AutoAckString"
-                    android:gravity="end"
-                    android:textAlignment="textEnd"/>
-
-            </LinearLayout>
-
-            <include layout="@layout/separate_line"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="测试呼叫"
-                    android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-                <Spinner
-                    android:id="@+id/spinner6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="1"
-                    android:entries="@array/AutoAckString"
+                    android:entries="@array/LocationRefreshString"
                     android:gravity="end"
                     android:textAlignment="textEnd"/>
 

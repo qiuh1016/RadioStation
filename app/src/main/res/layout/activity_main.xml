@@ -34,15 +34,15 @@
             android:layout_height="1px"
             android:background="#636363"/>
 
-        <com.ashokvarma.bottomnavigation.BottomNavigationBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bottom_navigation_bar"
-            app:bnbMode="mode_fixed"
-            app:bnbBackgroundStyle="background_style_static"
-            app:bnbActiveColor="@color/tab_text_selected"
-            app:bnbInactiveColor="#6b6b6b"
-            app:bnbBackgroundColor="#EEEEEE"/>
+        <!--<com.ashokvarma.bottomnavigation.BottomNavigationBar-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/bottom_navigation_bar"-->
+            <!--app:bnbMode="mode_fixed"-->
+            <!--app:bnbBackgroundStyle="background_style_static"-->
+            <!--app:bnbActiveColor="@color/tab_text_selected"-->
+            <!--app:bnbInactiveColor="#6b6b6b"-->
+            <!--app:bnbBackgroundColor="#EEEEEE"/>-->
 
 
     </LinearLayout>

@@ -10,14 +10,14 @@ import android.widget.Spinner;
 import com.cetcme.radiostation.R;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
-public class DSCSettingActivity extends AppCompatActivity {
+public class DscTestActivity extends AppCompatActivity {
 
     private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting_dsc);
+        setContentView(R.layout.activity_setting_dsc_test);
 
         getSupportActionBar().hide();
         initTitleView();
@@ -45,27 +45,8 @@ public class DSCSettingActivity extends AppCompatActivity {
 
     private void initView() {
 
-        findViewById(R.id.routine_duty_layout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DSCSettingActivity.this, RoutineDutyActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
-            }
-        });
-
-        findViewById(R.id.auto_ack_layout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DSCSettingActivity.this, AutoAckActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
-            }
-        });
-
-
         spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setSelection(1);
+//        spinner.setSelection(0);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

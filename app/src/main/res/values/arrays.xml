@@ -64,9 +64,9 @@
 
     <string-array name="DutyString">
         <item>DISTRESS1  ——  2187.50Khz</item>
-        <item>DISTRESS2  ——  2187.50Khz</item>
-        <item>DISTRESS3  ——  2187.50Khz</item>
-        <item>DISTRESS4  ——  2187.50Khz</item>
+        <item>DISTRESS2  ——  5132.50Khz</item>
+        <item>DISTRESS3  ——  7864.80Khz</item>
+        <item>DISTRESS4  —— 12345.50Khz</item>
         <item>DISTRESS5  ——  2187.50Khz</item>
         <item>DISTRESS6  ——  2187.50Khz</item>
         <item>DISTRESS7  ——  2187.50Khz</item>

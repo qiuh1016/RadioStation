@@ -10,16 +10,20 @@
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:text="Title"
         android:textColor="@color/homepage_text_color"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="30dp"
         app:srcCompat="@drawable/setting_arrow_big"/>
 </LinearLayout>

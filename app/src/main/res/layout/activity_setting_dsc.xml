@@ -45,7 +45,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="30dp"
                     app:srcCompat="@drawable/setting_arrow_big"/>
             </LinearLayout>
 
@@ -73,7 +73,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="30dp"
                     app:srcCompat="@drawable/setting_arrow_big"/>
             </LinearLayout>
 

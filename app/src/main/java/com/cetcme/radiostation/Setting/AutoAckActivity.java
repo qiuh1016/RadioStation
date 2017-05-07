@@ -57,6 +57,9 @@ public class AutoAckActivity extends AppCompatActivity {
         spinner_5 = (Spinner) findViewById(R.id.spinner5);
         spinner_6 = (Spinner) findViewById(R.id.spinner6);
 
+        spinner_2.setSelection(1);
+        spinner_4.setSelection(1);
+
         spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

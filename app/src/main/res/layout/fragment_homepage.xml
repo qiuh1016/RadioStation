@@ -32,17 +32,38 @@
             android:text="MMSI    123456789"
             android:textColor="@color/homepage_text_color"/>
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:text="CH   0200"
-            android:textAlignment="center"
-            android:textColor="@color/homepage_text_color"
-            android:textSize="60sp"
-            android:textStyle="bold"/>
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="CH   "
+                android:textAlignment="center"
+                android:textColor="@color/homepage_text_color"
+                android:textSize="60sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/ch_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="0200"
+                android:textAlignment="center"
+                android:textColor="@color/homepage_text_color"
+                android:textSize="60sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -50,17 +71,26 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TX     2182.00"
+                android:layout_weight="1"
+                android:text="TX     "
                 android:textAlignment="center"
                 android:textColor="@color/homepage_text_color"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/tx_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2182.00"
+                android:textAlignment="center"
+                android:textColor="@color/homepage_text_color"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -77,17 +107,26 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RX     2182.00"
+                android:text="RX     "
                 android:textAlignment="center"
                 android:textColor="@color/homepage_text_color"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/textView23"
+                android:id="@+id/rx_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2182.00"
+                android:textAlignment="center"
+                android:textColor="@color/homepage_text_color"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -107,14 +146,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/circle_tv"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/homepage_circle_button"/>
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/progress_tv"
             android:layout_width="46dp"
             android:layout_height="17dp"
             android:background="@drawable/homepage_three_circle"/>
@@ -299,7 +338,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/conversation_number_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -314,7 +353,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/conversation_icon_tv"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/homepage_duochangjing"/>
@@ -332,7 +371,7 @@
                 android:paddingRight="10dp">
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/n_tv"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -344,7 +383,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/utc_tv"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -368,7 +407,7 @@
                 android:paddingRight="10dp">
 
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/w_tv"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

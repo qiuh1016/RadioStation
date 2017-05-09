@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,8 +34,10 @@ public class SocketActivity extends AppCompatActivity {
 //    private String serverIP = "192.168.1.179";
 //    private int serverPort = 1025;
 
-    private String serverIP = "192.168.0.56";
+    private String serverIP = "192.168.0.194";
     private int serverPort = 9000;
+
+    private Socket socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,7 @@ public class SocketActivity extends AppCompatActivity {
 //        new SocketServer();
     }
 
-    private Socket socket;
+
 
     /**
      * 建立服务端连接
@@ -106,22 +111,38 @@ public class SocketActivity extends AppCompatActivity {
                         return;
                     }
                     DataOutputStream writer = new DataOutputStream(socket.getOutputStream());
-//                    writer.writeUTF("我是客户端.."); // 写一个UTF-8的信息
-                    writer.write(getPCMData());
 
-                    System.out.println("发送消息");
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshLogView("发送消息：我是客户端");
-                        }
-                    });
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("type","1");
+                        jsonObject.put("content", "指令内容");
+
+                        writer.writeUTF(jsonObject.toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+//                    writer.writeUTF("我是客户端.."); // 写一个UTF-8的信息
+////                    writer.write(getPCMData());
+//
+//                    System.out.println("发送消息");
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            refreshLogView("发送消息：我是客户端");
+//                        }
+//                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }.start();
     }
+
+    private BufferedReader in = null;
+    private String content = "";
 
     /**
      * 从参数的Socket里获取最新的消息
@@ -132,26 +153,69 @@ public class SocketActivity extends AppCompatActivity {
             @Override
             public void run() {
                 DataInputStream reader;
+
+
+
                 try {
-                    // 获取读取流
-                    reader = new DataInputStream(socket.getInputStream());
-                    final InetAddress address = socket.getInetAddress();
+
+                    in = new BufferedReader(new InputStreamReader(socket
+                            .getInputStream()));
 
                     while (true) {
-                        System.out.println("*等待服务器数据*");
-                        // 读取数据
-                        final String msg = reader.readUTF();
-                        System.out.println("获取到服务器的信息：" + address + " :"+ msg);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                refreshLogView("获取到服务器的信息：" + address + " :"+ msg);
+                        if (!socket.isClosed()) {
+                            if (socket.isConnected()) {
+                                if (!socket.isInputShutdown()) {
+
+
+                                    if ((content = in.readLine()) != null) {
+                                        content += "\n";
+                                        Log.i("123", "run: " + content);
+                                    } else {
+
+                                    }
+
+                                }
                             }
-                        });
+                        }
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
+
+//                try {
+//                    // 获取读取流
+//                    reader = new DataInputStream(socket.getInputStream());
+//                    final InetAddress address = socket.getInetAddress();
+//
+//                    while (true) {
+//
+//
+//
+//                        System.out.println("*等待服务器数据*");
+//
+//                        // 读取数据
+//                        final String msg = reader.readUTF();
+//                        Log.i("123", "run: 123--------------------" + msg);
+//                        System.out.println("获取到服务器的信息：" + address + " :"+ msg);
+////                        runOnUiThread(new Runnable() {
+////                            @Override
+////                            public void run() {
+////                                refreshLogView("获取到服务器的信息：" + address + " :"+ msg);
+////                            }
+////                        });
+//
+//                        try {
+//                            Thread.sleep(5000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
         }.start();
     }

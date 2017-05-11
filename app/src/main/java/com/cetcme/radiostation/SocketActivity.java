@@ -1,5 +1,6 @@
 package com.cetcme.radiostation;
 
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -118,6 +119,7 @@ public class SocketActivity extends AppCompatActivity {
                         jsonObject.put("content", "指令内容");
 
                         writer.writeUTF(jsonObject.toString());
+//                        writer.writeUTF("{\"type\":\"1\",\"content\":\"指令内容\"}");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -153,71 +155,35 @@ public class SocketActivity extends AppCompatActivity {
             @Override
             public void run() {
                 DataInputStream reader;
-
-
-
                 try {
-
-                    in = new BufferedReader(new InputStreamReader(socket
-                            .getInputStream()));
+                    // 获取读取流
+                    reader = new DataInputStream(socket.getInputStream());
+                    final InetAddress address = socket.getInetAddress();
 
                     while (true) {
-                        if (!socket.isClosed()) {
-                            if (socket.isConnected()) {
-                                if (!socket.isInputShutdown()) {
 
+                        System.out.println("*等待服务器数据*");
 
-                                    if ((content = in.readLine()) != null) {
-                                        content += "\n";
-                                        Log.i("123", "run: " + content);
-                                    } else {
-
-                                    }
-
-                                }
+                        // 读取数据
+                        final String msg = reader.readUTF();
+                        System.out.println("获取到服务器的信息：" + address + " :"+ msg);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLogView("获取到服务器的信息：" + address + " :"+ msg);
                             }
-                        }
+                        });
+
+
                     }
-                } catch (Exception e) {
+
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-
-//                try {
-//                    // 获取读取流
-//                    reader = new DataInputStream(socket.getInputStream());
-//                    final InetAddress address = socket.getInetAddress();
-//
-//                    while (true) {
-//
-//
-//
-//                        System.out.println("*等待服务器数据*");
-//
-//                        // 读取数据
-//                        final String msg = reader.readUTF();
-//                        Log.i("123", "run: 123--------------------" + msg);
-//                        System.out.println("获取到服务器的信息：" + address + " :"+ msg);
-////                        runOnUiThread(new Runnable() {
-////                            @Override
-////                            public void run() {
-////                                refreshLogView("获取到服务器的信息：" + address + " :"+ msg);
-////                            }
-////                        });
-//
-//                        try {
-//                            Thread.sleep(5000);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
             }
         }.start();
+
+
     }
 
     void refreshLogView(String msg){

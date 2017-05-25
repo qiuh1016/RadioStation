@@ -143,9 +143,6 @@ public class SocketActivity extends AppCompatActivity {
         }.start();
     }
 
-    private BufferedReader in = null;
-    private String content = "";
-
     /**
      * 从参数的Socket里获取最新的消息
      */

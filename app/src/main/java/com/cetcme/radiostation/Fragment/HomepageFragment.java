@@ -196,7 +196,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.voiceTextView:
 //            case R.id.voice_layout:
-                Intent intent = new Intent(getActivity(), SocketActivity.class);
+                Intent intent = new Intent(getActivity(), VoiceSocketActivity.class);
                 startActivity(intent);
                 break;
             case R.id.conversation_number_tv:

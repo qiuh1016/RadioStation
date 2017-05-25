@@ -30,6 +30,9 @@ public class RecordActivity extends AppCompatActivity {
     private UIHandler uiHandler;
     private UIThread uiThread;
 
+    /**
+     * 用于播放类似微信的按下说话音效
+     */
     private MediaPlayer pressMedia;
     private MediaPlayer beginMedia;
     private MediaPlayer upMedia;

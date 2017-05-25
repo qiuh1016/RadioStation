@@ -2,6 +2,7 @@ package com.cetcme.radiostation.voiceSocket;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
+import android.util.Log;
 import android.view.View;
 
 import com.cetcme.radiostation.audio.AudioFileFunc;
@@ -117,7 +118,8 @@ public class RecordSocketFunc {
     class AudioRecordThread implements Runnable {
         @Override
         public void run() {
-            writeDateTOFile();//往文件中写入裸数据
+            sendVoiceData(); //语音发送socket
+//            writeDateTOFile();//往文件中写入裸数据
 //            copyWaveFile(AudioName, NewAudioName);//给裸数据加上头文件
         }
     }
@@ -131,42 +133,68 @@ public class RecordSocketFunc {
         // new一个byte数组用来存一些字节数据，大小为缓冲区大小
         byte[] audioData = new byte[bufferSizeInBytes];
         int readSize = 0;
-//        FileOutputStream fos = null;
+        FileOutputStream fos = null;
 
-//        try {
-//            File file = new File(AudioName);
-//            if (file.exists()) {
-//                file.delete();
-//            }
-//            fos = new FileOutputStream(file);// 建立一个可存取字节的文件
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            File file = new File(AudioName);
+            if (file.exists()) {
+                file.delete();
+            }
+            fos = new FileOutputStream(file);// 建立一个可存取字节的文件
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        while (isRecord) {
+            readSize = audioRecord.read(audioData, 0, bufferSizeInBytes);
+            if (AudioRecord.ERROR_INVALID_OPERATION != readSize) {  // && fos != null
+
+                //将录制的data保存文件
+                try {
+                    fos.write(audioData);
+                    printHexString(audioData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        try {
+            if(fos != null)
+                fos.close();// 关闭写入流
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendVoiceData() {
+        // new一个byte数组用来存一些字节数据，大小为缓冲区大小
+        byte[] audioData = new byte[bufferSizeInBytes];
+        int readSize = 0;
         while (isRecord) {
             readSize = audioRecord.read(audioData, 0, bufferSizeInBytes);
             if (AudioRecord.ERROR_INVALID_OPERATION != readSize) {  // && fos != null
 
                 //将录制的data发送给socket服务器
                 send(audioData);
+//                Log.i("voice", String.valueOf(audioData));
+//                printHexString(audioData);
 
-//                //将录制的data保存文件
-//                try {
-//                    fos.write(audioData);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
             }
         }
-//
-//        try {
-//            if(fos != null)
-//                fos.close();// 关闭写入流
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
-    // 这里得到可播放的音频文件
+    //将指定byte数组以16进制的形式打印到控制台
+    public static void printHexString( byte[] b) {
+        for (int i = 0; i < b.length; i++) {
+            String hex = Integer.toHexString(b[i] & 0xFF);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+            System.out.print(hex.toUpperCase() + " ");
+        }
+    }
+
+        // 这里得到可播放的音频文件
     private void copyWaveFile(String inFilename, String outFilename) {
         FileInputStream in = null;
         FileOutputStream out = null;

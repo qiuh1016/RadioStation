@@ -1,5 +1,8 @@
-package com.cetcme.radiostation;
+package com.cetcme.radiostation.voiceSocket;
 
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
@@ -12,8 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.audio.AudioFileFunc;
-import com.cetcme.radiostation.voiceSocket.RecordSocketFunc;
 import com.cetcme.radiostation.audio.ErrorCode;
 import com.cetcme.radiostation.audio.MediaRecordFunc;
 
@@ -22,6 +25,8 @@ import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -40,6 +45,7 @@ public class VoiceSocketActivity extends AppCompatActivity {
     private Socket socket;
 
 
+    //录制相关参数
     private final static int FLAG_WAV = 0;
     private final static int FLAG_AMR = 1;
     private int mState = -1;    //-1:没再录制，0：录制wav，1：录制amr
@@ -49,13 +55,17 @@ public class VoiceSocketActivity extends AppCompatActivity {
     private VSAUIHandler uiHandler;
     private VSAUIThread uiThread;
 
+    private final static int CMD_RECORDING_TIME = 2000;
+    private final static int CMD_RECORDFAIL = 2001;
+    private final static int CMD_STOP = 2002;
+
     private MediaPlayer pressMedia;
     private MediaPlayer beginMedia;
     private MediaPlayer upMedia;
 
-    private final static int CMD_RECORDING_TIME = 2000;
-    private final static int CMD_RECORDFAIL = 2001;
-    private final static int CMD_STOP = 2002;
+    //播放相关参数
+    private AudioTrack player;
+    private int audioBufSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +82,7 @@ public class VoiceSocketActivity extends AppCompatActivity {
         ipEditText.setText(serverIP);
         portEditText.setText(serverPort + "");
 
+        //录制相关设置
         btn_record_wav = (Button) findViewById(R.id.record_button);
         btn_stop = (Button) findViewById(R.id.stop_record_button);
         btn_record_wav.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +99,18 @@ public class VoiceSocketActivity extends AppCompatActivity {
         });
 
         uiHandler = new VSAUIHandler();
+
+        //播放相关设置
+        audioBufSize = AudioTrack.getMinBufferSize(44100,
+                AudioFormat.CHANNEL_OUT_STEREO,
+                AudioFormat.ENCODING_PCM_16BIT);
+
+        player = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
+                AudioFormat.CHANNEL_OUT_STEREO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                audioBufSize,
+                AudioTrack.MODE_STREAM);
+        player.play();
 
     }
 
@@ -182,6 +205,22 @@ public class VoiceSocketActivity extends AppCompatActivity {
                         System.out.println("*等待服务器数据*");
 
                         // 读取数据
+
+                        final byte[] data = new byte[audioBufSize];
+                        int readSize = reader.read(data);
+                        player.write(data, 0, audioBufSize * 2);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLogView("获取到服务器的信息：" + address + " :" + data.toString());
+                            }
+                        });
+
+
+
+
+                        /*
                         final String msg = reader.readUTF();
                         System.out.println("获取到服务器的信息：" + address + " :"+ msg);
                         runOnUiThread(new Runnable() {
@@ -190,6 +229,8 @@ public class VoiceSocketActivity extends AppCompatActivity {
                                 refreshLogView("获取到服务器的信息：" + address + " :"+ msg);
                             }
                         });
+                        */
+
 
 
                     }
@@ -199,7 +240,6 @@ public class VoiceSocketActivity extends AppCompatActivity {
                 }
             }
         }.start();
-
 
     }
 

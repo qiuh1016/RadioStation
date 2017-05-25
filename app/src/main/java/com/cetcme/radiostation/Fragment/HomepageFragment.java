@@ -8,18 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cetcme.radiostation.Main2Activity;
 import com.cetcme.radiostation.R;
-import com.cetcme.radiostation.RecordActivity;
-import com.cetcme.radiostation.SocketActivity;
-import com.cetcme.radiostation.VoiceShareActivity;
-import com.cetcme.radiostation.VoiceSocketActivity;
-import com.cetcme.radiostation.pcm.AudioPlayerDemoActivity;
+import com.cetcme.radiostation.voiceSocket.VoiceSocketActivity;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 import java.text.SimpleDateFormat;

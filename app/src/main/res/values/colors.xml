@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="littleGray">#EEEEEE</color>
 
+    <color name="QHTitleColor">#3D5C94</color>
     <color name="tab_text_selected">#3D5C94</color>
     <color name="tab_text_unselected">#000000</color>
 

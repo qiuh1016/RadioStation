@@ -182,6 +182,12 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         circle_tv = (TextView) view.findViewById(R.id.circle_tv);
         progress_tv = (TextView) view.findViewById(R.id.progress_tv);
 
+        ch_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

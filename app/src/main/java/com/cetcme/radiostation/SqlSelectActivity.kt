@@ -1,14 +1,10 @@
 package com.cetcme.radiostation
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_sql_select.*
 import android.content.Intent
-import android.opengl.Visibility
-import android.widget.RadioButton
 import com.cetcme.radiostation.Fragment.HomepageFragment
 
 
@@ -22,9 +18,8 @@ class SqlSelectActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sql_select)
 
-        radioNumber = this.intent.getIntExtra("radioNumber",0)
-        MNumber = this.intent.getStringExtra("MNumber")
         initView()
+        setRadioData()
     }
 
     fun initView() {
@@ -40,19 +35,28 @@ class SqlSelectActivity : Activity() {
             }
         }
 
+
+
+
+    }
+
+    fun setRadioData() {
+
+        radioNumber = this.intent.getIntExtra("radioNumber",0)
+        MNumber = this.intent.getStringExtra("MNumber")
+
+
         if (radioNumber == 0) {
-            radioButton0.toggle()
+            radioButton0.isChecked
             editText.visibility = View.INVISIBLE
         } else if (radioNumber == 1) {
-            radioButton1.toggle()
+            radioButton1.isChecked
             editText.visibility = View.INVISIBLE
         } else if (radioNumber == 2) {
-            radioButton2.toggle()
+            radioButton2.isChecked
             editText.visibility = View.VISIBLE
             editText.setText(MNumber)
         }
-
-
     }
 
     fun confirmButtonTapped(v: View) {

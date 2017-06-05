@@ -11,11 +11,17 @@
         <item>L</item>
     </string-array>
 
+    <!--<string-array name="sqlString">-->
+        <!--<item>20</item>-->
+        <!--<item>15</item>-->
+        <!--<item>10</item>-->
+        <!--<item>5</item>-->
+    <!--</string-array>-->
+
     <string-array name="sqlString">
-        <item>20</item>
-        <item>15</item>
-        <item>10</item>
-        <item>5</item>
+        <item>A</item>
+        <item>C</item>
+        <item>M</item>
     </string-array>
 
     <string-array name="powString">

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.cetcme.radiostation.Main2Activity;
 import com.cetcme.radiostation.R;
+import com.cetcme.radiostation.SqlSelectActivity;
 import com.cetcme.radiostation.voiceSocket.VoiceSocketActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
@@ -34,6 +35,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
     private Spinner att_spinner;
     private Spinner sql_spinner;
     private Spinner pow_spinner;
+
+    private TextView sql_TextView;
+
+    private int lastSqlState = 0;
+    private String lastSqlMState = "";
 
     private TextView mmsi_tv;
     private TextView ch_tv;
@@ -91,6 +97,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         new TimeThread().start();
 
 
+
+
         return view;
     }
 
@@ -119,6 +127,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         sql_spinner = (Spinner) view.findViewById(R.id.sql_spinner);
         pow_spinner = (Spinner) view.findViewById(R.id.pow_spinner);
 
+        sql_TextView = (TextView) view.findViewById(R.id.sql_TextView);
+
+        sql_spinner.setVisibility(View.GONE);
+        sql_TextView.setVisibility(View.VISIBLE);
 
 
         agc_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -132,6 +144,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
             }
         });
+
+
         att_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -147,6 +161,78 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i(TAG, " onItemSelected: " + "sql_spinner - " + position);
+                switch (position) {
+                    case 0:
+                        lastSqlState = 0;
+                        break;
+                    case 1:
+                        lastSqlState = 1;
+                        break;
+                    case 2:
+                        final QHDialog sqlQHDialog = new QHDialog(getActivity(), "SQL选择", "");
+                        sqlQHDialog.setPositiveButton("确认", 0, new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                dialog.dismiss();
+                                String sql = sqlQHDialog.getEditTextText();
+
+                                QHDialog errQHDialog = new QHDialog(getActivity(), "提示", "输入有误");
+
+                                errQHDialog.setPositiveButton("好的", 0, new DialogInterface.OnClickListener(){
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+//                                        resetSql();
+                                        sqlQHDialog.show();
+                                    }
+                                });
+
+                                if (!isNumeric(sql) || sql.equals("")) {
+                                    errQHDialog.show();
+                                    return;
+                                }
+
+                                Log.i(TAG, "onClick: " + sql);
+
+                                switch (sql.length()) {
+                                    case 1:
+                                        sql = "0" + sql;
+                                        sql_TextView.setText(sql);
+                                        sql_spinner.setVisibility(View.GONE);
+                                        sql_TextView.setVisibility(View.VISIBLE);
+                                        lastSqlState = 2;
+                                        lastSqlMState = sql;
+                                        break;
+                                    case 2:
+                                        sql_TextView.setText(sql);
+                                        sql_spinner.setVisibility(View.GONE);
+                                        sql_TextView.setVisibility(View.VISIBLE);
+                                        lastSqlState = 2;
+                                        lastSqlMState = sql;
+                                        break;
+                                    default:
+                                        errQHDialog.show();
+                                        resetSql();
+                                        break;
+                                }
+
+                            }
+                        });
+                        sqlQHDialog.setNegativeButton("取消", 0,  new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                dialog.dismiss();
+                                //TODO: 取消输入的话 返回spinner原先的状态
+                                resetSql();
+                            }
+                        });
+                        sqlQHDialog.setEditText("请输入0～99的sql值");
+                        sqlQHDialog.setCancelable(false);
+                        sqlQHDialog.show();
+                        break;
+                    default:
+                        resetSql();
+                }
             }
 
             @Override
@@ -154,6 +240,20 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
             }
         });
+
+        sql_TextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                sql_TextView.setVisibility(View.GONE);
+//                sql_spinner.setVisibility(View.VISIBLE);
+//                sql_spinner.performClick();
+                Intent intent = new Intent(getActivity(), SqlSelectActivity.class);
+                intent.putExtra("radioNumber", lastSqlState);
+                intent.putExtra("MNumber", lastSqlMState);
+                startActivityForResult(intent, 0);
+            }
+        });
+
         pow_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -342,6 +442,18 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    private void resetSql() {
+        if (lastSqlState != 2) {
+            sql_spinner.setSelection(lastSqlState);
+            sql_spinner.setVisibility(View.VISIBLE);
+            sql_TextView.setVisibility(View.GONE);
+        } else {
+            sql_spinner.setVisibility(View.GONE);
+            sql_TextView.setVisibility(View.VISIBLE);
+            sql_TextView.setText(lastSqlMState);
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -361,7 +473,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
     public static boolean isNumeric(String str){
         for (int i = 0; i < str.length(); i++){
-//            System.out.println(str.charAt(i));
             if (!Character.isDigit(str.charAt(i))){
                 return false;
             }
@@ -416,6 +527,32 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                     e.printStackTrace();
                 }
             } while (true);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {
+            return;
+        }
+        int radioNumber = data.getIntExtra("radioNumber", 0);
+        String MNumber = data.getStringExtra("MNumber");
+        // 根据上面发送过去的请求码来区别
+        switch (requestCode) {
+            case 0:
+                lastSqlState = radioNumber;
+                lastSqlMState = MNumber;
+                if (radioNumber == 0) {
+                    sql_TextView.setText("A");
+                } else if (radioNumber == 1) {
+                    sql_TextView.setText("B");
+                } else if (radioNumber == 2) {
+                    sql_TextView.setText(MNumber);
+                }
+                break;
+
+            default:
+                break;
         }
     }
 }

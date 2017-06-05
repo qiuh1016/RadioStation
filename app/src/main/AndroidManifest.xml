@@ -16,8 +16,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main2Activity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".Main2Activity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -61,6 +62,10 @@
         <activity android:name=".Setting.SelfCheckActivity">
         </activity>
         <activity android:name=".Setting.DscTestActivity">
+        </activity>
+        <activity android:name=".SqlSelectActivity"
+                  android:theme="@style/myDialogActivityStyle"
+                  android:launchMode="singleTask">
         </activity>
     </application>
 

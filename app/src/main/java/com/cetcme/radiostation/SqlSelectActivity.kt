@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_sql_select.*
 import android.content.Intent
+import android.util.Log
 import com.cetcme.radiostation.Fragment.HomepageFragment
 
 
@@ -44,19 +45,25 @@ class SqlSelectActivity : Activity() {
 
         radioNumber = this.intent.getIntExtra("radioNumber",0)
         MNumber = this.intent.getStringExtra("MNumber")
+        Log.i("kt", " MNumber: $MNumber")
 
-
-        if (radioNumber == 0) {
-            radioButton0.isChecked
-            editText.visibility = View.INVISIBLE
-        } else if (radioNumber == 1) {
-            radioButton1.isChecked
-            editText.visibility = View.INVISIBLE
-        } else if (radioNumber == 2) {
-            radioButton2.isChecked
-            editText.visibility = View.VISIBLE
-            editText.setText(MNumber)
+        editText.setText(MNumber)
+        when (radioNumber) {
+            0 -> {
+                radioButton0.toggle()
+                editText.visibility = View.INVISIBLE
+            }
+            1 -> {
+                radioButton1.toggle()
+                editText.visibility = View.INVISIBLE
+            }
+            2 -> {
+                radioButton2.toggle()
+                editText.visibility = View.VISIBLE
+            }
         }
+
+
     }
 
     fun confirmButtonTapped(v: View) {
@@ -64,14 +71,19 @@ class SqlSelectActivity : Activity() {
         var MNumberStr = ""
         if (radioButton0.isChecked) {
             radioNumber = 0
+            MNumberStr = MNumber
         } else if (radioButton1.isChecked) {
             radioNumber = 1
+            MNumberStr = MNumber
         } else if (radioButton2.isChecked) {
-            if (editText.text.toString().isEmpty()) {
+
+
+            MNumberStr = editText.text.toString()
+
+            if (MNumberStr.isEmpty()) {
                 return
             }
 
-            MNumberStr = editText.text.toString()
             if (HomepageFragment.isNum(MNumberStr)) {
                 var MNumberInt:Int = editText.text.toString().toInt()
                 if (MNumberInt > 20 || MNumberInt <= 0) {
@@ -91,7 +103,6 @@ class SqlSelectActivity : Activity() {
             }
 
 
-
         }
 
         val mIntent = Intent()
@@ -103,7 +114,7 @@ class SqlSelectActivity : Activity() {
     }
 
     fun cancelButtonTapped(v: View) {
-        this.setResult(0, null)
+//        this.setResult(0, null)
         onBackPressed()
     }
 

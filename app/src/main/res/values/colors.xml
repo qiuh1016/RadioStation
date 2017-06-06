@@ -20,4 +20,6 @@
     <color name="msg_num_shape">#00FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="border_clo">#cccccc</color>
+
+    <color name="green">#4da159</color>
 </resources>

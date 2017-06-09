@@ -28,4 +28,21 @@
     <string name="address_viewpager_title_2">岸台</string>
     <string name="address_viewpager_title_3">船队</string>
     <string name="address_viewpager_title_4">PSTN</string>
+
+    <string name="homepage_ssb_0">SSB</string>
+    <string name="homepage_ssb_1">DSC</string>
+    <string name="homepage_ssb_2">AM</string>
+    <string name="homepage_ssb_3">NBDP</string>
+
+
+    <string name="homepage_agc_0">FAST</string>
+    <string name="homepage_agc_1">SLOW</string>
+    <string name="homepage_agc_2">MGC</string>
+
+
+    <string name="homepage_sql_0">ON</string>
+    <string name="homepage_sql_1">OFF</string>
+    <string name="homepage_sql_2">SET</string>
+
+
 </resources>

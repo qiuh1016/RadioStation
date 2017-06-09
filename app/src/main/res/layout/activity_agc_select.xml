@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/homepage_sql_0"
+                    android:text="@string/homepage_agc_0"
                     android:textColor="@color/homepage_text_color"
                     android:theme="@style/AppTheme"/>
 
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/homepage_sql_1"
+                    android:text="@string/homepage_agc_1"
                     android:textColor="@color/homepage_text_color"
                     android:theme="@style/AppTheme"/>
                 <View style="@style/bg_line"/>
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/homepage_sql_2"
+                    android:text="@string/homepage_agc_2"
                     android:textColor="@color/homepage_text_color"
                     android:theme="@style/AppTheme"/>
             </RadioGroup>
@@ -86,7 +86,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@android:drawable/editbox_background_normal"
                     android:ems="10"
-                    android:hint="请输入1-20的静噪值"
+                    android:hint="请输入1-20的MGC值"
                     android:inputType="number"
                     android:textColor="@color/homepage_text_color"
                     android:textColorHint="@color/border_clo"

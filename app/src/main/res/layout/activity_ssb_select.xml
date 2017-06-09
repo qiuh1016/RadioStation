@@ -25,8 +25,9 @@
             style="@style/wrap_layout"
             android:orientation="horizontal">
 
+
             <RadioGroup
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <RadioButton
@@ -34,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/homepage_sql_0"
+                    android:text="@string/homepage_ssb_0"
                     android:textColor="@color/homepage_text_color"
                     android:theme="@style/AppTheme"/>
 
@@ -45,9 +46,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/homepage_sql_1"
+                    android:text="@string/homepage_ssb_1"
                     android:textColor="@color/homepage_text_color"
                     android:theme="@style/AppTheme"/>
+
                 <View style="@style/bg_line"/>
 
                 <RadioButton
@@ -55,44 +57,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/homepage_sql_2"
+                    android:text="@string/homepage_ssb_2"
+                    android:textColor="@color/homepage_text_color"
+                    android:theme="@style/AppTheme"/>
+
+                <View style="@style/bg_line"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/homepage_ssb_3"
                     android:textColor="@color/homepage_text_color"
                     android:theme="@style/AppTheme"/>
             </RadioGroup>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    />
-                <View style="@style/bg_line"/>
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"/>
-                <View style="@style/bg_line"/>
-
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@android:drawable/editbox_background_normal"
-                    android:ems="10"
-                    android:hint="请输入1-20的静噪值"
-                    android:inputType="number"
-                    android:textColor="@color/homepage_text_color"
-                    android:textColorHint="@color/border_clo"
-                    android:textSize="13sp"/>
-
-            </LinearLayout>
         </LinearLayout>
 
         <!--button layout-->

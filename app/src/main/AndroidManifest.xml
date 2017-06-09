@@ -63,9 +63,20 @@
         </activity>
         <activity android:name=".Setting.DscTestActivity">
         </activity>
-        <activity android:name=".SqlSelectActivity"
-                  android:theme="@style/myDialogActivityStyle"
-                  android:launchMode="singleTask">
+        <activity
+            android:name=".DialogView.SqlSelectActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/myDialogActivityStyle">
+        </activity>
+        <activity
+            android:name=".DialogView.SsbSelectActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/myDialogActivityStyle">
+        </activity>
+        <activity
+            android:name=".DialogView.AgcSelectActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/myDialogActivityStyle">
         </activity>
     </application>
 

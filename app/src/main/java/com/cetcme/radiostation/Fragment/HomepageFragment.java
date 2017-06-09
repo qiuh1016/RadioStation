@@ -15,9 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cetcme.radiostation.DialogView.AgcSelectActivity;
+import com.cetcme.radiostation.DialogView.SqlSelectActivity;
+import com.cetcme.radiostation.DialogView.SsbSelectActivity;
 import com.cetcme.radiostation.Main2Activity;
+import com.cetcme.radiostation.MyClass.DensityUtil;
 import com.cetcme.radiostation.R;
-import com.cetcme.radiostation.SqlSelectActivity;
 import com.cetcme.radiostation.voiceSocket.VoiceSocketActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
@@ -36,10 +39,16 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
     private Spinner sql_spinner;
     private Spinner pow_spinner;
 
+    private TextView agc_TextView;
     private TextView sql_TextView;
+    private TextView ssb_TextView;
 
-    private int lastSqlState = 0;
-    private String lastSqlMState = "";
+    private int lastSsbState;
+    private int lastAgcState;
+    private String lastAgcMState;
+    private int lastSqlState;
+    private String lastSqlMState;
+
 
     private TextView mmsi_tv;
     private TextView ch_tv;
@@ -96,10 +105,23 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         //更新系统时间
         new TimeThread().start();
 
-
+        //获取系统设置
+        initSystemSetting();
 
 
         return view;
+    }
+
+    private void initSystemSetting() {
+        lastSsbState = 0;
+
+        lastAgcState = 0;
+        lastAgcMState = "";
+
+        lastSqlState = 0;
+        lastSqlMState = "";
+
+
     }
 
     private void initTitleView(View view) {
@@ -126,11 +148,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         att_spinner = (Spinner) view.findViewById(R.id.att_spinner);
         sql_spinner = (Spinner) view.findViewById(R.id.sql_spinner);
         pow_spinner = (Spinner) view.findViewById(R.id.pow_spinner);
-
-        sql_TextView = (TextView) view.findViewById(R.id.sql_TextView);
-
-        sql_spinner.setVisibility(View.GONE);
-        sql_TextView.setVisibility(View.VISIBLE);
 
 
         agc_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -241,19 +258,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
             }
         });
 
-        sql_TextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                sql_TextView.setVisibility(View.GONE);
-//                sql_spinner.setVisibility(View.VISIBLE);
-//                sql_spinner.performClick();
-                Intent intent = new Intent(getActivity(), SqlSelectActivity.class);
-                intent.putExtra("radioNumber", lastSqlState);
-                intent.putExtra("MNumber", lastSqlMState);
-                startActivityForResult(intent, 0);
-            }
-        });
-
         pow_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -271,6 +275,14 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         view.findViewById(R.id.voiceTextView).setOnClickListener(this);
         view.findViewById(R.id.voice_layout).setOnClickListener(this);
         view.findViewById(R.id.conversation_icon_tv).setOnClickListener(this);
+
+        ssb_TextView = (TextView) view.findViewById(R.id.ssb_textView);
+        ssb_TextView.setOnClickListener(this);
+        agc_TextView = (TextView) view.findViewById(R.id.agc_TextView);
+        agc_TextView.setOnClickListener(this);
+        sql_TextView = (TextView) view.findViewById(R.id.sql_TextView);
+        sql_TextView.setOnClickListener(this);
+
 
         mmsi_tv = (TextView) view.findViewById(R.id.mmsi_textview);
         conversation_number_tv = (TextView) view.findViewById(R.id.conversation_number_tv);
@@ -457,15 +469,34 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.voiceTextView:
 //            case R.id.voice_layout:
-                Intent intent = new Intent(getActivity(), VoiceSocketActivity.class);
+                intent = new Intent(getActivity(), VoiceSocketActivity.class);
                 startActivity(intent);
                 break;
             case R.id.conversation_number_tv:
             case R.id.conversation_icon_tv:
                 Toast.makeText(getActivity(), "conversation", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.sql_TextView:
+                intent = new Intent(getActivity(), SqlSelectActivity.class);
+                intent.putExtra("radioNumber", lastSqlState);
+                intent.putExtra("MNumber", lastSqlMState);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.ssb_textView:
+                intent = new Intent(getActivity(), SsbSelectActivity.class);
+                intent.putExtra("ssbState", lastSsbState);
+                startActivityForResult(intent, 1);
+                break;
+            case R.id.agc_TextView:
+                intent = new Intent(getActivity(), AgcSelectActivity.class);
+                intent.putExtra("radioNumber", lastAgcState);
+                intent.putExtra("MNumber", lastAgcMState);
+                startActivityForResult(intent, 2);
+                break;
             default:
                 break;
         }
@@ -543,14 +574,41 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                 lastSqlState = radioNumber;
                 lastSqlMState = MNumber;
                 if (radioNumber == 0) {
-                    sql_TextView.setText("A");
+                    sql_TextView.setText(getString(R.string.homepage_sql_0));
                 } else if (radioNumber == 1) {
-                    sql_TextView.setText("B");
+                    sql_TextView.setText(getString(R.string.homepage_sql_1));
                 } else if (radioNumber == 2) {
                     sql_TextView.setText(MNumber);
                 }
                 break;
-
+            case 1:
+                int ssbState = data.getIntExtra("ssbState", 0);
+                lastSsbState = ssbState;
+                if (ssbState == 0) {
+                    ssb_TextView.setText(getString(R.string.homepage_ssb_0));
+                    ssb_TextView.setTextSize(50);  //DensityUtil.px2dip(getActivity(), 50)
+                } else if (ssbState == 1) {
+                    ssb_TextView.setText(getString(R.string.homepage_ssb_1));
+                    ssb_TextView.setTextSize(50);
+                } else if (ssbState == 2) {
+                    ssb_TextView.setText(getString(R.string.homepage_ssb_2));
+                    ssb_TextView.setTextSize(50);
+                } else if (ssbState == 3) {
+                    ssb_TextView.setText(getString(R.string.homepage_ssb_3));
+                    ssb_TextView.setTextSize(40);
+                }
+                break;
+            case 2:
+                lastAgcState = radioNumber;
+                lastAgcMState = MNumber;
+                if (radioNumber == 0) {
+                    agc_TextView.setText(getString(R.string.homepage_agc_0));
+                } else if (radioNumber == 1) {
+                    agc_TextView.setText(getString(R.string.homepage_agc_1));
+                } else if (radioNumber == 2) {
+                    agc_TextView.setText(MNumber);
+                }
+                break;
             default:
                 break;
         }

@@ -1,13 +1,14 @@
-package com.cetcme.radiostation
+package com.cetcme.radiostation.DialogView
 
 import android.app.Activity
-import android.os.Bundle
-import android.view.View
-import kotlinx.android.synthetic.main.activity_sql_select.*
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.cetcme.radiostation.Fragment.HomepageFragment
 
+import com.cetcme.radiostation.R
+import kotlinx.android.synthetic.main.activity_sql_select.*
 
 class SqlSelectActivity : Activity() {
 
@@ -35,8 +36,6 @@ class SqlSelectActivity : Activity() {
                 editText.visibility = View.INVISIBLE
             }
         }
-
-
 
 
     }
@@ -117,6 +116,5 @@ class SqlSelectActivity : Activity() {
 //        this.setResult(0, null)
         onBackPressed()
     }
-
 
 }

@@ -287,14 +287,23 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
         ssb_TextView = (TextView) view.findViewById(R.id.ssb_textView);
         ssb_TextView.setOnClickListener(this);
+
         agc_TextView = (TextView) view.findViewById(R.id.agc_TextView);
         agc_TextView.setOnClickListener(this);
+        view.findViewById(R.id.agc_layout).setOnClickListener(this);
+
         sql_TextView = (TextView) view.findViewById(R.id.sql_TextView);
         sql_TextView.setOnClickListener(this);
+        view.findViewById(R.id.sql_layout).setOnClickListener(this);
+
         att_TextView = (TextView) view.findViewById(R.id.att_TextView);
         att_TextView.setOnClickListener(this);
+        view.findViewById(R.id.att_layout).setOnClickListener(this);
+
         pow_TextView = (TextView) view.findViewById(R.id.pow_TextView);
         pow_TextView.setOnClickListener(this);
+        view.findViewById(R.id.pow_layout).setOnClickListener(this);
+
 
 
         mmsi_tv = (TextView) view.findViewById(R.id.mmsi_textview);
@@ -479,7 +488,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -493,28 +501,32 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
             case R.id.conversation_icon_tv:
                 Toast.makeText(getActivity(), "conversation", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.sql_TextView:
-                intent = new Intent(getActivity(), SqlSelectActivity.class);
-                intent.putExtra("radioNumber", lastSqlState);
-                intent.putExtra("MNumber", lastSqlMState);
-                startActivityForResult(intent, 0);
-                break;
             case R.id.ssb_textView:
                 intent = new Intent(getActivity(), SsbSelectActivity.class);
                 intent.putExtra("ssbState", lastSsbState);
                 startActivityForResult(intent, 1);
                 break;
+            case R.id.agc_layout:
             case R.id.agc_TextView:
                 intent = new Intent(getActivity(), AgcSelectActivity.class);
                 intent.putExtra("radioNumber", lastAgcState);
                 intent.putExtra("MNumber", lastAgcMState);
                 startActivityForResult(intent, 2);
                 break;
+            case R.id.sql_layout:
+            case R.id.sql_TextView:
+                intent = new Intent(getActivity(), SqlSelectActivity.class);
+                intent.putExtra("radioNumber", lastSqlState);
+                intent.putExtra("MNumber", lastSqlMState);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.att_layout:
             case R.id.att_TextView:
                 intent = new Intent(getActivity(), AttSelectActivity.class);
                 intent.putExtra("attState", lastAttState);
                 startActivityForResult(intent, 3);
                 break;
+            case R.id.pow_layout:
             case R.id.pow_TextView:
                 intent = new Intent(getActivity(), PowSelectActivity.class);
                 intent.putExtra("powState", lastPowState);

@@ -44,5 +44,13 @@
     <string name="homepage_sql_1">OFF</string>
     <string name="homepage_sql_2">SET</string>
 
+    <string name="homepage_att_0">S</string>
+    <string name="homepage_att_1">PRE</string>
+    <string name="homepage_att_2">L</string>
+
+    <string name="homepage_pow_0">H</string>
+    <string name="homepage_pow_1">M</string>
+    <string name="homepage_pow_2">L</string>
+
 
 </resources>

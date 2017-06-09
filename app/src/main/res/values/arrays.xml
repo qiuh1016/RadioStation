@@ -100,9 +100,9 @@
 
     <string-array name="DscTestString">
         <item>数据</item>
-        <item>xxxx</item>
-        <item>xxxx</item>
-        <item>xxxx</item>
+        <item>连续发送0</item>
+        <item>连续发送1</item>
+        <item>交替发送0/1</item>
     </string-array>
 
 </resources>

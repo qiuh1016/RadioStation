@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cetcme.radiostation.DialogView.AgcSelectActivity;
+import com.cetcme.radiostation.DialogView.AttSelectActivity;
+import com.cetcme.radiostation.DialogView.PowSelectActivity;
 import com.cetcme.radiostation.DialogView.SqlSelectActivity;
 import com.cetcme.radiostation.DialogView.SsbSelectActivity;
 import com.cetcme.radiostation.Main2Activity;
@@ -39,15 +41,19 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
     private Spinner sql_spinner;
     private Spinner pow_spinner;
 
+    private TextView ssb_TextView;
     private TextView agc_TextView;
     private TextView sql_TextView;
-    private TextView ssb_TextView;
+    private TextView att_TextView;
+    private TextView pow_TextView;
 
     private int lastSsbState;
     private int lastAgcState;
     private String lastAgcMState;
     private int lastSqlState;
     private String lastSqlMState;
+    private int lastAttState;
+    private int lastPowState;
 
 
     private TextView mmsi_tv;
@@ -121,6 +127,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         lastSqlState = 0;
         lastSqlMState = "";
 
+        lastAttState = 0;
+        lastPowState = 0;
+
 
     }
 
@@ -187,7 +196,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                         break;
                     case 2:
                         final QHDialog sqlQHDialog = new QHDialog(getActivity(), "SQL选择", "");
-                        sqlQHDialog.setPositiveButton("确认", 0, new DialogInterface.OnClickListener(){
+                        sqlQHDialog.setNegativeButton("确认", 0, new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialog, int which){
                                 dialog.dismiss();
@@ -235,7 +244,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
                             }
                         });
-                        sqlQHDialog.setNegativeButton("取消", 0,  new DialogInterface.OnClickListener(){
+                        sqlQHDialog.setPositiveButton("取消", 0,  new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialog, int which){
                                 dialog.dismiss();
@@ -282,6 +291,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         agc_TextView.setOnClickListener(this);
         sql_TextView = (TextView) view.findViewById(R.id.sql_TextView);
         sql_TextView.setOnClickListener(this);
+        att_TextView = (TextView) view.findViewById(R.id.att_TextView);
+        att_TextView.setOnClickListener(this);
+        pow_TextView = (TextView) view.findViewById(R.id.pow_TextView);
+        pow_TextView.setOnClickListener(this);
 
 
         mmsi_tv = (TextView) view.findViewById(R.id.mmsi_textview);
@@ -306,7 +319,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 final QHDialog chQHDialog = new QHDialog(getActivity(), "频道选择", "");
-                chQHDialog.setPositiveButton("确认", 0, new DialogInterface.OnClickListener(){
+                chQHDialog.setNegativeButton("确认", 0, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
                         dialog.dismiss();
@@ -343,7 +356,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
                     }
                 });
-                chQHDialog.setNegativeButton("取消", 0, null);
+                chQHDialog.setPositiveButton("取消", 0, null);
                 chQHDialog.setEditText("请输入0～9999的频道编号");
                 chQHDialog.setCancelable(false);
                 chQHDialog.show();
@@ -354,7 +367,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 final QHDialog txQHDialog = new QHDialog(getActivity(), "发送频率选择", "");
-                txQHDialog.setPositiveButton("确认", 0, new DialogInterface.OnClickListener(){
+                txQHDialog.setNegativeButton("确认", 0, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
                         dialog.dismiss();
@@ -394,7 +407,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
                     }
                 });
-                txQHDialog.setNegativeButton("取消", 0, null);
+                txQHDialog.setPositiveButton("取消", 0, null);
                 txQHDialog.setEditText("请输入0～9999的2位小数");
                 txQHDialog.setCancelable(false);
                 txQHDialog.show();
@@ -405,7 +418,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 final QHDialog rxQHDialog = new QHDialog(getActivity(), "接收频率选择", "");
-                rxQHDialog.setPositiveButton("确认", 0, new DialogInterface.OnClickListener(){
+                rxQHDialog.setNegativeButton("确认", 0, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
                         dialog.dismiss();
@@ -445,7 +458,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
                     }
                 });
-                rxQHDialog.setNegativeButton("取消", 0, null);
+                rxQHDialog.setPositiveButton("取消", 0, null);
                 rxQHDialog.setEditText("请输入0～9999的2位小数");
                 rxQHDialog.setCancelable(false);
                 rxQHDialog.show();
@@ -496,6 +509,16 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                 intent.putExtra("radioNumber", lastAgcState);
                 intent.putExtra("MNumber", lastAgcMState);
                 startActivityForResult(intent, 2);
+                break;
+            case R.id.att_TextView:
+                intent = new Intent(getActivity(), AttSelectActivity.class);
+                intent.putExtra("attState", lastAttState);
+                startActivityForResult(intent, 3);
+                break;
+            case R.id.pow_TextView:
+                intent = new Intent(getActivity(), PowSelectActivity.class);
+                intent.putExtra("powState", lastPowState);
+                startActivityForResult(intent, 4);
                 break;
             default:
                 break;
@@ -595,7 +618,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                     ssb_TextView.setTextSize(50);
                 } else if (ssbState == 3) {
                     ssb_TextView.setText(getString(R.string.homepage_ssb_3));
-                    ssb_TextView.setTextSize(40);
+                    ssb_TextView.setTextSize(35);
                 }
                 break;
             case 2:
@@ -607,6 +630,28 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                     agc_TextView.setText(getString(R.string.homepage_agc_1));
                 } else if (radioNumber == 2) {
                     agc_TextView.setText(MNumber);
+                }
+                break;
+            case 3:
+                int attState = data.getIntExtra("attState", 0);
+                lastAttState = attState;
+                if (attState == 0) {
+                    att_TextView.setText(getString(R.string.homepage_att_0));
+                } else if (attState == 1) {
+                    att_TextView.setText(getString(R.string.homepage_att_1));
+                } else if (attState == 2) {
+                    att_TextView.setText(getString(R.string.homepage_att_2));
+                }
+                break;
+            case 4:
+                int powState = data.getIntExtra("powState", 0);
+                lastPowState = powState;
+                if (powState == 0) {
+                    pow_TextView.setText(getString(R.string.homepage_pow_0));
+                } else if (powState == 1) {
+                    pow_TextView.setText(getString(R.string.homepage_pow_1));
+                } else if (powState == 2) {
+                    pow_TextView.setText(getString(R.string.homepage_pow_2));
                 }
                 break;
             default:

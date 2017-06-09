@@ -78,6 +78,16 @@
             android:launchMode="singleTask"
             android:theme="@style/myDialogActivityStyle">
         </activity>
+        <activity
+            android:name=".DialogView.AttSelectActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/myDialogActivityStyle">
+        </activity>
+        <activity
+            android:name=".DialogView.PowSelectActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/myDialogActivityStyle">
+        </activity>
     </application>
 
 </manifest>

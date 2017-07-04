@@ -21,7 +21,6 @@ import com.cetcme.radiostation.DialogView.PowSelectActivity;
 import com.cetcme.radiostation.DialogView.SqlSelectActivity;
 import com.cetcme.radiostation.DialogView.SsbSelectActivity;
 import com.cetcme.radiostation.Main2Activity;
-import com.cetcme.radiostation.MyClass.DensityUtil;
 import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.voiceSocket.VoiceSocketActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
@@ -58,11 +57,20 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
     private TextView mmsi_tv;
     private TextView ch_tv;
+    private TextView ch_name_tv;
     private TextView tx_tv;
     private TextView rx_tv;
-    private TextView n_tv;
-    private TextView w_tv;
+    private TextView gpsY_tv;
+    private TextView gpsX_tv;
     private TextView utc_tv;
+
+    private String mmsi;
+    private int ch;
+    private String ch_name;
+    private double tx;
+    private double rx;
+    private String gpsX;
+    private String gpsY;
 
     private TextView circle_tv;
     private TextView progress_tv;
@@ -100,13 +108,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         initSpinner(view);
         initView(view);
 
-        mmsi_tv.setText("MMSI    " + "123456789");
-        ch_tv.setText("0200");
-        tx_tv.setText("2182.00");
-        rx_tv.setText("2182.00");
 
-        n_tv.setText("34°42.2800N");
-        w_tv.setText("135°19.5900W");
+
 
         //更新系统时间
         new TimeThread().start();
@@ -114,6 +117,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         //获取系统设置
         initSystemSetting();
 
+        //更新ui
+        updateView();
 
         return view;
     }
@@ -130,7 +135,94 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         lastAttState = 0;
         lastPowState = 0;
 
+        mmsi = "123456789";
+        ch = 200;
+        ch_name = "USER2";
+        tx = 2182.00;
+        rx = 2182.00;
 
+        gpsY = "34°42.2800N";
+        gpsX = "135°19.5900W";
+
+    }
+
+    public void updateView() {
+        mmsi_tv.setText(mmsi);
+        ch_name_tv.setText(ch_name);
+        gpsY_tv.setText(gpsY);
+        gpsX_tv.setText(gpsX);
+
+        setCH(ch + "");
+        setTX(tx + "");
+        setRX(rx + "");
+
+    }
+
+    private void setCH(String ch) {
+        switch (ch.length()) {
+            case 1:
+                ch = "000" + ch;
+                ch_tv.setText(ch);
+                break;
+            case 2:
+                ch = "00" + ch;
+                ch_tv.setText(ch);
+                break;
+            case 3:
+                ch = "0" + ch;
+                ch_tv.setText(ch);
+                break;
+            case 4:
+                ch_tv.setText(ch);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    private void setTX(String a) {
+        DecimalFormat decimalFormat = new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+        a = decimalFormat.format(Double.valueOf(a));//format 返回的是字符串
+        switch (a.length()) {
+            case 4:
+                a = "0000" + a;
+                break;
+            case 5:
+                a = "000" + a;
+                break;
+            case 6:
+                a = "00" + a;
+                break;
+            case 7:
+                a = "0" + a;
+                break;
+            default:
+                break;
+        }
+        tx_tv.setText(a);
+    }
+
+    private void setRX(String a) {
+        DecimalFormat decimalFormat = new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+        a = decimalFormat.format(Double.valueOf(a));//format 返回的是字符串
+        switch (a.length()) {
+            case 4:
+                a = "0000" + a;
+                break;
+            case 5:
+                a = "000" + a;
+                break;
+            case 6:
+                a = "00" + a;
+                break;
+            case 7:
+                a = "0" + a;
+                break;
+            default:
+                break;
+        }
+        rx_tv.setText(a);
     }
 
     private void initTitleView(View view) {
@@ -306,16 +398,17 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
 
 
-        mmsi_tv = (TextView) view.findViewById(R.id.mmsi_textview);
+        mmsi_tv = (TextView) view.findViewById(R.id.mmsi_tv);
         conversation_number_tv = (TextView) view.findViewById(R.id.conversation_number_tv);
         conversation_number_tv.setOnClickListener(this);
 
         ch_tv = (TextView) view.findViewById(R.id.ch_tv);
+        ch_name_tv = (TextView) view.findViewById(R.id.ch_name_tv);
         tx_tv = (TextView) view.findViewById(R.id.tx_tv);
         rx_tv = (TextView) view.findViewById(R.id.rx_tv);
 
-        n_tv = (TextView) view.findViewById(R.id.n_tv);
-        w_tv = (TextView) view.findViewById(R.id.w_tv);
+        gpsY_tv = (TextView) view.findViewById(R.id.gpsY_tv);
+        gpsX_tv = (TextView) view.findViewById(R.id.gpsX_tv);
         utc_tv = (TextView) view.findViewById(R.id.utc_tv);
 
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");//设置日期格式
@@ -337,30 +430,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                         QHDialog errQHDialog = new QHDialog(getActivity(), "提示", "输入有误");
                         errQHDialog.setOnlyOneButtonText("好的");
 
-                        if (!isNumeric(ch) || ch.equals("")) {
+                        if (!isNumeric(ch) || ch.equals("") || ch.length() > 4) {
                             errQHDialog.show();
-                            return;
-                        }
-
-                        switch (ch.length()) {
-                            case 1:
-                                ch = "000" + ch;
-                                ch_tv.setText(ch);
-                                break;
-                            case 2:
-                                ch = "00" + ch;
-                                ch_tv.setText(ch);
-                                break;
-                            case 3:
-                                ch = "0" + ch;
-                                ch_tv.setText(ch);
-                                break;
-                            case 4:
-                                ch_tv.setText(ch);
-                                break;
-                            default:
-                                errQHDialog.show();
-                                break;
+                        } else {
+                            setCH(ch);
                         }
 
                     }
@@ -393,31 +466,16 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                         DecimalFormat decimalFormat = new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
                         String a = decimalFormat.format(Double.valueOf(tx));//format 返回的是字符串
 
-                        switch (a.length()) {
-                            case 4:
-                                tx = "000" + a;
-                                tx_tv.setText(tx);
-                                break;
-                            case 5:
-                                tx = "00" + a;
-                                tx_tv.setText(tx);
-                                break;
-                            case 6:
-                                tx = "0" + a;
-                                tx_tv.setText(tx);
-                                break;
-                            case 7:
-                                tx_tv.setText(a);
-                                break;
-                            default:
-                                errQHDialog.show();
-                                break;
+                        if (a.length() < 4 || a.length() > 8) {
+                            errQHDialog.show();
+                        } else {
+                            setTX(a);
                         }
 
                     }
                 });
                 txQHDialog.setPositiveButton("取消", 0, null);
-                txQHDialog.setEditText("请输入0～9999的2位小数");
+                txQHDialog.setEditText("请输入0～99999的2位小数");
                 txQHDialog.setCancelable(false);
                 txQHDialog.show();
             }
@@ -444,31 +502,16 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                         DecimalFormat decimalFormat = new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
                         String a = decimalFormat.format(Double.valueOf(rx));//format 返回的是字符串
 
-                        switch (a.length()) {
-                            case 4:
-                                rx = "000" + a;
-                                rx_tv.setText(rx);
-                                break;
-                            case 5:
-                                rx = "00" + a;
-                                rx_tv.setText(rx);
-                                break;
-                            case 6:
-                                rx = "0" + a;
-                                rx_tv.setText(rx);
-                                break;
-                            case 7:
-                                rx_tv.setText(a);
-                                break;
-                            default:
-                                errQHDialog.show();
-                                break;
+                        if (a.length() < 4 || a.length() > 8) {
+                            errQHDialog.show();
+                        } else {
+                            setRX(a);
                         }
 
                     }
                 });
                 rxQHDialog.setPositiveButton("取消", 0, null);
-                rxQHDialog.setEditText("请输入0～9999的2位小数");
+                rxQHDialog.setEditText("请输入0～99999的2位小数");
                 rxQHDialog.setCancelable(false);
                 rxQHDialog.show();
             }
@@ -579,7 +622,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         @Override
         public void run() {
             super.run();
-            // do-while  一 什么什么 就
             do {
                 try {
                     //每隔一秒 发送一次消息

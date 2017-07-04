@@ -93,6 +93,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             public void run() {
                 kProgressHUD.dismiss();
                 okHUD.show();
+                mHomepageFragment.updateView();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

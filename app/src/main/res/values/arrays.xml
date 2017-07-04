@@ -105,4 +105,15 @@
         <item>交替发送0/1</item>
     </string-array>
 
+    <string-array name="priority_in_personalCall">
+        <item>常规</item>
+        <item>安全</item>
+        <item>紧急</item>
+    </string-array>
+
+    <string-array name="type_in_personalCall">
+        <item>无线电话</item>
+        <item>无线电话-FEC</item>
+        <item>无线电话-ARQ</item>
+    </string-array>
 </resources>

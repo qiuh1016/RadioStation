@@ -2,10 +2,15 @@ package com.cetcme.radiostation.Call;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cetcme.radiostation.R;
@@ -14,9 +19,19 @@ import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 public class PersonalCallActivity extends AppCompatActivity {
 
+    String TAG = "PersonalCallActivity";
+
     private Button sendButton;
     private boolean stopCountDown = false;
     private int countDownNumber = 3;
+
+    private Spinner prioritySpinner;
+    private Spinner typeSpinner;
+
+    private Spinner dscSpinner;
+
+    private ArrayAdapter<String> dscAdapter;
+    private String[] dscItems = new String[]{};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +39,9 @@ public class PersonalCallActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_call);
         getSupportActionBar().hide();
 
-        sendButton = (Button) findViewById(R.id.send_button);
+
         initTitleView();
+        initView();
     }
 
     private void initTitleView() {
@@ -44,6 +60,46 @@ public class PersonalCallActivity extends AppCompatActivity {
                 //
             }
         });
+    }
+
+    private void initView() {
+        sendButton = (Button) findViewById(R.id.send_button);
+
+        prioritySpinner = (Spinner) findViewById(R.id.priority_spinner);
+        typeSpinner = (Spinner) findViewById(R.id.type_spinner);
+
+        dscSpinner = (Spinner) findViewById(R.id.dsc_spinner);
+
+        // 建立Adapter并且绑定数据源
+        dscAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getDscItems());
+        //绑定 Adapter到控件
+        dscSpinner.setAdapter(dscAdapter);
+
+    }
+
+    private String[] getDscItems() {
+        //TODO
+
+        dscItems = new String[]{
+                "DISTRESS1:2187.5",
+                "DISTRESS2:4207.5",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0",
+                "DISTRESS3:6312.0"
+        };
+
+        return dscItems;
     }
 
     public void send(View v) {

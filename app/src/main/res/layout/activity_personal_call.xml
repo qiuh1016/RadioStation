@@ -62,9 +62,10 @@
             <include layout="@layout/separate_line"/>
 
             <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="80dp"
@@ -78,7 +79,6 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -88,16 +88,27 @@
                     android:layout_weight="1"
                     android:text="例行"
                     android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:visibility="gone"/>
+
+                <Spinner
+                    android:id="@+id/priority_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:entries="@array/priority_in_personalCall"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 
             <include layout="@layout/separate_line"/>
 
             <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="80dp"
@@ -105,13 +116,12 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:text="后续通信"
+                    android:text="通信类型"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -121,7 +131,17 @@
                     android:layout_weight="1"
                     android:text="无线电话"
                     android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:visibility="gone"/>
+
+                <Spinner
+                    android:id="@+id/type_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:entries="@array/type_in_personalCall"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 
@@ -161,9 +181,10 @@
             <include layout="@layout/separate_line"/>
 
             <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="80dp"
@@ -177,7 +198,6 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -187,7 +207,17 @@
                     android:layout_weight="1"
                     android:text="2M-INTL"
                     android:textColor="@color/homepage_text_color"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:visibility="gone"/>
+
+                <Spinner
+                    android:id="@+id/dsc_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    />
 
             </LinearLayout>
 

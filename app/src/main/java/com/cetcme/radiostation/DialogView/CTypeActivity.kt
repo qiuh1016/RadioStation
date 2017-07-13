@@ -27,12 +27,12 @@ class CTypeActivity : Activity() {
         setRadioData()
 
     }
+
     fun initView() {
         titleView.setBackgroundResource(R.drawable.top_select)
         titleView.setTitle("通信方式")
 
-
-        freq_radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+        freq_radioButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 tx_editText.visibility = View.VISIBLE
                 rx_editText.visibility = View.VISIBLE
@@ -42,7 +42,7 @@ class CTypeActivity : Activity() {
             }
         }
 
-        ch_radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+        ch_radioButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 ch_editText.visibility = View.VISIBLE
             } else {
@@ -50,17 +50,9 @@ class CTypeActivity : Activity() {
             }
         }
 
-        cancelButton.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-               cancelButtonTapped()
-            }
-        })
+        cancelButton.setOnClickListener { cancelButtonTapped() }
 
-        confirmButton.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                confirmButtonTapped()
-            }
-        })
+        confirmButton.setOnClickListener { confirmButtonTapped() }
 
     }
 
@@ -101,7 +93,6 @@ class CTypeActivity : Activity() {
 
     fun confirmButtonTapped() {
         var radioNumber: Int = -1
-        var MNumberStr = ""
         if (ch_radioButton.isChecked) {
             radioNumber = 0
             var chStr = ch_editText.text.toString()

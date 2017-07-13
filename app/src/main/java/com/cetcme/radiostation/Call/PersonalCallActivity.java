@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.cetcme.radiostation.DialogView.CTypeActivity;
 import com.cetcme.radiostation.DialogView.SqlSelectActivity;
 import com.cetcme.radiostation.MyClass.NumberValidationUtils;
 import com.cetcme.radiostation.R;
+import com.cetcme.radiostation.Setting.AddressActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
@@ -35,6 +37,7 @@ public class PersonalCallActivity extends AppCompatActivity {
     private Spinner dscSpinner;
 
     private TextView communicateTextView;
+    private EditText addressEditText;
 
     private ArrayAdapter<String> dscAdapter;
     private String[] dscItems = new String[]{};
@@ -74,6 +77,7 @@ public class PersonalCallActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        addressEditText = (EditText) findViewById(R.id.addressEditText);
         sendButton = (Button) findViewById(R.id.send_button);
 
         prioritySpinner = (Spinner) findViewById(R.id.priority_spinner);
@@ -98,6 +102,18 @@ public class PersonalCallActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+
+        findViewById(R.id.addressTextView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddressActivity.class);
+                intent.putExtra("forAddress", true);
+                startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
+            }
+        });
+
+
     }
 
     private String[] getDscItems() {
@@ -201,14 +217,17 @@ public class PersonalCallActivity extends AppCompatActivity {
         if (data == null) {
             return;
         }
-        type = data.getIntExtra("radioNumber", 0);
-        ch = data.getIntExtra("ch", 0);
-        tx = data.getStringExtra("tx");
-        rx = data.getStringExtra("rx");
+
 
         // 根据上面发送过去的请求码来区别
         switch (requestCode) {
+            //通信频率
             case 0:
+                type = data.getIntExtra("radioNumber", 0);
+                ch = data.getIntExtra("ch", 0);
+                tx = data.getStringExtra("tx");
+                rx = data.getStringExtra("rx");
+
                 if (type == 0) {
                     //TODO: 查询数据库 用发送和接收频率代替显示
                     communicateTextView.setText("通信频道：" + ch);
@@ -216,6 +235,10 @@ public class PersonalCallActivity extends AppCompatActivity {
                     communicateTextView.setText("TX: " + tx + ", RX: " + rx);
                 }
                 break;
+            //发送地址
+            case 1:
+                String address = data.getStringExtra("address");
+                addressEditText.setText(address);
             default:
                 break;
         }

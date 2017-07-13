@@ -45,7 +45,7 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/numberEditText"
+                    android:id="@+id/addressEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -55,6 +55,16 @@
                     android:hint="请输入发送对方号码"
                     android:inputType="textPersonName"
                     android:textColor="@color/homepage_text_color"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/addressTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="30dp"
+                    android:text="地址簿"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp"/>
 
             </LinearLayout>

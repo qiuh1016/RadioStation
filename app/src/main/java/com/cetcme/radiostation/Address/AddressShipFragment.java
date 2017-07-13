@@ -1,5 +1,6 @@
 package com.cetcme.radiostation.Address;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.cetcme.radiostation.Call.PersonalCallDetailActivity;
 import com.cetcme.radiostation.R;
+import com.cetcme.radiostation.Setting.AddressActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 
 import java.util.ArrayList;
@@ -69,6 +71,14 @@ public class AddressShipFragment extends Fragment {
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (AddressActivity.forAddress) {
+                    Intent mIntent = new Intent();
+                    mIntent.putExtra("address", dataList.get(position).get("full").toString());
+                    getActivity().setResult(1, mIntent);
+                    getActivity().onBackPressed();
+                }
+
                 Log.i(TAG, "onItemClick: " + position);
 
             }

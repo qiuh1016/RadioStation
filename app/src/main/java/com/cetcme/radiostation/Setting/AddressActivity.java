@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +58,8 @@ public class AddressActivity extends AppCompatActivity {
 
     private Resources res;
 
+    public static boolean forAddress = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,8 @@ public class AddressActivity extends AppCompatActivity {
         initTitleView();
         res = getResources();
         initViewPager();
+
+        forAddress = getIntent().getBooleanExtra("forAddress", false);
     }
 
     private void initTitleView() {

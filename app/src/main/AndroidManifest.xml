@@ -88,6 +88,11 @@
             android:launchMode="singleTask"
             android:theme="@style/myDialogActivityStyle">
         </activity>
+        <activity
+            android:name=".DialogView.CTypeActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/myDialogActivityStyle">
+        </activity>
     </application>
 
 </manifest>

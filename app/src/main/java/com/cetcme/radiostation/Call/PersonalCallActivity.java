@@ -11,8 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cetcme.radiostation.DialogView.CTypeActivity;
+import com.cetcme.radiostation.DialogView.SqlSelectActivity;
+import com.cetcme.radiostation.MyClass.NumberValidationUtils;
 import com.cetcme.radiostation.R;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
@@ -30,8 +34,15 @@ public class PersonalCallActivity extends AppCompatActivity {
 
     private Spinner dscSpinner;
 
+    private TextView communicateTextView;
+
     private ArrayAdapter<String> dscAdapter;
     private String[] dscItems = new String[]{};
+
+    private int type = 0;
+    private int ch = 0;
+    private String tx = "";
+    private String rx = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +86,18 @@ public class PersonalCallActivity extends AppCompatActivity {
         //绑定 Adapter到控件
         dscSpinner.setAdapter(dscAdapter);
 
+        communicateTextView = (TextView) findViewById(R.id.communicateTextView);
+        communicateTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CTypeActivity.class);
+                intent.putExtra("radioNumber", type);
+                intent.putExtra("ch", ch);
+                intent.putExtra("tx", tx);
+                intent.putExtra("rx", rx);
+                startActivityForResult(intent, 0);
+            }
+        });
     }
 
     private String[] getDscItems() {
@@ -171,6 +194,31 @@ public class PersonalCallActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_right_in_no_alpha,
                 R.anim.push_right_out_no_alpha);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {
+            return;
+        }
+        type = data.getIntExtra("radioNumber", 0);
+        ch = data.getIntExtra("ch", 0);
+        tx = data.getStringExtra("tx");
+        rx = data.getStringExtra("rx");
+
+        // 根据上面发送过去的请求码来区别
+        switch (requestCode) {
+            case 0:
+                if (type == 0) {
+                    //TODO: 查询数据库 用发送和接收频率代替显示
+                    communicateTextView.setText("通信频道：" + ch);
+                } else if (type == 1) {
+                    communicateTextView.setText("TX: " + tx + ", RX: " + rx);
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
 

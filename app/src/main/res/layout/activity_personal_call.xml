@@ -164,7 +164,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
+                    android:id="@+id/communicateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -172,7 +172,8 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
-                    android:text="未知"
+                    android:paddingLeft="8dp"
+                    android:text="点击输入"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="16sp"/>
 

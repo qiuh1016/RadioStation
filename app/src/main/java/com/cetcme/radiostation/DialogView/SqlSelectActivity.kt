@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.cetcme.radiostation.Fragment.HomepageFragment
+import com.cetcme.radiostation.MyClass.NumberValidationUtils
 
 import com.cetcme.radiostation.R
 import kotlinx.android.synthetic.main.activity_sql_select.*
@@ -83,7 +83,7 @@ class SqlSelectActivity : Activity() {
                 return
             }
 
-            if (HomepageFragment.isNum(MNumberStr)) {
+            if (NumberValidationUtils.isRealNumber(MNumberStr)) {
                 var MNumberInt:Int = editText.text.toString().toInt()
                 if (MNumberInt > 20 || MNumberInt <= 0) {
                     editText.text.clear()

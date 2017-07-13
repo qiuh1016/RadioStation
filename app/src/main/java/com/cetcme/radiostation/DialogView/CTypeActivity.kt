@@ -50,10 +50,6 @@ class CTypeActivity : Activity() {
             }
         }
 
-        cancelButton.setOnClickListener { cancelButtonTapped() }
-
-        confirmButton.setOnClickListener { confirmButtonTapped() }
-
     }
 
     fun setRadioData() {
@@ -91,7 +87,7 @@ class CTypeActivity : Activity() {
 
     }
 
-    fun confirmButtonTapped() {
+    fun confirmButtonTapped(v: View) {
         var radioNumber: Int = -1
         if (ch_radioButton.isChecked) {
             radioNumber = 0
@@ -151,8 +147,15 @@ class CTypeActivity : Activity() {
         onBackPressed()
     }
 
-    fun cancelButtonTapped() {
+    fun cancelButtonTapped(v: View) {
 //        this.setResult(0, null)
         onBackPressed()
     }
+
+//    fun click(v: View) {
+//        when (v.id) {
+//            R.id.confirmButton -> confirmButtonTapped()
+//            R.id.cancelButton -> cancelButtonTapped()
+//        }
+//    }
 }

@@ -142,6 +142,20 @@ public class PersonalCallActivity extends AppCompatActivity {
     }
 
     public void send(View v) {
+
+        String address = addressEditText.getText().toString();
+        String priority = prioritySpinner.getSelectedItem().toString();
+        String type = typeSpinner.getSelectedItem().toString();
+        String dscFreq = dscSpinner.getSelectedItem().toString();
+
+        Log.i(TAG, "send: " + address);
+        Log.i(TAG, "send: " + priority);
+        Log.i(TAG, "send: " + type);
+        Log.i(TAG, "send: " + tx);
+        Log.i(TAG, "send: " + rx);
+        Log.i(TAG, "send: " + dscFreq);
+
+
         sendButton.setText(countDownNumber + "");
         sendButton.setEnabled(false);
         new Thread(new CountDown()).start();

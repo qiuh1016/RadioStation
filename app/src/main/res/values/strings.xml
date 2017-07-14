@@ -14,6 +14,9 @@
     <string name="connect_server_progress">连接中</string>
     <string name="connect_server_ok">连接成功</string>
 
+    <string name="get_data_progress">获取中</string>
+    <string name="get_data_ok">获取成功</string>
+
     <string name="main_tab_name_1">首页</string>
     <string name="main_tab_name_2">消息</string>
     <string name="main_tab_name_3">日志</string>

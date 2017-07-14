@@ -66,18 +66,22 @@ public class AddressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address);
 
         getSupportActionBar().hide();
+
+        forAddress = getIntent().getBooleanExtra("forAddress", false);
+
         initTitleView();
         res = getResources();
         initViewPager();
 
-        forAddress = getIntent().getBooleanExtra("forAddress", false);
     }
 
     private void initTitleView() {
         QHTitleView qhTitleView = (QHTitleView) findViewById(R.id.qhTitleView);
         qhTitleView.setTitle("地址簿");
         qhTitleView.setBackView(R.drawable.icon_back_button);
-        qhTitleView.setRightView(R.drawable.icon_add);
+        if (!forAddress) {
+            qhTitleView.setRightView(R.drawable.icon_add);
+        }
         qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
             @Override
             public void onBackClick() {
@@ -87,9 +91,11 @@ public class AddressActivity extends AppCompatActivity {
 
             @Override
             public void onRightClick() {
-                Intent intent = new Intent(AddressActivity.this, AddressAddActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
+                if (!forAddress) {
+                    Intent intent = new Intent(AddressActivity.this, AddressAddActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
+                }
             }
         });
     }

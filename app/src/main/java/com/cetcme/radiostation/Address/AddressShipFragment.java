@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.cetcme.radiostation.Call.PersonalCallDetailActivity;
 import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.Setting.AddressActivity;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 
 import java.util.ArrayList;
@@ -36,6 +39,9 @@ public class AddressShipFragment extends Fragment {
     private ListView mList;
     private List<Map<String, Object>> dataList;
     private SimpleAdapter simpleAdapter;
+
+    private KProgressHUD kProgressHUD;
+    private KProgressHUD okHUD;
 
     public static AddressShipFragment newInstance(String param1) {
         AddressShipFragment fragment = new AddressShipFragment();
@@ -60,8 +66,13 @@ public class AddressShipFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_log_receive, container, false);
 //        Bundle bundle = getArguments();
 //        String agrs1 = bundle.getString("agrs1");
+        initHud();
+        initView(view);
 
+        return view;
+    }
 
+    private void initView (View view) {
         mList = (ListView) view.findViewById(R.id.list);
         simpleAdapter = new SimpleAdapter(
                 getActivity(), getData() ,R.layout.list_cell_address,
@@ -99,32 +110,72 @@ public class AddressShipFragment extends Fragment {
                 return false;
             }
         });
-
-        return view;
     }
 
+    private void initHud() {
+        //hudView
+        kProgressHUD = KProgressHUD.create(getContext())
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(getString(R.string.get_data_progress))
+                .setAnimationSpeed(1)
+                .setDimAmount(0.3f)
+                .setSize(110, 110)
+                .setCancellable(false);
+        ImageView imageView = new ImageView(getContext());
+        imageView.setBackgroundResource(R.drawable.checkmark);
+        okHUD  =  KProgressHUD.create(getContext())
+                .setCustomView(imageView)
+                .setLabel(getString(R.string.get_data_ok))
+                .setCancellable(false)
+                .setSize(110,110)
+                .setDimAmount(0.3f);
+    }
 
     private List<Map<String, Object>> getData() {
         dataList = new ArrayList<>();
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("number","1");
-        map.put("short", "12D");
-        map.put("full", "123456789");
-        dataList.add(map);
+        kProgressHUD.show();
 
-        map = new HashMap<>();
-        map.put("number","2");
-        map.put("short", "13A");
-        map.put("full", "374562823");
-        dataList.add(map);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-        map = new HashMap<>();
-        map.put("number","3");
-        map.put("short", "10B");
-        map.put("full", "987654321");
-        dataList.add(map);
+            }
+        },2000);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Map<String, Object> map = new HashMap<>();
+                map.put("number","1");
+                map.put("short", "12D");
+                map.put("full", "123456789");
+                dataList.add(map);
+
+                map = new HashMap<>();
+                map.put("number","2");
+                map.put("short", "13A");
+                map.put("full", "374562823");
+                dataList.add(map);
+
+                map = new HashMap<>();
+                map.put("number","3");
+                map.put("short", "10B");
+                map.put("full", "987654321");
+                dataList.add(map);
+
+                simpleAdapter.notifyDataSetChanged();
+
+                kProgressHUD.dismiss();
+//                okHUD.show();
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        okHUD.dismiss();
+//                    }
+//                },1000);
+            }
+        }, 500);
 
         return dataList;
     }

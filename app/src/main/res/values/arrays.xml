@@ -116,4 +116,12 @@
         <item>无线电话-FEC</item>
         <item>无线电话-ARQ</item>
     </string-array>
+
+    <string-array name="mmsi_type">
+        <item>船台</item>
+        <item>岸台</item>
+        <item>船队</item>
+        <item>PSTN</item>
+    </string-array>
+
 </resources>

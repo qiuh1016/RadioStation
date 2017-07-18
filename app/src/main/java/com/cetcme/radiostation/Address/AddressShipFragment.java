@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.cetcme.radiostation.Call.PersonalCallDetailActivity;
 import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.Setting.AddressActivity;
+import com.cetcme.radiostation.Setting.AddressEditActivity;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 
@@ -88,28 +89,40 @@ public class AddressShipFragment extends Fragment {
                     mIntent.putExtra("address", dataList.get(position).get("full").toString());
                     getActivity().setResult(1, mIntent);
                     getActivity().onBackPressed();
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), AddressEditActivity.class);
+                    intent.putExtra("for", "edit");
+                    intent.putExtra("name", dataList.get(position).get("short").toString());
+                    intent.putExtra("number", dataList.get(position).get("full").toString());
+                    intent.putExtra("type", 0);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
                 }
 
                 Log.i(TAG, "onItemClick: " + position);
 
             }
         });
-        mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
-                QHDialog qhDialog = new QHDialog(getActivity(),"提示", "是否删除第" + dataList.get(position).get("number") + "条地址？");
-                qhDialog.setPositiveButton("删除", R.drawable.button_background_alert, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which){
-                        deleteData(position);
-                        dialog.dismiss();
-                    }
-                });
-                qhDialog.setNegativeButton("取消", 0, null);
-                qhDialog.show();
-                return false;
-            }
-        });
+        if (!AddressActivity.forAddress) {
+            mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+                    QHDialog qhDialog = new QHDialog(getActivity(),"提示", "是否删除第" + dataList.get(position).get("number") + "条地址？");
+                    qhDialog.setPositiveButton("删除", R.drawable.button_background_alert, new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+                            deleteData(position);
+                            dialog.dismiss();
+                        }
+                    });
+                    qhDialog.setNegativeButton("取消", 0, null);
+                    qhDialog.show();
+                    return false;
+                }
+            });
+        }
+
     }
 
     private void initHud() {

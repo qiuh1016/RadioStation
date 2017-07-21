@@ -1,6 +1,11 @@
 package com.cetcme.radiostation;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -64,6 +69,19 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private KProgressHUD kProgressHUD;
     private KProgressHUD okHUD;
 
+    SocketService socketService = new SocketService();
+    ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i("Main","onServiceConnected");
+            socketService = ((SocketService.MsgBinder)service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +101,23 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
 
 //        connectServer();
+        bindSocketService();
+    }
+
+    private void bindSocketService() {
+
+        //绑定service
+        Intent intent = new Intent();
+        intent.setAction("com.cetcme.radiostation.SocketServer");
+        intent.setPackage(getPackageName());
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                socketService.conn();
+            }
+        },1000);
     }
 
     public void connectServer() {
@@ -273,6 +308,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             },2500);
         } else {
             backToast.cancel();
+            unbindService(serviceConnection);
             super.onBackPressed();
         }
     }

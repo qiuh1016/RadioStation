@@ -22,6 +22,7 @@ import com.cetcme.radiostation.DialogView.SqlSelectActivity;
 import com.cetcme.radiostation.DialogView.SsbSelectActivity;
 import com.cetcme.radiostation.Main2Activity;
 import com.cetcme.radiostation.R;
+import com.cetcme.radiostation.SocketService;
 import com.cetcme.radiostation.voiceSocket.VoiceSocketActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
@@ -107,9 +108,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         initTitleView(view);
         initSpinner(view);
         initView(view);
-
-
-
 
         //更新系统时间
         new TimeThread().start();

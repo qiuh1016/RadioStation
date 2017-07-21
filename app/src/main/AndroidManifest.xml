@@ -93,6 +93,12 @@
             android:launchMode="singleTask"
             android:theme="@style/myDialogActivityStyle">
         </activity>
+
+        <service
+            android:name=".SocketService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>

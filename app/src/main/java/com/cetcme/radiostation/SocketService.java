@@ -10,9 +10,12 @@ import android.view.View;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -20,12 +23,14 @@ import java.net.UnknownHostException;
 
 public class SocketService extends Service {
 
-    private String serverIP = "192.168.0.194";
-    private int serverPort = 9000;
+    private String serverIP = "192.168.9.179";
+    private int serverPort = 7779;
 
-    private Socket socket;
+    private static Socket socket;
 
     private static String testStr = "123";
+
+    private static int BUFFER_SIZE = 1024 * 1024;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -72,19 +77,33 @@ public class SocketService extends Service {
         new Thread() {
             @Override
             public void run() {
-                DataInputStream reader;
                 try {
-                    // 获取读取流
-                    reader = new DataInputStream(socket.getInputStream());
                     final InetAddress address = socket.getInetAddress();
-
+                    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
                     while (true) {
 
                         System.out.println("*等待服务器数据*");
 
                         // 读取数据
-                        final String msg = reader.readUTF();
-                        System.out.println("获取到服务器的信息：" + address + " :" + msg);
+                        char[] data = new char[BUFFER_SIZE];
+                        int len = br.read(data);
+                        if (len != -1) {
+                            String rexml = String.valueOf(data, 0, len);
+                            System.out.println("获取到服务器的信息：" + address + " ");
+                            System.out.println(rexml);
+
+                            //解析
+//                            try {
+//                                JSONObject json = new JSONObject(rexml);
+//                                Log.e("JAVA", "LatValue: " +  ((JSONObject) json.get("POS")).get("LatValue"));
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+                        } else {
+                            socket.close();
+                            return;
+                        }
+
 
 
                     }
@@ -100,28 +119,21 @@ public class SocketService extends Service {
     /**
      * 发送消息
      */
-    public void send(final String message) {
+    public static void send(final JSONObject json) {
         new Thread() {
             @Override
             public void run() {
 
                 try {
+                    System.out.println("*to send*");
                     // socket.getInputStream()
                     if (socket == null) {
                         return;
                     }
-                    DataOutputStream writer = new DataOutputStream(socket.getOutputStream());
+                    OutputStreamWriter writer = new OutputStreamWriter(socket.getOutputStream());
 
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("type","1");
-                        jsonObject.put("content", message);
-
-                        writer.writeUTF(jsonObject.toString());
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    writer.write(json.toString());
+                    writer.flush();
 
 
                 } catch (IOException e) {

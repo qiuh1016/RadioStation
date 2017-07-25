@@ -35,8 +35,8 @@ public class SocketActivity extends AppCompatActivity {
 //    private String serverIP = "192.168.1.179";
 //    private int serverPort = 1025;
 
-    private String serverIP = "192.168.0.194";
-    private int serverPort = 9000;
+    private String serverIP = "192.168.9.179";
+    private int serverPort = 7779;
 
     private Socket socket;
 
@@ -115,12 +115,12 @@ public class SocketActivity extends AppCompatActivity {
 
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put("type","1");
-                        jsonObject.put("content", "指令内容");
+                        jsonObject.put("IntructionType", 6);
+                        jsonObject.put("TX", 1000.1);
 
                         writer.writeUTF(jsonObject.toString());
 //                        writer.writeUTF("{\"type\":\"1\",\"content\":\"指令内容\"}");
-
+                        Log.e("JAVA", "send: " + jsonObject.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

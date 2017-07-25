@@ -20,14 +20,19 @@ import com.cetcme.radiostation.audio.AudioFileFunc;
 import com.cetcme.radiostation.audio.ErrorCode;
 import com.cetcme.radiostation.audio.MediaRecordFunc;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -39,8 +44,8 @@ public class VoiceSocketActivity extends AppCompatActivity {
     private EditText ipEditText;
     private EditText portEditText;
 
-    private String serverIP = "192.168.0.194";
-    private int serverPort = 9000;
+    private String serverIP = "192.168.9.179";
+    private int serverPort = 7779;
 
     private Socket socket;
 
@@ -155,7 +160,6 @@ public class VoiceSocketActivity extends AppCompatActivity {
             public void run() {
 
                 try {
-                    // socket.getInputStream()
                     if (socket == null) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -165,14 +169,22 @@ public class VoiceSocketActivity extends AppCompatActivity {
                         });
                         return;
                     }
-                    DataOutputStream writer = new DataOutputStream(socket.getOutputStream());
+                    OutputStreamWriter writer = new OutputStreamWriter(socket.getOutputStream());
 
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put("type","1");
-                        jsonObject.put("content", "指令内容");
+                        jsonObject.put("InstructionType", 25);
+                        jsonObject.put("Mode", 1);
+                        JSONObject valueJson = new JSONObject();
+                        for (int i = 1; i <= 30; i++) {
+                            valueJson.put("Band_" + i, 1.1);
+                        }
+                        jsonObject.put("Value", valueJson);
 
-                        writer.writeUTF(jsonObject.toString());
+
+                        writer.write(jsonObject.toString());
+                        writer.flush();
+                        Log.e("JAVA", "send: " + jsonObject.toString());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -194,28 +206,62 @@ public class VoiceSocketActivity extends AppCompatActivity {
         new Thread(){
             @Override
             public void run() {
-                DataInputStream reader;
                 try {
                     // 获取读取流
-                    reader = new DataInputStream(socket.getInputStream());
-                    final InetAddress address = socket.getInetAddress();
-
                     while (true) {
+
+                        if (socket.isClosed()) {
+                            return;
+                        }
+                        final InetAddress address = socket.getInetAddress();
 
                         System.out.println("*等待服务器数据*");
 
                         // 读取数据
+                        int BUFFER_SIZE = 1024 * 1024;
 
-                        final byte[] data = new byte[audioBufSize];
-                        int readSize = reader.read(data);
-                        player.write(data, 0, audioBufSize * 2);
+                        char[] data = new char[BUFFER_SIZE];
+                        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+                        int len = br.read(data);
+                        if (len != -1) {
+                            String rexml = String.valueOf(data, 0, len);
+                            System.out.println("获取到服务器的信息：" + address + " " + rexml);
+                        } else {
+                            socket.close();
+                            return;
+                        }
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                refreshLogView("获取到服务器的信息：" + address + " :" + data.toString());
-                            }
-                        });
+
+                        //解析
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(rexml);
+//                            Log.e("JAVA", jsonObject.toString());
+//                            Log.e("JAVA", "Band_4: " + ((JSONObject)jsonObject.get("Value")).get("Band_4"));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+
+
+//                        final byte[] data = new byte[audioBufSize];
+//                        int readSize = reader.read(data);
+//                        player.write(data, 0, audioBufSize * 2);
+
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                refreshLogView("获取到服务器的信息：" + address + " :" + data.toString());
+//                            }
+//                        });
+
+//                        final String msg = reader.readUTF();
+//                        System.out.println("获取到服务器的信息：" + address + " :" + msg);
+//
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                refreshLogView("获取到服务器的信息：" + address + " :" + msg.toString());
+//                            }
+//                        });
 
 
 

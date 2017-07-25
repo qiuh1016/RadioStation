@@ -28,6 +28,9 @@ import com.cetcme.radiostation.Fragment.MessageFragment;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.qiuhong.qhlibrary.Utils.DensityUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener{
 
     private String TAG = "Main2Activity";
@@ -100,8 +103,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         messageTips(-1, tv_5);
 
 
-//        connectServer();
+
         bindSocketService();
+        connectServer();
     }
 
     private void bindSocketService() {
@@ -112,17 +116,14 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         intent.setPackage(getPackageName());
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                socketService.conn();
-            }
-        },1000);
     }
 
     public void connectServer() {
-        kProgressHUD.show();
+//        kProgressHUD.show();
 
+        socketService.conn();
+
+        /*
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -137,6 +138,36 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 },1000);
             }
         },2000);
+        */
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                socketService.conn();
+//            }
+//        },1000);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("InstructionType", 17);
+                    jsonObject.put("AGC/MGC", 1);
+//                    JSONObject valueJson = new JSONObject();
+//                    for (int i = 1; i <= 30; i++) {
+//                        valueJson.put("Band_" + i, 1.1);
+//                    }
+//                    jsonObject.put("Value", valueJson);
+//                    socketService.send(jsonObject);
+                    SocketService.send(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, 1000);
     }
 
     private void setupTabBar() {

@@ -31,7 +31,6 @@
                           android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/numberTextView"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -43,7 +42,6 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -66,7 +64,6 @@
                           android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/numberTextView"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -78,7 +75,6 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -111,7 +107,6 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -144,7 +139,6 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -177,7 +171,6 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"

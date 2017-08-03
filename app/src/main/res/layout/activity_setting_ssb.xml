@@ -80,7 +80,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/dateTextView"
+                        android:id="@+id/startChTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -114,7 +114,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/dateTextView"
+                        android:id="@+id/endChTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -156,7 +156,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/dateTextView"
+                        android:id="@+id/startFeqTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -190,7 +190,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/dateTextView"
+                        android:id="@+id/endFeqTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -224,7 +224,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/dateTextView"
+                        android:id="@+id/feqTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
@@ -250,7 +250,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/numberTextView"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -262,7 +261,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/dateTextView"
+                    android:id="@+id/timeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"

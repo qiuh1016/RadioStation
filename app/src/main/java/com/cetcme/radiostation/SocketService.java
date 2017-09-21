@@ -23,8 +23,11 @@ import java.net.UnknownHostException;
 
 public class SocketService extends Service {
 
-    private String serverIP = "192.168.9.179";
-    private int serverPort = 7779;
+    private String serverIP = "192.168.10.3";
+    private int serverPort = 9999;
+
+//    private String serverIP = "localhost";
+//    private int serverPort = 3000;
 
     private static Socket socket;
 
@@ -91,14 +94,6 @@ public class SocketService extends Service {
                             String rexml = String.valueOf(data, 0, len);
                             System.out.println("获取到服务器的信息：" + address + " ");
                             System.out.println(rexml);
-
-                            //解析
-//                            try {
-//                                JSONObject json = new JSONObject(rexml);
-//                                Log.e("JAVA", "LatValue: " +  ((JSONObject) json.get("POS")).get("LatValue"));
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
                         } else {
                             socket.close();
                             return;

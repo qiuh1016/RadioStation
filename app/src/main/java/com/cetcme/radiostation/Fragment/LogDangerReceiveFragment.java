@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,19 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cetcme.radiostation.Call.PersonalCallActivity;
 import com.cetcme.radiostation.Call.PersonalCallDetailActivity;
-import com.cetcme.radiostation.MainActivity;
 import com.cetcme.radiostation.R;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
-import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
 
 import java.util.ArrayList;

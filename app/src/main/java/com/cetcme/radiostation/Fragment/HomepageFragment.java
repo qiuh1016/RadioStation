@@ -20,9 +20,8 @@ import com.cetcme.radiostation.DialogView.AttSelectActivity;
 import com.cetcme.radiostation.DialogView.PowSelectActivity;
 import com.cetcme.radiostation.DialogView.SqlSelectActivity;
 import com.cetcme.radiostation.DialogView.SsbSelectActivity;
-import com.cetcme.radiostation.Main2Activity;
+import com.cetcme.radiostation.MainActivity;
 import com.cetcme.radiostation.R;
-import com.cetcme.radiostation.SocketService;
 import com.cetcme.radiostation.voiceSocket.VoiceSocketActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
@@ -236,7 +235,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onRightClick() {
-                ((Main2Activity) getActivity()).connectServer();
+                ((MainActivity) getActivity()).connectServer();
                 //
             }
         });

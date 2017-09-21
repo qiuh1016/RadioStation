@@ -1,135 +1,320 @@
 package com.cetcme.radiostation;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Handler;
+import android.os.IBinder;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 
 import com.cetcme.radiostation.Fragment.CameraFragment;
 import com.cetcme.radiostation.Fragment.FunctionFragment;
 import com.cetcme.radiostation.Fragment.SettingFragment;
+import com.cetcme.radiostation.Fragment.HomepageFragment;
 import com.cetcme.radiostation.Fragment.LocationFragment;
-import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
+import com.cetcme.radiostation.Fragment.LogFragment;
+import com.cetcme.radiostation.Fragment.MessageFragment;
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.qiuhong.qhlibrary.Utils.DensityUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private CameraFragment mCameraFragment;
-    private LocationFragment mLocationFragment;
+    private String TAG = "MainActivity";
+
+    private TextView tv_1;
+    private TextView tv_2;
+    private TextView tv_3;
+    private TextView tv_4;
+    private TextView tv_5;
+
+    private RadioButton rb_1;
+    private RadioButton rb_2;
+    private RadioButton rb_3;
+    private RadioButton rb_4;
+    private RadioButton rb_5;
+
+    private RelativeLayout rl_1;
+    private RelativeLayout rl_2;
+    private RelativeLayout rl_3;
+    private RelativeLayout rl_4;
+    private RelativeLayout rl_5;
+
+    private HomepageFragment mHomepageFragment;
+    private MessageFragment mMessageFragment;
+    private LogFragment mLogFragment;
     private FunctionFragment mFunctionFragment;
     private SettingFragment mSettingFragment;
 
-    private QHTitleView qhTitleView;
+    //按2次返回退出
+    private boolean hasPressedBackOnce = false;
+    //back toast
+    private Toast backToast;
+
+    private KProgressHUD kProgressHUD;
+    private KProgressHUD okHUD;
+
+    private Socket socket;
+    private OutputStreamWriter out;
+    private InputStreamReader in;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-//        initTitleView();
-//        initBottomView();
-    }
 
-    /*
-    private void initTitleView() {
-        qhTitleView = (QHTitleView) findViewById(R.id.main_QHTitleView);
-        qhTitleView.setTitle("activity_audio_player");
-        qhTitleView.setBackView(0);
-        qhTitleView.setRightView(0);
-        qhTitleView.setClickCallback(new QHTitleView.ClickCallback() {
-            @Override
-            public void onBackClick() {
-                //
-            }
-
-            @Override
-            public void onRightClick() {
-                //
-            }
-        });
-    }
-
-
-    private void initBottomView() {
-        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
-
-        bottomNavigationBar.addItem(new BottomNavigationItem(android.R.drawable.ic_menu_camera, "首页"))
-                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_compass, "消息"))
-                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_search, "日志"))
-                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_help, "功能"))
-                .addItem(new BottomNavigationItem(android.R.drawable.ic_menu_help, "设置"))
-                .initialise();//所有的设置需在调用该方法前完成
-
-        bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {//这里也可以使用SimpleOnTabSelectedListener
-            @Override
-            public void onTabSelected(int position) {//未选中 -> 选中
-                Log.d("Main", "onTabSelected() called with: " + "position = [" + position + "]");
-                FragmentManager fm = getSupportFragmentManager();
-                //开启事务
-                FragmentTransaction transaction = fm.beginTransaction();
-                switch (position) {
-                    case 0:
-                        if (mCameraFragment == null) {
-                            mCameraFragment = CameraFragment.newInstance("首页");
-                        }
-                        qhTitleView.setTitle("首页");
-                        transaction.replace(R.id.tabs, mCameraFragment);
-                        break;
-                    case 1:
-                        if (mLocationFragment == null) {
-                            mLocationFragment = LocationFragment.newInstance("消息");
-                        }
-                        qhTitleView.setTitle("消息");
-                        transaction.replace(R.id.tabs, mLocationFragment);
-                        break;
-                    case 2:
-                        if (mFunctionFragment == null) {
-                            mFunctionFragment = FunctionFragment.newInstance("日志");
-                        }
-                        qhTitleView.setTitle("日志");
-                        transaction.replace(R.id.tabs, mFunctionFragment);
-                        break;
-                    case 3:
-                        if (mSettingFragment == null) {
-                            mSettingFragment = SettingFragment.newInstance("功能");
-                        }
-                        qhTitleView.setTitle("功能");
-                        transaction.replace(R.id.tabs, mSettingFragment);
-                        break;
-                    case 4:
-                        if (mSettingFragment == null) {
-                            mSettingFragment = SettingFragment.newInstance("设置");
-                        }
-                        qhTitleView.setTitle("设置");
-                        transaction.replace(R.id.tabs, mSettingFragment);
-                        break;
-                    default:
-                        break;
-                }
-                // 事务提交
-                transaction.commit();
-            }
-
-            @Override
-            public void onTabUnselected(int position) {//选中 -> 未选中
-                Log.i("activity_audio_player", "onTabUnselected: " + position);
-            }
-
-            @Override
-            public void onTabReselected(int position) {//选中 -> 选中
-                Log.i("activity_audio_player", "onTabReselected: " + position);
-            }
-        });
-
+        initHud();
+        setupTabBar();
         setDefaultFragment();
+
+        messageTips(-1, tv_1);
+        messageTips(-1, tv_2);
+        messageTips(-2, tv_3);
+        messageTips(-1, tv_4);
+        messageTips(-1, tv_5);
+
+        initSocket();
     }
 
+    private void initSocket() {
+        new Thread() {
+            @Override
+            public void run() {
+                ApplicationUtil appUtil =  (ApplicationUtil) MainActivity.this.getApplication();
+                try {
+                    appUtil.init();
+                    socket = appUtil.getSocket();
+                    out = appUtil.getOut();
+                    in = appUtil.getIn();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }.start();
+    }
 
-    private void setDefaultFragment() {
-        FragmentManager fm = getFragmentManager();
+    public void connectServer() {
+        kProgressHUD.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                kProgressHUD.dismiss();
+                okHUD.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        okHUD.dismiss();
+                    }
+                }, 1000);
+            }
+        },1500);
+    }
+
+    private void setupTabBar() {
+        tv_1 = (TextView) findViewById(R.id.tv_1);
+        tv_2 = (TextView) findViewById(R.id.tv_2);
+        tv_3 = (TextView) findViewById(R.id.tv_3);
+        tv_4 = (TextView) findViewById(R.id.tv_4);
+        tv_5 = (TextView) findViewById(R.id.tv_5);
+
+        rb_1 = (RadioButton) findViewById(R.id.rb_1);
+        rb_2 = (RadioButton) findViewById(R.id.rb_2);
+        rb_3 = (RadioButton) findViewById(R.id.rb_3);
+        rb_4 = (RadioButton) findViewById(R.id.rb_4);
+        rb_5 = (RadioButton) findViewById(R.id.rb_5);
+
+        rl_1 = (RelativeLayout) findViewById(R.id.rl_1);
+        rl_2 = (RelativeLayout) findViewById(R.id.rl_2);
+        rl_3 = (RelativeLayout) findViewById(R.id.rl_3);
+        rl_4 = (RelativeLayout) findViewById(R.id.rl_4);
+        rl_5 = (RelativeLayout) findViewById(R.id.rl_5);
+
+        rb_1.setOnClickListener(this);
+        rb_2.setOnClickListener(this);
+        rb_3.setOnClickListener(this);
+        rb_4.setOnClickListener(this);
+        rb_5.setOnClickListener(this);
+
+        rl_1.setOnClickListener(this);
+        rl_2.setOnClickListener(this);
+        rl_3.setOnClickListener(this);
+        rl_4.setOnClickListener(this);
+        rl_5.setOnClickListener(this);
+    }
+
+    /**
+     * -1:表示没有新消息
+     * -2:表示新消息用红点的方式显示
+     * 0-99：直接显示数字
+     * >=100:用99+显示
+     */
+    private void messageTips (int num, TextView tv) {
+        if(num == -1) {
+            tv.setVisibility(View.GONE);
+        } else if(num == -2){
+            tv.setVisibility(View.VISIBLE);
+            tv.setText("");
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv.getLayoutParams();
+            layoutParams.height= DensityUtil.dip2px(this,10);
+            layoutParams.width= DensityUtil.dip2px(this,10);
+            tv.setLayoutParams(layoutParams);
+        } else if(num >= 0 && num <= 99) {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(num+"");
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv.getLayoutParams();
+            layoutParams.height= DensityUtil.dip2px(this,16);
+            layoutParams.width= DensityUtil.dip2px(this,16);
+            tv.setLayoutParams(layoutParams);
+        } else if(num>=100) {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText("99+");
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv.getLayoutParams();
+            layoutParams.height= DensityUtil.dip2px(this,16);
+            layoutParams.width= DensityUtil.dip2px(this,16);
+            tv.setTextSize(DensityUtil.dip2px(this,3));
+            tv.setLayoutParams(layoutParams);
+        } else {
+            tv.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mCameraFragment = CameraFragment.newInstance("首页");
-        qhTitleView.setTitle("首页");
-        transaction.replace(R.id.tabs, mCameraFragment);
+        switch (v.getId()) {
+            case R.id.rl_1:
+            case R.id.rb_1:
+                Log.i(TAG, "onClick: 1");
+                if (mHomepageFragment == null) {
+                    mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
+                }
+                transaction.replace(R.id.tabs, mHomepageFragment);
+                setTabButtonAction(0);
+                break;
+            case R.id.rl_2:
+            case R.id.rb_2:
+                Log.i(TAG, "onClick: 2");
+                if (mMessageFragment == null) {
+                    mMessageFragment = MessageFragment.newInstance(getString(R.string.main_tab_name_2));
+                }
+                transaction.replace(R.id.tabs, mMessageFragment);
+                setTabButtonAction(1);
+                break;
+            case R.id.rl_3:
+            case R.id.rb_3:
+                Log.i(TAG, "onClick: 3");
+                if (mLogFragment == null) {
+                    mLogFragment = LogFragment.newInstance(getString(R.string.main_tab_name_3));
+                }
+                transaction.replace(R.id.tabs, mLogFragment);
+                setTabButtonAction(2);
+                break;
+            case R.id.rl_4:
+            case R.id.rb_4:
+                Log.i(TAG, "onClick: 4");
+                if (mFunctionFragment == null) {
+                    mFunctionFragment = FunctionFragment.newInstance(getString(R.string.main_tab_name_4));
+                }
+                transaction.replace(R.id.tabs, mFunctionFragment);
+                setTabButtonAction(3);
+                break;
+            case R.id.rl_5:
+            case R.id.rb_5:
+                Log.i(TAG, "onClick: 5");
+                if (mSettingFragment == null) {
+                    mSettingFragment = SettingFragment.newInstance(getString(R.string.main_tab_name_5));
+                }
+                transaction.replace(R.id.tabs, mSettingFragment);
+                setTabButtonAction(4);
+                break;
+        }
         transaction.commit();
     }
 
-    */
+    /**
+     * 设置默认的
+     */
+    private void setDefaultFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        mHomepageFragment = HomepageFragment.newInstance(getString(R.string.main_tab_name_1));
+        transaction.replace(R.id.tabs, mHomepageFragment);
+        transaction.commit();
+        setTabButtonAction(0);
+    }
+
+    private void initHud() {
+        //hudView
+        kProgressHUD = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(getString(R.string.connect_server_progress))
+                .setAnimationSpeed(1)
+                .setDimAmount(0.3f)
+                .setSize(110, 110)
+                .setCancellable(false);
+        ImageView imageView = new ImageView(this);
+        imageView.setBackgroundResource(R.drawable.checkmark);
+        okHUD  =  KProgressHUD.create(this)
+                .setCustomView(imageView)
+                .setLabel(getString(R.string.connect_server_ok))
+                .setCancellable(false)
+                .setSize(110,110)
+                .setDimAmount(0.3f);
+    }
+
+    public void onBackPressed() {
+
+        if (!hasPressedBackOnce) {
+            backToast = Toast.makeText(this, "再按一次返回键退出程序", Toast.LENGTH_SHORT);
+            backToast.show();
+            hasPressedBackOnce = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    hasPressedBackOnce = false;
+                }
+            },2500);
+        } else {
+            backToast.cancel();
+            super.onBackPressed();
+        }
+    }
+
+    private void setTabButtonAction(int index) {
+        RadioButton[] radioButtons = new RadioButton[] {rb_1, rb_2, rb_3, rb_4, rb_5};
+
+        for (int i = 0; i < 5; i++) {
+            if (i == index) {
+                radioButtons[i].setTextColor(getResources().getColor(R.color.tab_text_selected));
+                radioButtons[i].getPaint().setFakeBoldText(true);
+                radioButtons[i].setChecked(true);
+            } else {
+                radioButtons[i].setTextColor(getResources().getColor(R.color.homepage_text_color));
+                radioButtons[i].getPaint().setFakeBoldText(false);
+                radioButtons[i].setChecked(false);
+            }
+        }
+
+    }
 }

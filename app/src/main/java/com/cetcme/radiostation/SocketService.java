@@ -23,7 +23,7 @@ import java.net.UnknownHostException;
 
 public class SocketService extends Service {
 
-    private String serverIP = "192.168.10.3";
+    private String serverIP = "192.168.9.179";
     private int serverPort = 9999;
 
 //    private String serverIP = "localhost";

@@ -1,5 +1,6 @@
 package com.cetcme.radiostation.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cetcme.radiostation.ApplicationUtil;
 import com.cetcme.radiostation.DialogView.AgcSelectActivity;
 import com.cetcme.radiostation.DialogView.AttSelectActivity;
 import com.cetcme.radiostation.DialogView.PowSelectActivity;
@@ -25,6 +27,9 @@ import com.cetcme.radiostation.R;
 import com.cetcme.radiostation.voiceSocket.VoiceSocketActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -77,7 +82,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
     private TextView conversation_number_tv;
 
-    public static final int MSG_UPDATA_TIME = 1;
+    public static final int MSG_UPDATE_TIME = 1;
+    public static final int MSG_DEVICE = 0;
+
+    private ApplicationUtil appUtil;
 
     public static HomepageFragment newInstance(String param1) {
         HomepageFragment fragment = new HomepageFragment();
@@ -113,11 +121,17 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
         //获取系统设置
         initSystemSetting();
+        initSocket();
 
         //更新ui
         updateView();
 
         return view;
+    }
+
+    private void initSocket() {
+        appUtil = (ApplicationUtil) getActivity().getApplication();
+        appUtil.handlerHashMap.put(TAG, handler);
     }
 
     private void initSystemSetting() {
@@ -393,8 +407,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         pow_TextView.setOnClickListener(this);
         view.findViewById(R.id.pow_layout).setOnClickListener(this);
 
-
-
         mmsi_tv = (TextView) view.findViewById(R.id.mmsi_tv);
         conversation_number_tv = (TextView) view.findViewById(R.id.conversation_number_tv);
         conversation_number_tv.setOnClickListener(this);
@@ -590,14 +602,14 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         return str.matches("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
     }
 
-
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             //通过消息的内容msg.what  分别更新ui
             switch (msg.what) {
-                case MSG_UPDATA_TIME:
+                case MSG_UPDATE_TIME:
                     //获取到系统当前时间 long类型
                     long time = System.currentTimeMillis();
                     //将long类型的时间转换成日历格式
@@ -607,6 +619,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                     //显示在textview上，通过转换格式
                     utc_tv.setText("UTC " + simpleDateFormat.format(data));
                     break;
+                case MSG_DEVICE:
+                    Log.e(TAG, "handleMessage: " + msg.obj);
                 default:
                     break;
             }
@@ -625,7 +639,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                     Thread.sleep(1000);
                     Message msg = new Message();
                     //消息内容 为MSG_ONE
-                    msg.what = MSG_UPDATA_TIME;
+                    msg.what = MSG_UPDATE_TIME;
                     //发送
                     handler.sendMessage(msg);
                 } catch (InterruptedException e) {
@@ -671,6 +685,7 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                     ssb_TextView.setText(getString(R.string.homepage_ssb_3));
                     ssb_TextView.setTextSize(35);
                 }
+                deviceChangeMode(ssbState + 1);
                 break;
             case 2:
                 lastAgcState = radioNumber;
@@ -708,5 +723,23 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
             default:
                 break;
         }
+    }
+
+    private void deviceChangeMode(int mode) {
+        try {
+            JSONObject data = new JSONObject();
+            data.put("InstructionType", 3);
+            data.put("WorkMode", mode);
+
+            appUtil.send(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        appUtil.handlerHashMap.remove(TAG);
     }
 }

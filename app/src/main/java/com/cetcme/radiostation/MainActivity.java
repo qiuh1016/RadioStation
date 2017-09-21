@@ -1,11 +1,13 @@
 package com.cetcme.radiostation;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -23,11 +25,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import com.cetcme.radiostation.Fragment.CameraFragment;
 import com.cetcme.radiostation.Fragment.FunctionFragment;
 import com.cetcme.radiostation.Fragment.SettingFragment;
 import com.cetcme.radiostation.Fragment.HomepageFragment;
-import com.cetcme.radiostation.Fragment.LocationFragment;
 import com.cetcme.radiostation.Fragment.LogFragment;
 import com.cetcme.radiostation.Fragment.MessageFragment;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Socket socket;
     private OutputStreamWriter out;
     private InputStreamReader in;
+    private ApplicationUtil appUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,20 +97,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Thread() {
             @Override
             public void run() {
-                ApplicationUtil appUtil =  (ApplicationUtil) MainActivity.this.getApplication();
+                appUtil =  (ApplicationUtil) MainActivity.this.getApplication();
                 try {
                     appUtil.init();
-                    socket = appUtil.getSocket();
-                    out = appUtil.getOut();
-                    in = appUtil.getIn();
+                    appUtil.handlerHashMap.put(TAG, handler);
+                    Log.e(TAG, "建立连接：" + socket);
                 } catch (IOException e1) {
                     e1.printStackTrace();
+                    Log.e(TAG, "err：" );
                 } catch (Exception e1) {
                     e1.printStackTrace();
+                    Log.e(TAG, "err：" );
                 }
+
             }
         }.start();
     }
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            //如果来自子线程
+            if(msg.what == 0){
+                Log.e(TAG, "handleMessage: " + msg.obj);
+            }
+        }
+    };
+
+
 
     public void connectServer() {
         kProgressHUD.show();
@@ -297,6 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             },2500);
         } else {
             backToast.cancel();
+            appUtil.handlerHashMap.remove(TAG);
             super.onBackPressed();
         }
     }

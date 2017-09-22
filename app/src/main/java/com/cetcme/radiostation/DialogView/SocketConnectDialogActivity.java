@@ -23,6 +23,7 @@ public class SocketConnectDialogActivity extends Activity {
     private ApplicationUtil appUtil;
 
     private String BUTTON_CONNECTED = "连接";
+    private String BUTTON_RECONNECTED = "重新连接";
     private String BUTTON_DISCONNECTED = "断开";
 
     @Override
@@ -35,10 +36,6 @@ public class SocketConnectDialogActivity extends Activity {
 
         initView();
 
-        boolean socket_disconnected = getIntent().getBooleanExtra("socket_disconnected", false);
-        if (socket_disconnected) {
-            hint_textView.setText("与服务器断开连接");
-        }
     }
 
     private void initView() {
@@ -61,14 +58,21 @@ public class SocketConnectDialogActivity extends Activity {
         hint_textView = (TextView) findViewById(R.id.hint_textView);
         connect_button = (Button) findViewById(R.id.connect_button);
 
-        if (appUtil.getSocket() != null && appUtil.getSocket().isConnected()) {
+        boolean socket_disconnected = getIntent().getBooleanExtra("socket_disconnected", false);
+        if (socket_disconnected) {
+            hint_textView.setText("与服务器断开连接");
+            connect_button.setText(BUTTON_RECONNECTED);
+        } else if (appUtil.getSocket() != null && appUtil.getSocket().isConnected()) {
             hint_textView.setText("已连接");
             setConnectButtonEnable(true, BUTTON_DISCONNECTED);
+        } else {
+            buttonClick(null);
         }
     }
 
     public void buttonClick(View v) {
-        if (connect_button.getText().equals(BUTTON_CONNECTED)) {
+        if (connect_button.getText().equals(BUTTON_CONNECTED) ||
+                connect_button.getText().equals(BUTTON_RECONNECTED)) {
             hint_textView.setText("正在连接...");
             setConnectButtonEnable(false, null);
             connectSocket();
@@ -102,7 +106,7 @@ public class SocketConnectDialogActivity extends Activity {
                     break;
                 case ApplicationUtil.SOCKET_DISCONNECTED:
                     hint_textView.setText(msg.obj.toString());
-                    setConnectButtonEnable(true, BUTTON_CONNECTED);
+                    setConnectButtonEnable(true, BUTTON_RECONNECTED);
                     break;
                 default:
                     break;

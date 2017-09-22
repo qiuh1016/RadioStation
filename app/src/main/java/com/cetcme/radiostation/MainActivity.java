@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private KProgressHUD kProgressHUD;
     private KProgressHUD okHUD;
 
-    private Socket socket;
     private OutputStreamWriter out;
     private InputStreamReader in;
     private ApplicationUtil appUtil;
@@ -287,11 +286,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             backToast.cancel();
             appUtil.handlerHashMap.remove(TAG);
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             super.onBackPressed();
         }
     }

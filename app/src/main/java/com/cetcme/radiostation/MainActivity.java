@@ -81,13 +81,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupTabBar();
         setDefaultFragment();
 
+        appUtil =  (ApplicationUtil) MainActivity.this.getApplication();
+        appUtil.handlerHashMap.put(TAG, handler);
+
+        showConnectDialog();
+
         messageTips(-1, tv_1);
         messageTips(-1, tv_2);
         messageTips(-2, tv_3);
         messageTips(-1, tv_4);
         messageTips(-1, tv_5);
-
-        showConnectDialog();
     }
 
     @SuppressLint("HandlerLeak")
@@ -95,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-//                case ApplicationUtil.SOCKET_RECEIVE_DATA:
+                case ApplicationUtil.SOCKET_RECEIVE_DATA:
 //                    Log.e(TAG, "handleMessage: " + msg.obj);
-//                    break;
+                    break;
                 case ApplicationUtil.SOCKET_DISCONNECTED:
                     Intent intent = new Intent(MainActivity.this, SocketConnectDialogActivity.class);
                     intent.putExtra("socket_disconnected", true);
@@ -110,9 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     public void showConnectDialog() {
-        appUtil =  (ApplicationUtil) MainActivity.this.getApplication();
-        appUtil.handlerHashMap.put(TAG, handler);
-
         Intent intent = new Intent(MainActivity.this, SocketConnectDialogActivity.class);
         startActivity(intent);
     }

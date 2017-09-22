@@ -22,12 +22,16 @@ public class SocketConnectDialogActivity extends Activity {
 
     private ApplicationUtil appUtil;
 
+    private String BUTTON_CONNECTED = "连接";
+    private String BUTTON_DISCONNECTED = "断开";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket_connect_dialog);
 
         appUtil = (ApplicationUtil) getApplication();
+        appUtil.handlerHashMap.put(TAG, handler);
 
         initView();
 
@@ -59,19 +63,27 @@ public class SocketConnectDialogActivity extends Activity {
 
         if (appUtil.getSocket() != null && appUtil.getSocket().isConnected()) {
             hint_textView.setText("已连接");
-            setConnectButtonEnable(false);
+            setConnectButtonEnable(true, BUTTON_DISCONNECTED);
         }
     }
 
     public void buttonClick(View v) {
-        hint_textView.setText("正在连接...");
-        setConnectButtonEnable(false);
-        connectSocket();
+        if (connect_button.getText().equals(BUTTON_CONNECTED)) {
+            hint_textView.setText("正在连接...");
+            setConnectButtonEnable(false, null);
+            connectSocket();
+        } else if (connect_button.getText().equals(BUTTON_DISCONNECTED)) {
+            appUtil.disconnectSocket();
+            hint_textView.setText("连接已断开");
+            setConnectButtonEnable(true, BUTTON_CONNECTED);
+        } else {
+            Log.d(TAG, "buttonClick: " + connect_button.getText());
+        }
+
     }
 
     private void connectSocket() {
         appUtil.connectSocket();
-        appUtil.handlerHashMap.put(TAG, handler);
     }
 
     @SuppressLint("HandlerLeak")
@@ -89,8 +101,8 @@ public class SocketConnectDialogActivity extends Activity {
                     }, 1000);
                     break;
                 case ApplicationUtil.SOCKET_DISCONNECTED:
-                    hint_textView.setText((String)msg.obj);
-                    setConnectButtonEnable(true);
+                    hint_textView.setText(msg.obj.toString());
+                    setConnectButtonEnable(true, BUTTON_CONNECTED);
                     break;
                 default:
                     break;
@@ -103,7 +115,10 @@ public class SocketConnectDialogActivity extends Activity {
         appUtil.handlerHashMap.remove(TAG);
     }
 
-    private void setConnectButtonEnable(boolean enable) {
+    private void setConnectButtonEnable(boolean enable, String text) {
+        if (text != null) {
+            connect_button.setText(text);
+        }
         connect_button.setEnabled(enable);
         connect_button.setBackgroundResource(enable ? R.drawable.single_select : R.drawable.single_select_disable);
     }

@@ -123,7 +123,7 @@ public class ApplicationUtil extends Application {
         }.start();
     }
 
-    private void sendMsg(String data, int what) {
+    public void sendMsg(String data, int what) {
         Iterator iter = handlerHashMap.entrySet().iterator();
         while (iter.hasNext()) {
             Message msg = new Message();
@@ -136,7 +136,7 @@ public class ApplicationUtil extends Application {
         }
     }
 
-    private void sendMsg(String data, int what, String key) {
+    public void sendMsg(String data, int what, String key) {
         Message msg = new Message();
         msg.what = what;
         msg.obj = data;
@@ -152,6 +152,7 @@ public class ApplicationUtil extends Application {
         try {
             socket.close();
             sendMsg("断开连接", SOCKET_DISCONNECTED, "MainActivity");
+            sendMsg("与服务器断开连接", SOCKET_DISCONNECTED, "SocketConnectDialog");
         } catch (IOException e) {
             e.printStackTrace();
         }

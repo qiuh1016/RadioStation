@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <com.qiuhong.qhlibrary.QHTitleView.QHTitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout_in_ship_info_activity"
+        android:layout_width="270dp"
+        android:layout_height="230dp"
+        android:background="@drawable/bottom_unselect"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!--text layout-->
+
+        <LinearLayout
+            style="@style/wrap_layout_no_background"
+            android:layout_height="140dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="112dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mic_textView"
+                    android:layout_width="68dp"
+                    android:layout_height="112dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/mic_pic" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/hint_textView"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/tab_text_selected" />
+
+        <!--button layout-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/talk_button"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/single_select"
+                android:gravity="center"
+                android:text="按住说话"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

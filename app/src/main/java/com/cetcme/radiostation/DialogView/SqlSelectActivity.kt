@@ -8,6 +8,7 @@ import android.view.View
 import com.cetcme.radiostation.MyClass.NumberValidationUtils
 
 import com.cetcme.radiostation.R
+import com.qiuhong.qhlibrary.QHTitleView.QHTitleView
 import kotlinx.android.synthetic.main.activity_sql_select.*
 
 class SqlSelectActivity : Activity() {
@@ -27,6 +28,14 @@ class SqlSelectActivity : Activity() {
     fun initView() {
         titleView.setBackgroundResource(R.drawable.top_select)
         titleView.setTitle("SQL设置")
+        titleView.setClickCallback(object : QHTitleView.ClickCallback {
+            override fun onBackClick() {
+                //
+            }
+            override fun onRightClick() {
+                //
+            }
+        })
 
 
         radioButton2.setOnCheckedChangeListener { buttonView, isChecked ->

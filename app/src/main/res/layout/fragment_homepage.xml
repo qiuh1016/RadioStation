@@ -223,7 +223,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/homepage_text_color"
                 android:textSize="50sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -249,7 +249,7 @@
                     android:textAlignment="textEnd"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/agc_spinner"
@@ -259,7 +259,7 @@
                     android:entries="@array/agcString"
                     android:gravity="end"
                     android:textAlignment="textEnd"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/agc_TextView"
@@ -271,7 +271,7 @@
                     android:text="FAST"
                     android:textColor="#000000"
                     android:textSize="15sp"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -280,13 +280,13 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/down26"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:id="@+id/sql_layout"
@@ -304,7 +304,7 @@
                     android:textAlignment="textEnd"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/sql_spinner"
@@ -314,7 +314,7 @@
                     android:entries="@array/sqlString"
                     android:gravity="end"
                     android:textAlignment="textEnd"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/sql_TextView"
@@ -326,7 +326,7 @@
                     android:text="20"
                     android:textColor="#000000"
                     android:textSize="15sp"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
             </LinearLayout>
 
@@ -355,14 +355,14 @@
                     android:textAlignment="textEnd"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/att_spinner"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:entries="@array/attString"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/att_TextView"
@@ -374,13 +374,13 @@
                     android:text="@string/homepage_att_0"
                     android:textColor="#000000"
                     android:textSize="15sp"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
             </LinearLayout>
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:id="@+id/pow_layout"
@@ -398,14 +398,14 @@
                     android:textAlignment="textEnd"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/pow_spinner"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:entries="@array/powString"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/pow_TextView"
@@ -417,7 +417,7 @@
                     android:text="@string/homepage_pow_0"
                     android:textColor="#000000"
                     android:textSize="15sp"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
             </LinearLayout>
 
@@ -428,7 +428,7 @@
     <include layout="@layout/separate_line"/>
 
     <LinearLayout
-        android:id="@+id/changjing_layout"
+        android:id="@+id/situation_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -448,13 +448,13 @@
             android:textAlignment="center"
             android:textColor="@color/homepage_text_color"
             android:textSize="45sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/conversation_icon_tv"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/homepage_duochangjing"/>
+            android:background="@drawable/homepage_duochangjing" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -478,7 +478,7 @@
                     android:textAlignment="textEnd"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/utc_tv"
@@ -489,13 +489,13 @@
                     android:text="UTC 11:40"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -514,7 +514,7 @@
                     android:textAlignment="textEnd"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView21"
@@ -525,7 +525,7 @@
                     android:text="GPS"
                     android:textColor="@color/homepage_text_color"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -536,15 +536,13 @@
 
     <include layout="@layout/separate_line"/>
 
-    <com.cetcme.radiostation.MyClass.DragView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:background="@color/tab_text_selected"
-        android:id="@+id/id_dragView"
-        android:text="this is a drag view"
-        android:textColor="@color/white"
-        android:gravity="center_vertical" />
+    <!--<com.cetcme.radiostation.MyClass.VoiceView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.3"-->
+        <!--android:background="@color/tab_text_selected"-->
+        <!--android:id="@+id/VoiceView"-->
+        <!--android:gravity="center_vertical" />-->
 
     <LinearLayout
         android:id="@+id/voice_layout"
@@ -552,16 +550,14 @@
         android:layout_height="0dp"
         android:layout_weight="0.3"
         android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/voiceTextView"
             android:layout_width="96dp"
             android:layout_height="30dp"
             android:background="@drawable/homepage_voice_button"
-            android:gravity="center"
-            />
+            android:gravity="center" />
     </LinearLayout>
 
 </LinearLayout>

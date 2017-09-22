@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 
 import com.cetcme.radiostation.R
+import com.qiuhong.qhlibrary.QHTitleView.QHTitleView
 import kotlinx.android.synthetic.main.activity_ssb_select.*
 
 class SsbSelectActivity : Activity() {
@@ -24,7 +25,14 @@ class SsbSelectActivity : Activity() {
     fun initView() {
         titleView.setBackgroundResource(R.drawable.top_select)
         titleView.setTitle("模式选择")
-
+        titleView.setClickCallback(object : QHTitleView.ClickCallback {
+            override fun onBackClick() {
+                //
+            }
+            override fun onRightClick() {
+                //
+            }
+        })
     }
 
     fun setRadioData() {

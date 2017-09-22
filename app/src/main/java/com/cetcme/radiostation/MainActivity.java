@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 appUtil =  (ApplicationUtil) MainActivity.this.getApplication();
                 try {
                     appUtil.init();
+                    socket = appUtil.getSocket();
                     appUtil.handlerHashMap.put(TAG, handler);
                     Log.e(TAG, "建立连接：" + socket);
                 } catch (IOException e1) {
@@ -118,9 +119,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            //如果来自子线程
-            if(msg.what == 0){
-                Log.e(TAG, "handleMessage: " + msg.obj);
+            switch (msg.what) {
+                case ApplicationUtil.SOCKET_RECEIVE_DATA:
+                    Log.e(TAG, "handleMessage: " + msg.obj);
+                    break;
+                default:
+                    break;
+
             }
         }
     };

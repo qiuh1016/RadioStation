@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 
 import com.cetcme.radiostation.R
+import com.qiuhong.qhlibrary.QHTitleView.QHTitleView
 import kotlinx.android.synthetic.main.activity_att_select.*
 
 class AttSelectActivity : Activity() {
@@ -24,7 +25,14 @@ class AttSelectActivity : Activity() {
     fun initView() {
         titleView.setBackgroundResource(R.drawable.top_select)
         titleView.setTitle("ATT设置")
-
+        titleView.setClickCallback(object : QHTitleView.ClickCallback {
+            override fun onBackClick() {
+                //
+            }
+            override fun onRightClick() {
+                //
+            }
+        })
     }
 
     fun setRadioData() {

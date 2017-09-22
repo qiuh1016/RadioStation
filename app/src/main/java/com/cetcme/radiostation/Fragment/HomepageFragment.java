@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +21,11 @@ import com.cetcme.radiostation.ApplicationUtil;
 import com.cetcme.radiostation.DialogView.AgcSelectActivity;
 import com.cetcme.radiostation.DialogView.AttSelectActivity;
 import com.cetcme.radiostation.DialogView.PowSelectActivity;
+import com.cetcme.radiostation.DialogView.PressTalkActivity;
 import com.cetcme.radiostation.DialogView.SqlSelectActivity;
 import com.cetcme.radiostation.DialogView.SsbSelectActivity;
 import com.cetcme.radiostation.MainActivity;
 import com.cetcme.radiostation.R;
-import com.cetcme.radiostation.voiceSocket.VoiceSocketActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
@@ -82,8 +83,11 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
 
     private TextView conversation_number_tv;
 
+    private LinearLayout ssb_layout;
+    private LinearLayout situation_layout;
+    private LinearLayout voice_layout;
+
     public static final int MSG_UPDATE_TIME = 1;
-    public static final int MSG_DEVICE = 0;
 
     private ApplicationUtil appUtil;
 
@@ -388,6 +392,10 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         view.findViewById(R.id.voice_layout).setOnClickListener(this);
         view.findViewById(R.id.conversation_icon_tv).setOnClickListener(this);
 
+        ssb_layout = (LinearLayout) view.findViewById(R.id.ssb_layout);
+        situation_layout = (LinearLayout) view.findViewById(R.id.situation_layout);
+        voice_layout = (LinearLayout) view.findViewById(R.id.voice_layout);
+
         ssb_TextView = (TextView) view.findViewById(R.id.ssb_textView);
         ssb_TextView.setOnClickListener(this);
 
@@ -545,8 +553,8 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         Intent intent;
         switch (v.getId()) {
             case R.id.voiceTextView:
-//            case R.id.voice_layout:
-                intent = new Intent(getActivity(), VoiceSocketActivity.class);
+            case R.id.voice_layout:
+                intent = new Intent(getActivity(), PressTalkActivity.class);
                 startActivity(intent);
                 break;
             case R.id.conversation_number_tv:
@@ -607,7 +615,6 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            //通过消息的内容msg.what  分别更新ui
             switch (msg.what) {
                 case MSG_UPDATE_TIME:
                     //获取到系统当前时间 long类型
@@ -619,8 +626,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
                     //显示在textview上，通过转换格式
                     utc_tv.setText("UTC " + simpleDateFormat.format(data));
                     break;
-                case MSG_DEVICE:
+                case ApplicationUtil.SOCKET_RECEIVE_DATA:
                     Log.e(TAG, "handleMessage: " + msg.obj);
+                    break;
                 default:
                     break;
             }
@@ -730,6 +738,18 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
             JSONObject data = new JSONObject();
             data.put("InstructionType", 3);
             data.put("WorkMode", mode);
+
+            appUtil.send(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deviceChangeCh(int channel) {
+        try {
+            JSONObject data = new JSONObject();
+            data.put("InstructionType", 4);
+            data.put("Channel", channel);
 
             appUtil.send(data);
         } catch (JSONException e) {

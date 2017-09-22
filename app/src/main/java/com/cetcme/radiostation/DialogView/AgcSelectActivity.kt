@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.cetcme.radiostation.Fragment.HomepageFragment
+import com.cetcme.radiostation.MainActivity
 
 import com.cetcme.radiostation.R
+import com.qiuhong.qhlibrary.QHTitleView.QHTitleView
 import kotlinx.android.synthetic.main.activity_sql_select.*
 
 class AgcSelectActivity : Activity() {
@@ -26,6 +28,15 @@ class AgcSelectActivity : Activity() {
     fun initView() {
         titleView.setBackgroundResource(R.drawable.top_select)
         titleView.setTitle("AGC设置")
+
+        titleView.setClickCallback(object : QHTitleView.ClickCallback {
+            override fun onBackClick() {
+                //
+            }
+            override fun onRightClick() {
+                //
+            }
+        })
 
 
         radioButton2.setOnCheckedChangeListener { buttonView, isChecked ->

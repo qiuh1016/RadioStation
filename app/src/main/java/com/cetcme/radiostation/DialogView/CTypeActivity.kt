@@ -9,6 +9,7 @@ import com.cetcme.radiostation.Fragment.HomepageFragment
 import com.cetcme.radiostation.MyClass.NumberValidationUtils
 
 import com.cetcme.radiostation.R
+import com.qiuhong.qhlibrary.QHTitleView.QHTitleView
 import kotlinx.android.synthetic.main.activity_ctype.*
 import java.text.DecimalFormat
 
@@ -31,6 +32,15 @@ class CTypeActivity : Activity() {
     fun initView() {
         titleView.setBackgroundResource(R.drawable.top_select)
         titleView.setTitle("通信方式")
+
+        titleView.setClickCallback(object : QHTitleView.ClickCallback {
+            override fun onBackClick() {
+                //
+            }
+            override fun onRightClick() {
+                //
+            }
+        })
 
         freq_radioButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

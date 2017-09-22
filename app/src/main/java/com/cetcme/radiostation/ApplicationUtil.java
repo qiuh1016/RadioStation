@@ -34,6 +34,10 @@ public class ApplicationUtil extends Application {
     public int BUFFER_SIZE = 1024 * 1024;
 
     String TAG = "ApplicationUtil";
+
+    public static final int SOCKET_RECEIVE_DATA = 0x1000;
+    public static final int SOCKET_DISCONNECTED = 0x1001;
+    public static final int SOCKET_CONNECTED    = 0x1002;
     
     public void init() throws Exception{
         this.socket = new Socket();
@@ -93,7 +97,7 @@ public class ApplicationUtil extends Application {
             @Override
             public void run() {
                 try {
-                    final InetAddress address = socket.getInetAddress();
+//                    final InetAddress address = socket.getInetAddress();
                     BufferedReader br = new BufferedReader(in);
                     while (true) {
                         // 读取数据
@@ -101,21 +105,10 @@ public class ApplicationUtil extends Application {
                         int len = br.read(data);
                         if (len != -1) {
                             String rexml = String.valueOf(data, 0, len);
-                            System.out.println("获取到服务器的信息：" + address + " ");
+                            System.out.println("获取到服务器的信息：" + socket.getInetAddress() + " ");
                             System.out.println(rexml);
 
-                            Iterator iter = handlerHashMap.entrySet().iterator();
-                            while (iter.hasNext()) {
-                                Message msg = new Message();
-                                msg.what = 0;
-                                msg.obj = rexml;
-
-                                Map.Entry entry = (Map.Entry) iter.next();
-                                String key = (String) entry.getKey();
-                                Handler val = (Handler) entry.getValue();
-                                Log.e(TAG, "run: " + key);
-                                val.sendMessage(msg);
-                            }
+                            sendMsg(rexml);
                         } else {
                             socket.close();
                             return;
@@ -128,5 +121,19 @@ public class ApplicationUtil extends Application {
         }.start();
     }
 
+    private void sendMsg(String data) {
+        Iterator iter = handlerHashMap.entrySet().iterator();
+        while (iter.hasNext()) {
+            Message msg = new Message();
+            msg.what = SOCKET_RECEIVE_DATA;
+            msg.obj = data;
+
+            Map.Entry entry = (Map.Entry) iter.next();
+            String key = (String) entry.getKey();
+            Handler val = (Handler) entry.getValue();
+            Log.e(TAG, "run: " + key);
+            val.sendMessage(msg);
+        }
+    }
 
 }

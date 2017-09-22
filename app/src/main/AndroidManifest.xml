@@ -26,62 +26,61 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecordActivity"></activity>
-        <activity android:name=".SocketActivity"></activity>
-        <activity android:name=".pcm.AudioPlayerDemoActivity"></activity>
-        <activity android:name=".VoiceShareActivity"></activity>
-        <activity android:name=".rtp.RtpActivity"></activity>
-        <activity android:name=".voiceSocket.VoiceSocketActivity"></activity>
-        <activity android:name=".Call.PersonalCallActivity"></activity>
-        <activity android:name=".Call.PersonalCallDetailActivity"></activity>
-        <activity android:name=".Setting.AddressActivity"></activity>
-        <activity android:name=".Setting.AddressEditActivity"></activity>
-        <activity android:name=".Setting.SsbSettingActivity"></activity>
-        <activity android:name=".Setting.DscSettingActivity"></activity>
-        <activity android:name=".Setting.RoutineDutyActivity"></activity>
-        <activity android:name=".Setting.AutoAckActivity"></activity>
-        <activity android:name=".Setting.SysSettingActivity"></activity>
-        <activity android:name=".Setting.DeviceInfoActivity"></activity>
-        <activity android:name=".Setting.SelfCheckActivity"></activity>
-        <activity android:name=".Setting.DscTestActivity"></activity>
+        <activity android:name=".RecordActivity" />
+        <activity android:name=".SocketActivity" />
+        <activity android:name=".pcm.AudioPlayerDemoActivity" />
+        <activity android:name=".VoiceShareActivity" />
+        <activity android:name=".rtp.RtpActivity" />
+        <activity android:name=".voiceSocket.VoiceSocketActivity" />
+        <activity android:name=".Call.PersonalCallActivity" />
+        <activity android:name=".Call.PersonalCallDetailActivity" />
+        <activity android:name=".Setting.AddressActivity" />
+        <activity android:name=".Setting.AddressEditActivity" />
+        <activity android:name=".Setting.SsbSettingActivity" />
+        <activity android:name=".Setting.DscSettingActivity" />
+        <activity android:name=".Setting.RoutineDutyActivity" />
+        <activity android:name=".Setting.AutoAckActivity" />
+        <activity android:name=".Setting.SysSettingActivity" />
+        <activity android:name=".Setting.DeviceInfoActivity" />
+        <activity android:name=".Setting.SelfCheckActivity" />
+        <activity android:name=".Setting.DscTestActivity" />
         <activity
             android:name=".DialogView.SqlSelectActivity"
             android:launchMode="singleTask"
-            android:theme="@style/myDialogActivityStyle"></activity>
+            android:theme="@style/myDialogActivityStyle" />
         <activity
             android:name=".DialogView.SsbSelectActivity"
             android:launchMode="singleTask"
-            android:theme="@style/myDialogActivityStyle"></activity>
+            android:theme="@style/myDialogActivityStyle" />
         <activity
             android:name=".DialogView.AgcSelectActivity"
             android:launchMode="singleTask"
-            android:theme="@style/myDialogActivityStyle"></activity>
+            android:theme="@style/myDialogActivityStyle" />
         <activity
             android:name=".DialogView.AttSelectActivity"
             android:launchMode="singleTask"
-            android:theme="@style/myDialogActivityStyle"></activity>
+            android:theme="@style/myDialogActivityStyle" />
         <activity
             android:name=".DialogView.PowSelectActivity"
             android:launchMode="singleTask"
-            android:theme="@style/myDialogActivityStyle"></activity>
-        <activity
-            android:name=".DialogView.VoiceDialogActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/myDialogActivityStyle"></activity>
+            android:theme="@style/myDialogActivityStyle" />
         <activity
             android:name=".DialogView.CTypeActivity"
             android:launchMode="singleTask"
-            android:theme="@style/myDialogActivityStyle"></activity>
+            android:theme="@style/myDialogActivityStyle" />
         <activity
             android:name=".DialogView.PressTalkActivity"
             android:launchMode="singleTask"
-            android:theme="@style/myDialogActivityStyle"></activity>
+            android:theme="@style/myDialogActivityStyle" />
+        <activity
+            android:name=".DialogView.SocketConnectDialogActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/myDialogActivityStyle" />
 
         <service
             android:name=".SocketService"
             android:enabled="true"
-            android:exported="true"></service>
-
+            android:exported="true" />
 
     </application>
 

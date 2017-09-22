@@ -1,12 +1,8 @@
 package com.cetcme.radiostation;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+import com.cetcme.radiostation.DialogView.SocketConnectDialogActivity;
 import com.cetcme.radiostation.Fragment.FunctionFragment;
 import com.cetcme.radiostation.Fragment.SettingFragment;
 import com.cetcme.radiostation.Fragment.HomepageFragment;
@@ -90,63 +87,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         messageTips(-1, tv_4);
         messageTips(-1, tv_5);
 
-        initSocket();
-    }
-
-    private void initSocket() {
-        new Thread() {
-            @Override
-            public void run() {
-                appUtil =  (ApplicationUtil) MainActivity.this.getApplication();
-                try {
-                    appUtil.init();
-                    socket = appUtil.getSocket();
-                    appUtil.handlerHashMap.put(TAG, handler);
-                    Log.e(TAG, "建立连接：" + socket);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                    Log.e(TAG, "err：" );
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    Log.e(TAG, "err：" );
-                }
-
-            }
-        }.start();
+        showConnectDialog();
     }
 
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case ApplicationUtil.SOCKET_RECEIVE_DATA:
-                    Log.e(TAG, "handleMessage: " + msg.obj);
+//                case ApplicationUtil.SOCKET_RECEIVE_DATA:
+//                    Log.e(TAG, "handleMessage: " + msg.obj);
+//                    break;
+                case ApplicationUtil.SOCKET_DISCONNECTED:
+                    Intent intent = new Intent(MainActivity.this, SocketConnectDialogActivity.class);
+                    intent.putExtra("socket_disconnected", true);
+                    startActivity(intent);
                     break;
                 default:
                     break;
-
             }
         }
     };
 
+    public void showConnectDialog() {
+        appUtil =  (ApplicationUtil) MainActivity.this.getApplication();
+        appUtil.handlerHashMap.put(TAG, handler);
 
-
-    public void connectServer() {
-        kProgressHUD.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                kProgressHUD.dismiss();
-                okHUD.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        okHUD.dismiss();
-                    }
-                }, 1000);
-            }
-        },1500);
+        Intent intent = new Intent(MainActivity.this, SocketConnectDialogActivity.class);
+        startActivity(intent);
     }
 
     private void setupTabBar() {
@@ -319,6 +287,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             backToast.cancel();
             appUtil.handlerHashMap.remove(TAG);
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             super.onBackPressed();
         }
     }

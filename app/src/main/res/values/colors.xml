@@ -5,8 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="littleGray">#EEEEEE</color>
 
+
+    <color name="main_color">#3D5C94</color>
+    <color name="main_color_light">#5d7096</color>
+
     <color name="QHTitleColor">#3D5C94</color>
-    <color name="main_color_light">#cedefc</color>
     <color name="tab_text_selected">#3D5C94</color>
     <color name="tab_text_unselected">#000000</color>
 
@@ -14,9 +17,7 @@
     <color name="homepage_background_color">#EDEEEF</color>
 
     <color name="separate_line_color">#7e7e7e</color>
-    <!--303F9F-->
 
-    <color name="tab_text_selector">#3D5C94</color>
     <color name="msg_num_shape">#00FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="border_clo">#cccccc</color>

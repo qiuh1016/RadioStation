@@ -122,7 +122,7 @@ public class PressTalkActivity extends Activity {
                         Toast.makeText(PressTalkActivity.this, "未检测到SD卡", Toast.LENGTH_SHORT).show();
                         return false;
                     }
-                    if(recorder!=null){
+                    if (recorder!=null) {
                         recorder.stop();
                         recorder.release();
                         recorder=null;

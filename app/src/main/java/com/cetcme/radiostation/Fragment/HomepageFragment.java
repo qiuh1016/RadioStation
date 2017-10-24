@@ -26,6 +26,7 @@ import com.cetcme.radiostation.DialogView.SqlSelectActivity;
 import com.cetcme.radiostation.DialogView.SsbSelectActivity;
 import com.cetcme.radiostation.MainActivity;
 import com.cetcme.radiostation.R;
+import com.cetcme.radiostation.UdpActivity;
 import com.qiuhong.qhlibrary.Dialog.QHDialog;
 import com.qiuhong.qhlibrary.QHTitleView.QHTitleView;
 
@@ -552,6 +553,9 @@ public class HomepageFragment extends Fragment implements View.OnClickListener{
         Intent intent;
         switch (v.getId()) {
             case R.id.voiceTextView:
+                intent = new Intent(getActivity(), UdpActivity.class);
+                startActivity(intent);
+                break;
             case R.id.voice_layout:
                 intent = new Intent(getActivity(), PressTalkActivity.class);
                 startActivity(intent);

@@ -4,6 +4,8 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.util.Log;
 
+import com.cetcme.radiostation.udp.UDPClient;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -100,10 +102,19 @@ public class AudioRecordFunc {
                 AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT, bufferSizeInBytes);
     }
 
+    private UDPClient client = null;
+
+    public void setUdpClient(UDPClient client) {
+        this.client = client;
+    }
 
     class AudioRecordThread implements Runnable {
         @Override
         public void run() {
+            byte[] audioData = new byte[bufferSizeInBytes];
+            audioRecord.read(audioData, 0, bufferSizeInBytes);
+            client.sendBytes(audioData);
+
             writeDateTOFile();//往文件中写入裸数据
             copyWaveFile(AudioName, NewAudioName);//给裸数据加上头文件
         }

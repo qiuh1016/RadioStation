@@ -1,9 +1,13 @@
 package com.cetcme.radiostation;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -90,6 +94,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         messageTips(-2, tv_3);
         messageTips(-1, tv_4);
         messageTips(-1, tv_5);
+
+        PackageManager pkgManager= getPackageManager();
+
+        boolean audioSatePermission = pkgManager.checkPermission(Manifest.permission.RECORD_AUDIO, getPackageName()) == PackageManager.PERMISSION_GRANTED;
+
+        if(Build.VERSION.SDK_INT >=23 && !audioSatePermission) {
+            requestPermission();
+        }
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.RECORD_AUDIO}, 0);
     }
 
     @SuppressLint("HandlerLeak")
